@@ -220,7 +220,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
 	  </div>
 	  <br>
 			
-			Total: <input type="text" id="total" name="invoice_number" value="<?php
+			<b>Total: </b> <input type="text" id="total" name="invoice_number" value="<?php
       
                 $select_sql = "SELECT sum(amount) , sum(profit_amount) from purchase_details where invoice_number = '$invoice_number'";
       
@@ -230,28 +230,42 @@ if(!isset($_SESSION['user_session'])){  //User_session
       
                   $grand_total = $row['sum(amount)'];
                   $grand_profit =$row['sum(profit_amount)'];
-                  echo '৳ '.$grand_total.'/-';
+                  //echo '৳ '.$grand_total.'/-';
+				  echo $grand_total;
                 }
-                ?>" style="width:40px">
-			Discount: <input type="text" id="discount" name="invoice_number" value="" style="width:40px">
-			SubTotal: <input type="text" id="subtotal" name="invoice_number" value="" style="width:40px">
-			Paid: <input type="text" id="paid" name="invoice_number" value="" style="width:40px">
-			Due: <input type="text" id="due" name="invoice_number" value="" style="width:40px">
+                ?>" style="width:40px" readonly >
+			<b>Discount:</b> <input type="text" id="discount" name="discount" value="" style="width:80px" onkeyup="calculate_purchase_amount()" >
+			<b>SubTotal:</b> <input type="text" id="subtotal" name="subtotal" value="" style="width:80px" readonly >
+			<b>Paid:</b> <input type="text" id="paid" name="paid" value="" style="width:40px" onkeyup="calculate_purchase_amount()" >
+			<b>Due:</b> <input type="text" id="due" name="due" value="" style="width:80px" readonly >
           <?php
            if($medicine_name && $category && $quantity !=null){
             ?>
       
-            <a id="popup" href="checkout.php?invoice_number=<?php echo $_GET['invoice_number']?>&medicine_name=<?php echo $medicine_name?>&category=<?php echo $category?>&ex_date=<?php echo $ex_date?>&quantity=<?php echo $quantity?>&total=<?php echo $grand_total?>&profit=<?php echo $grand_profit?>" style="width:400px;" class="btn btn-info btn-large">Proceed <i class="icon icon-share-alt"></i></a>
+            <a id="popup" href="purchase_checkout.php?invoice_number=<?php echo $_GET['invoice_number']?>&medicine_name=<?php echo $medicine_name?>&category=<?php echo $category?>&ex_date=<?php echo $ex_date?>&quantity=<?php echo $quantity?>&total=<?php echo $grand_total?>&profit=<?php echo $grand_profit?>" style="width:400px;" class="btn btn-info btn-large">Proceed <i class="icon icon-share-alt"></i></a>
       
           <?php }else{ ?>
 			<div class="alert alert-danger">
-				<h3><center>No Sales Available!!</center> </h3>
+				<h3><center>No Purchase Available!!</center> </h3>
 			</div>
           <?php } ?>
 		</div>
 	</div>
   </body>
 </html>
+<script>
+function calculate_purchase_amount() {
+        let total		=   $("#total").val();
+        let discount	=   $("#discount").val();
+        let subTotal   	=   parseFloat((total - discount));
+        let paid     	=   $("#paid").val();
+        let due     	=   $("#due").val();
+        let dueAmount	=   parseFloat((subTotal - paid));
+
+        document.getElementById('subtotal').value = subTotal.toFixed(2);
+        document.getElementById('due').value = dueAmount.toFixed(2);
+    }
+</script>
 <script type="text/javascript">
 
 
@@ -370,5 +384,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
      //*******Qty Update*******
 
   });
+  
+  
 </script>
  
