@@ -12,14 +12,7 @@
 <body>
 	<form method="POST" action="register.php?invoice_number=<?php echo $_GET['invoice_number']?>">
 		<table id="table" style="width: 400px; margin: auto;overflow-x:auto; overflow-y: auto;">
-			<tr>
-				<td>Bar Code:</td>
-				<td><input type="text" name="bar_code" id="bar_code" size="10" placeholder="Set a bar code"></td>
-			</tr>
-			<tr id="row1">
-				<td>Medicine Name:</td>
-				<td><input type="text" name="med_name"  id="med_name" size="10" required ></td>
-			</tr>
+			
 			<tr>
 				<td>Category:</td>
 				<td>
@@ -32,44 +25,68 @@
 					</select>
 				</td>
 			</tr>
+			<tr id="row1">
+				<td>Medicine Name:</td>
+				<td><input type="text" name="med_name"  id="med_name" size="10" required ></td>
+			</tr>
+			<tr id="row1">
+				<td>Generic Name:</td>
+				<td><input type="text" name="med_name"  id="med_name" size="10" required ></td>
+			</tr>
 			<tr>
-				<td>Quantity:</td>
+				<td>Compnay Name:</td>
 				<!-- For more projects: Visit codeastro.com  -->
 				<td><input type="number" style="width: 95px;" name="quantity">
+					
+				</td>
+			</tr>
+			<tr>
+				<td>Packing Mode:</td>
+				<!-- For more projects: Visit codeastro.com  -->
+				<td>
 					<select style="width: 95px; height: 28px; border-color: #000080" name="sell_type" > 
-						<option value="Pics">Pics</option>
-						<option value="Bot">Bot</option>
-						<option value="Stp">Stp</option>
-						<option value="Tab">Tab</option>
-						<option value="Sachet">Sachet</option>	
-						<option value="Unit">Unit</option>
-						<option value="Tube">Tube</option>
+						<option value="Pics">BOX</option>
+						<option value="Bot">Pcs</option>
+						<option value="Stp">BOTTLE</option>
+						<option value="Tab">SET</option>
+						<option value="Sachet">NOS</option>	
+						<option value="Unit">VIAL</option>
+						
 					</select>
 				</td>
+			</tr>
+			<tr>
+				<td>Pcs Per Box/Cartoon</td>
+				<td><input type="text"  name="reg_date" id="" size="5"  required>  </td>
 			</tr> 
+			
 			<tr>
-				<td>Registered Date:</td>
-				<td><input type="date"  name="reg_date" id="reg_date" size="5"  required>  </td>
-			</tr>
-			<tr>
-				<td>Expired Date:</td>
-				<td><input type="date" name="exp_date" id="exp_date" size="5"  required></td>
-			</tr>
-			<tr>
-				<td>Remark:</td>
-				<td><input type="text" name="company" id="company" size="10"></td>
-			</tr>
-			<tr>
-                <td>Actual Price:</td>
+                <td>Buy Rate(CTN):</td>
 				<td><input type="number" name="actual_price" id="actual_price"></td>
 			</tr>
 			<tr>
-                <td>Selling Price:</td>
+                <td>Sale Rate(CTN):</td>
 				<td><input type="number" name="selling_price" id="selling_price"></td>
 			</tr>
 			<tr><!-- For more projects: Visit codeastro.com  -->
-                <td>Profit:</td>
+                <td>Sale Rate per Piece:</td>
 				<td><input type="text" name="profit_price" id="profit_price"></td>
+			</tr>
+			
+			<tr>
+				<td>Price Date:</td>
+				<td><input type="date"  name="reg_date" id="reg_date" size="5"  required>  </td>
+			</tr>
+			
+			<tr>
+				<td>Acive Status:</td>
+				<!-- For more projects: Visit codeastro.com  -->
+				<td>
+					<select style="width: 95px; height: 28px; border-color: #000080" name="sell_type" > 
+						<option value="Pics">Yes</option>
+						<option value="Pics">No</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<td></td>
