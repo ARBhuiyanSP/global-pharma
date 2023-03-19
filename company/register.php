@@ -16,9 +16,9 @@
 $invoice_number = $_GET['invoice_number'];
 	   echo "<h1>....LOADING</h1>";
 $name= $_POST['name']; 
-$status = "Active";
- $sql="INSERT INTO companies(name,status) 
- VALUES ('$name','$status')";
+
+ $sql="INSERT INTO category(name) 
+ VALUES ('$name')";
 
    $result =mysqli_query($con,$sql);
 
