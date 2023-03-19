@@ -103,7 +103,7 @@
 <!-- For more projects: Visit codeastro.com  -->
 		<li><a href="../product/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-th"></span> Products</a></li>
 					<li><a href="../supplier/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-th"></span> Suppliers</a></li>
-					<li><a href="../company/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-th"></span> Brand/Company</a></li>
+					<li><a href="../company/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-th"></span> Category</a></li>
 					<li><a href="../purchase.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-shopping-cart"></span> Purchase</a></li>
 					<li><a href="../home.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-shopping-cart"></span> Sales</a></li>
 					<li><a href="../sales_report.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-bar-chart"></span> Report</a></li>   
@@ -122,17 +122,13 @@
 
       <div class="row">
         <div class="contentheader">
-          <h1>Items - Brand / Company</h1>
+          <h1>Category</h1>
            </div><br>
     
             <input type="text"  id="name_med1" size="4"  onkeyup="med_name1()" placeholder="Filter using Name" title="Type BarCode">
-            <input type="text" size="4"  id="med_quantity" onkeyup="quanti()" placeholder="Filter using Address" title="Type Medicine Name">
+          
 			
-            <input type="text" size="4" id="med_exp_date" onkeyup="exp_date()" placeholder="Filter using Registered Date" title="Type in registered date">
-			
-            <input type="text" size="4" id="med_status" onkeyup="stat_search()" placeholder="Filter using Phone" title="Type in profit amount">
-			
-           <a href="index.php?invoice_number=<?php echo $_GET['invoice_number']?>" id="popup"><button class="btn btn-success btn-md" name="submit"><span class="icon-plus-sign icon-large"></span> Add New Company/Brand</button></a>
+           <a href="index.php?invoice_number=<?php echo $_GET['invoice_number']?>" id="popup"><button class="btn btn-success btn-md" name="submit"><span class="icon-plus-sign icon-large"></span> Add New Category</button></a>
              
       </div>
  
@@ -144,14 +140,14 @@
 
        include('../dbcon.php');
 
-         $select_sql = "SELECT * FROM companies order by id";
+         $select_sql = "SELECT * FROM category order by id";
          $select_query = mysqli_query($con,$select_sql);
          $row = mysqli_num_rows($select_query);
 
     ?>
 
       <div style="text-align:center;">
-        Total Brand/Company : <font color="green" style="font:bold 22px 'Aleo';">[<?php echo $row;?>]</font>
+        Total Category : <font color="green" style="font:bold 22px 'Aleo';">[<?php echo $row;?>]</font>
       </div>
     <!-- <div class="container" style="overflow-x:auto; overflow-y: auto;"> -->
       <div class="container">
@@ -171,7 +167,7 @@
             <tbody>
    
         <?php include("../dbcon.php"); ?>
-        <?php $sql = "SELECT  id,name, status FROM companies order by name asc"; ?>
+        <?php $sql = "SELECT  id,name FROM category order by name asc"; ?>
         <?php $result =  mysqli_query($con,$sql); ?>
       <!--Use a while loop to make a table row for every DB row-->
         <?php while( $row =  mysqli_fetch_array($result)) : ?>

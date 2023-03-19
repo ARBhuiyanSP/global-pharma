@@ -14,7 +14,7 @@
 		<table id="table" style="width: 400px; margin: auto;overflow-x:auto; overflow-y: auto;">
 			
 			<tr id="row1">
-				<td>Brand / Company Name:</td>
+				<td>Category Name:</td>
 				<td><input type="text" name="name"  id="name" size="10" required ></td>
 			</tr>
 			<tr>
