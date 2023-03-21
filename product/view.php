@@ -127,8 +127,7 @@
     
             <input type="text"  id="name_med1" size="4"  onkeyup="med_name1()" placeholder="Filter using BarCode" title="Type BarCode">
             <input type="text" size="4"  id="med_quantity" onkeyup="quanti()" placeholder="Filter using Medicine Name" title="Type Medicine Name">
-            <input type="text" size="4" id="med_exp_date" onkeyup="exp_date()" placeholder="Filter using Registered Date" title="Type in registered date">
-            <input type="text" size="4" id="med_status" onkeyup="stat_search()" placeholder="Filter using Profit Margin" title="Type in profit amount">
+            
            <a href="index.php?invoice_number=<?php echo $_GET['invoice_number']?>" id="popup"><button class="btn btn-success btn-md" name="submit"><span class="icon-plus-sign icon-large"></span> Add New Medicine</button></a>
                <form action="import_xls.php?invoice_number=<?php echo $_GET['invoice_number']?>" method="post"
                 name="frmExcelImport" id="frmExcelImport" enctype="multipart/form-data">

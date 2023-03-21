@@ -112,9 +112,45 @@ if(!isset($_SESSION['user_session'])){  //User_session
 					$rowInfo = mysqli_fetch_array($select_queryInfo);
 					$supplier= isset($rowInfo['supplier']);
 					$company= isset($rowInfo['company']);
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					$select_sql2 = "SELECT * from inv_warehosueinfo  ";
+					$select_query2 = mysqli_query($con ,$select_sql2);
+					$select_queryInfo2 = mysqli_query($con ,$select_sql2);	
+					$rowInfo2 = mysqli_fetch_array($select_queryInfo2);
+					$warehouse= isset($rowInfo['warehouse']);
+				
 				?>
-				<form method="POST" action="insert_purchase.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
-					<input type="text" name="invoice_number" value="<?php echo $_GET['invoice_number'];?>">
+				
+				
+     <form method="POST" action="insert_purchase.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
+				
+	<label for="id">Invoice No</label> 
+	<input type="text" name="invoice_number" value="<?php echo $_GET['invoice_number'];?>">
+	<input type="text" name="date" value="<?php echo date("m/d/Y"); ?>"> </br>		
+					
+					
+					
+					
+					
+					<select class="form-control"  name="warehouse">
+						<?php 
+                            $warehouse_sql = "SELECT * from inv_warehosueinfo";
+							$warehouse_query = mysqli_query($con ,$warehouse_sql);
+							while($warehouse_row = mysqli_fetch_array($warehouse_query)):
+						?>
+						<option value="<?php echo $warehouse_row['name'] ?>" <?php if($warehouse=='$warehouse_row["name"]'){ echo "selected";}else {echo "";} ?>><?php echo $warehouse_row['name'] ?></option>
+						<?php endwhile; ?>
+					</select>
+					
+					
 					
 					<select class="form-control" name="supplier">
 						<?php 
@@ -126,17 +162,14 @@ if(!isset($_SESSION['user_session'])){  //User_session
 						<?php endwhile; ?>
 					</select>
 					
-					<select class="form-control" name="company" id="company">
-						<?php 
-							$company_sql = "SELECT * from companies where status = 'Active' ";
-							$company_query = mysqli_query($con ,$company_sql);
-							while($company_row = mysqli_fetch_array($company_query)):
-						?>
-						<option value="<?php echo $company_row['name'] ?>" <?php if($company=='$company_row["name"]'){ echo "selected";}else {echo "";} ?>><?php echo $company_row['name'] ?></option>
-						<?php endwhile; ?>
-					</select>
 					
-					<input type="text" name="date" value="<?php echo date("m/d/Y"); ?>"> </br>
+					
+					
+		<br> </br>
+		
+					
+					
+			
 					
 					<input type="text" id="product" required  autocomplete="off" placeholder="Medicine" style="" autofocus>
 						<!-- <div class="ui-widget"> -->
@@ -144,8 +177,36 @@ if(!isset($_SESSION['user_session'])){  //User_session
 						<!-- </div> -->
 					
 					<input type="number" name="avai_qty" id="avai_qty"  readonly placeholder="Available qty" style="">
+					
+					
+					
+					<tr>
+				<!-- Receive Mode -->
+				<td>
+					<select id="category" name="category" required > 
+						<option value="Tablet">CARTON</option>
+						<option value="Capsule">PCS</option>
+					
+					</select>
+				</td>
+			</tr>
+			
+<!-- Qty CTN/BOX -->
+					<input type="number" name="qty" id="qty"  placeholder="Add Qty CTN/BOX" autocomplete="off"  style="" required>
+	
 
-					<input type="number" name="qty" id="qty"  placeholder="Add Qty" autocomplete="off"  style="" required>
+<!-- TOTAL PCS -->
+					<input type="number" name="totalpcs" id="totalpcs"  readonly placeholder="Total pcs" autocomplete="off"  style="" required>
+
+<!-- Rate Per CTN/BOX -->
+					<input type="number" name="rateperCtnBox" id="rateperCtnBox"  placeholder="Rate Per CTN/BOX" autocomplete="off"  style="" require
+
+<!-- Rate Per Pcs -->
+					<input type="number" name="rateperPcs" id="rateperPcs"  readonly placeholder="Rate Per Pcs" autocomplete="off"  style="" require
+
+					
+<!-- Amount-->
+					<input type="number" name="amount" id="amount"  placeholder="Amount" autocomplete="off"  style="" required>			
 					
 					<input type="hidden" name="expire_date" id="date_hidden" required class="form-control" autocomplete="off" placeholder="Medicine" style="">
 					

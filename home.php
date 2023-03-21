@@ -159,7 +159,13 @@ if(!isset($_SESSION['user_session']))
 							<input type="number" name="avai_qty" id="avai_qty"  readonly placeholder="Available qty" class="form-control">
 
 							<input type="number" name="qty" id="qty"  placeholder="Qty" autocomplete="off" class="form-control" required>
+							
+							
+							<input type="number" name="salerateperpcs" id="salerateperpcs"  placeholder="Sale rate Per Pcs" autocomplete="off" class="form-control" required>
+							
+							
 							<input type="hidden" name="date" value="<?php echo date("m/d/Y");?>">
+							
 							<Button type="submit"  name="submit" class="btn btn-success" id="btn_submit" ><i class="icon icon-plus-sign"></i> Add to Cart</button>
 						</form> 
 					</div>
