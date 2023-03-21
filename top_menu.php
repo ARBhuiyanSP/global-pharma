@@ -44,11 +44,17 @@
 						?>
 					</li>
 					<li><a href="product/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-qrcode"></span> Products</a></li>
+					
 					<li><a href="supplier/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-group"></span> Suppliers</a></li>
+					
 					<li><a href="company/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-flag"></span> Brand/Company</a></li>
+					
 					<li><a href="purchase.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-tasks"></span> Purchase</a></li>
+					
 					<li><a href="home.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-shopping-cart"></span> Sales</a></li>
-					<li><a href="sales_report.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-bar-chart"></span> Report</a></li>   
+					
+					<li><a href="sales_report.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-bar-chart"></span> Report</a></li> 
+					
 					<!--<li><a href="backup.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-folder-open"></span> Backup</a></li> --->
 					<li><a href="logout.php" class="link"><font color='red'><span class="icon-off"></span></font> Logout</a></li>
 				</ul>
