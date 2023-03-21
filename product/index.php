@@ -11,7 +11,7 @@
 
 <body>
 	<form method="POST" action="register.php?invoice_number=<?php echo $_GET['invoice_number']?>">
-		<table id="table" style="width: 400px; margin: auto;overflow-x:auto; overflow-y: auto;">
+		<table id="table" style="width: 600px; margin: auto;overflow-x:auto; overflow-y: auto;">
 			
 			<tr>
 				<td>Category:</td>
