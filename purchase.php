@@ -326,7 +326,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
 			<b>Due:</b> <input type="text" id="due" name="due" value="" style="width:80px" readonly >
       
           <?php
-           if($medicine_name && $category && $quantity !=null){
+           if($medicine_name && $quantity !=null){
             ?>
       
             <a id="popup" href="checkout.php?invoice_number=<?php echo $_GET['invoice_number']?>&medicine_name=<?php echo $medicine_name?>&category=<?php echo $category?>&ex_date=<?php echo $ex_date?>&quantity=<?php echo $quantity?>&total=<?php echo $grand_total?>&profit=<?php echo $grand_profit?>" style="width:400px;" class="btn btn-info btn-large">Proceed <i class="icon icon-share-alt"></i></a>
