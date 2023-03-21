@@ -11,9 +11,9 @@ if(!isset($_SESSION['user_session'])){
 }
 
    @$drug_result=mysqli_real_escape_string($con,$_POST['medicine_name']);
-   @$price_date=$_POST['price_date'];
+   //@$price_date=$_POST['price_date'];
  
-   $query="SELECT remain_quantity from product where medicine_name = '$drug_result' and active_prod = 'YES'  " ;
+   $query="SELECT `remain_quantity` FROM `product` WHERE `medicine_name` = '$drug_result' AND `active_prod` = 'YES'" ;
 
    $result =mysqli_query($con,$query);
 
@@ -24,6 +24,7 @@ if(!isset($_SESSION['user_session'])){
    while($row = mysqli_fetch_array($result)){
 
    	$data[]= $row["remain_quantity"];
+	//$data [] = $row["remain_quantity"].",(".$row['sale_per_pcs'].")";
 
    }
 

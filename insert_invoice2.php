@@ -32,7 +32,7 @@ $select_query= mysqli_query($con,$select_sql);
 
 	}
 
-	$update_sql="UPDATE product SET used_quantity = used_quantity + '$qty' , remain_quantity = remain_quantity - '$qty' WHERE medicine_name = '$product' AND price_date = '$price_date'";//*******UPDATING Stock if Sale Made **********
+	$update_sql="UPDATE product SET used_quantity = used_quantity + '$qty' , remain_quantity = remain_quantity - '$qty' WHERE medicine_name = '$product'";//*******UPDATING Stock if Sale Made **********
 
 	$update_query = mysqli_query($con,$update_sql);
 

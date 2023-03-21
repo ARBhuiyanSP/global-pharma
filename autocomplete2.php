@@ -11,7 +11,7 @@ $result =mysqli_query($con,$query);
 $data= array();
 while($row = mysqli_fetch_array($result))
 	{
-		$data [] = $row["medicine_name"].",".$row['price_date'].",(".$row['pack_size'].")";
+		$data [] = $row["medicine_name"];
 	}
     echo json_encode($data);
 

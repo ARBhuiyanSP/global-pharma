@@ -14,12 +14,12 @@ include("dbcon.php");
 
 $product_id= $_GET['id'];
 $medicine_name= $_GET['name'];
-$expire_date = $_GET['expire_date'];
+//$price_date = $_GET['price_date'];
 $quantity  = $_GET['quantity'];
 $invoice_number=$_GET['invoice_number'];
 
 
-$update_sql = "UPDATE stock set remain_quantity = remain_quantity - '$quantity' , status = 'Available' where medicine_name = '$medicine_name' and expire_date = '$expire_date' "; //***UPDATE STOCK when medicine deleted from Sale *******
+$update_sql = "UPDATE product set remain_quantity = remain_quantity - '$quantity' , active_prod = 'YES' where medicine_name = '$medicine_name'"; //***UPDATE STOCK when medicine deleted from Sale *******
 
 $update_query = mysqli_query($con,$update_sql);
     
