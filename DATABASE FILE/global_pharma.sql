@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2023 at 08:56 AM
+-- Generation Time: Mar 21, 2023 at 12:50 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -648,7 +648,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `item_id`, `product_code`, `medicine_name`, `generic_name`, `pack_size`, `pcs_per_pack`, `quantity`, `used_quantity`, `remain_quantity`, `act_remain_quantity`, `unit_buy_price`, `unit_sale_price`, `sale_per_pcs`, `price_date`, `supplier`, `supplier_id`, `item_category`, `active_prod`) VALUES
-(1, '01-00000', '01-00014', 'LEOZINC - B 100 ML', 'VITMIN B1 CIMPLEX & ZINC', 'PCS', 1, 1000, 20, 980, 997, 39.59, 45, 45, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'SYRUP/LIQUID', 'YES'),
+(1, '01-00000', '01-00014', 'LEOZINC - B 100 ML', 'VITMIN B1 CIMPLEX & ZINC', 'PCS', 1, 1000, 20, 1031, 997, 39.59, 45, 45, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'SYRUP/LIQUID', 'YES'),
 (2, '02-00000', '02-00030', 'NOVAZITH TAB 500 MG', 'AZITHROMYCIN', 'BOX', 12, 0, 0, 0, 0, 369.48, 420, 35, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'TABLET/PILLS', 'YES'),
 (3, '02-00000', '02-00031', 'ELFEXO TAB 120 MG', 'FEXOFENADINE HYDROCHLORIDE', 'BOX', 30, 0, 0, 0, 0, 184.74, 210, 7, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'TABLET/PILLS', 'YES'),
 (4, '02-00000', '02-00032', 'RABOZ TAB 20 MG', 'RABEPRAZOLE SODIUM', 'BOX', 50, 0, 0, 0, 0, 219.9, 250, 5, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'TABLET/PILLS', 'YES'),
@@ -5242,7 +5242,7 @@ INSERT INTO `purchase_details` (`id`, `invoice_number`, `supplier`, `company`, `
 (167, 'CA-0902909', 'ALIF TRADERS', 'IBN-SINA', 'Diclofenac', 'Tablet', '2025-03-07', 1, 'Pics', 10, 10, 5, '03/18/2023'),
 (168, 'CA-0002030', 'UNITED TRADERS', '', 'Napa Extra', 'Tablet', '2025-03-07', 2, 'Pics', 2, 4, 2, '03/20/2023'),
 (169, 'CA-9290002', 'BEXIMCO PHARMA', '', 'Napa Extra', 'Tablet', '2025-03-07', 5, 'Pics', 2, 10, 5, '03/21/2023'),
-(171, 'CA-2090990', 'BEXIMCO PHARMA', '', '', '', '0000-00-00', 10, '', 0, 0, 0, '');
+(185, 'CA-2090990', 'BEXIMCO PHARMA', '', 'LEOZINC - B 100 ML', '', '0000-00-00', 10, 'PCS', 45, 450, 0, '');
 
 -- --------------------------------------------------------
 
@@ -5533,7 +5533,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `purchase_details`
 --
 ALTER TABLE `purchase_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=172;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=186;
 
 --
 -- AUTO_INCREMENT for table `purchase_master`
