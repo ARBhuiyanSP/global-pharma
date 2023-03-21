@@ -29,42 +29,48 @@ if(!isset($_SESSION['user_session'])){  //User_session
 		  })
 		</script>
 		<script type="text/javascript">
-		//GET Medicine Name And Expire Date
-		$(document).ready(function(){
-		   $("#qty").focus(
-				function(){
-				  var medicine_name = $("#product_hidden").val();
-				  var expire_date   = $("#date_hidden").val();
-				$.ajax({
-				  type:'POST',
-				  url :'auto.php',
-				  dataType:"json",
-				  data:{medicine_name:medicine_name,expire_date:expire_date},
-				  success:function(data){
-					$("#avai_qty").val(data);
-				  },
-				});
-		});
-		//GET Medicine Name And Expire Date
-		//Disabled Button If Quantity Not Available
-		$("#qty").blur(function()
-			{
-				var avai_qty = $("#avai_qty").val();
-				var in_qty = parseInt($("#qty").val());
-				var avai_qty_int = parseInt($("#avai_qty").val());
-				if(avai_qty == "" ||  in_qty > avai_qty_int || in_qty <= 0)
+			//GET Medicine Name And Expire Date
+			$(document).ready(function(){
+			$("#qty").focus(
+				function()
 					{
-						$("#btn_submit").attr('disabled','disabled');
-						alert("Something went wrong!!");
-					}
-				else
-					{
-						$("#btn_submit").removeAttr('disabled');
-					}
+						var medicine_name = $("#product_hidden").val();
+						var price_date   = $("#date_hidden").val();
 
+					$.ajax(
+						{
+							type:'POST',
+							url :'auto2.php',
+							dataType:"json",
+							data:{medicine_name:medicine_name,price_date:price_date},
+							success:function(data)
+							{
+								$("#avai_qty").val(data);
+							},
+						});
+					});
+
+				//GET Medicine Name And Expire Date
+				//Disabled Button If Quantity Not Available
+
+			 $("#qty").blur(function()
+				{
+					var avai_qty = $("#avai_qty").val();
+					var in_qty = parseInt($("#qty").val());
+					var avai_qty_int = parseInt($("#avai_qty").val());
+					if(avai_qty == "" ||  in_qty > avai_qty_int || in_qty <= 0)
+						{
+							$("#btn_submit").attr('disabled','disabled');
+							alert("Something went wrong!!");
+						}
+					else
+						{
+							$("#btn_submit").removeAttr('disabled');
+						}
+
+				});
+			 //Disabled Button If Quantity Not Available
 			});
-		//Disabled Button If Quantity Not Available
-		});
 		</script>
 		<style>
 		.pre-scrollable {
@@ -113,33 +119,16 @@ if(!isset($_SESSION['user_session'])){  //User_session
 					$supplier= isset($rowInfo['supplier']);
 					$company= isset($rowInfo['company']);
 					
-					
-					
-					
-					
-					
-					
-					
-					
 					$select_sql2 = "SELECT * from inv_warehosueinfo  ";
 					$select_query2 = mysqli_query($con ,$select_sql2);
 					$select_queryInfo2 = mysqli_query($con ,$select_sql2);	
 					$rowInfo2 = mysqli_fetch_array($select_queryInfo2);
 					$warehouse= isset($rowInfo['warehouse']);
-				
 				?>
-				
-				
-     <form method="POST" action="insert_purchase.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
-				
-	<label for="id">Invoice No</label> 
-	<input type="text" name="invoice_number" value="<?php echo $_GET['invoice_number'];?>">
-	<input type="text" name="date" value="<?php echo date("m/d/Y"); ?>"> </br>		
-					
-					
-					
-					
-					
+			<form method="POST" action="insert_purchase.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
+				<label for="id">Invoice No</label> 
+					<input type="text" name="invoice_number" value="<?php echo $_GET['invoice_number'];?>">
+					<input type="date" name="date" id="price_date" value="<?php echo date("m/d/Y"); ?>">
 					<select class="form-control"  name="warehouse">
 						<?php 
                             $warehouse_sql = "SELECT * from inv_warehosueinfo";
@@ -208,7 +197,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
 <!-- Amount-->
 					<input type="number" name="amount" id="amount"  placeholder="Amount" autocomplete="off"  style="" required>			
 					
-					<input type="hidden" name="expire_date" id="date_hidden" required class="form-control" autocomplete="off" placeholder="Medicine" style="">
+					<input type="hidden" name="price_date" id="date_hidden" required class="form-control" autocomplete="off" placeholder="Medicine" style="">
 					
 					<Button type="submit"  name="submit" class="btn btn-success" id="btn_submit" style=""><i class="icon icon-plus-sign"></i> Add Item</button>
 				</form> 
@@ -249,7 +238,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
                         
                     </td>
                         <?php 
-                        $ex_date=$row['expire_date'];
+                        $ex_date=$row['price_date'];
                         $ex_date;
                          ?>
                          <input type="hidden" id="ex_date<?php echo $i?>" value='<?php echo $ex_date?>'' name='ex_date'>
@@ -273,7 +262,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
                                      ?>
                     </td>
                     <td><?php echo $row['amount']; ?></td>
-					<td><a href="delete_purchase.php?invoice_number=<?php echo $_GET['invoice_number']?>&id=<?php echo $row['id'];?>&name=<?php echo $row['medicine_name']?>&expire_date=<?php echo $row['expire_date']?>&quantity=<?php echo $row['qty'];?>" class="btn btn-danger">Remove</a></td>
+					<td><a href="delete_purchase.php?invoice_number=<?php echo $_GET['invoice_number']?>&id=<?php echo $row['id'];?>&name=<?php echo $row['medicine_name']?>&price_date=<?php echo $row['price_date']?>&quantity=<?php echo $row['qty'];?>" class="btn btn-danger">Remove</a></td>
                   <?php endwhile; ?>  
                 </tr>
 			</tbody>
@@ -328,124 +317,87 @@ function calculate_purchase_amount() {
     }
 </script>
 <script type="text/javascript">
-
-
-  $(document).ready(function(){
-
-     /* $("#product").focus(
-
-            function(){
-
-              var bar_code = $("#bar_code").val();
-
+	$(document).ready(function(){
+	$("#product").focus(
+	function()
+		{
+			var bar_code = $("#bar_code").val();
             $.ajax({
-              type:'POST',
-              url :'bar_code.php',
-              dataType:"json",
-              data:{bar_code:bar_code},
-              success:function(data){
-
-                $("#product").val(data);
-              },
-
-            });
-    }); */
-
-      //****AUTO COMPLETE*****
-    $("#product").typeahead({
-
-               source: function(drug_result, result){
-
-            $.ajax({
-
-          url : 'autocomplete.php',
-          method :'POST',
-          data :{drug_result:drug_result},
-          dataType:"json",
-
-          success:function(data){
-
-            result($.map(data,function(item){
-
-
-
-              return item;
-
-            }));
-          },
-
-        });
-      },
+				type:'POST',
+				url :'bar_code.php',
+				dataType:"json",
+				data:{bar_code:bar_code},
+				success:function(data)
+					{
+						$("#product").val(data);
+					},
+				});
+		});
+		//****AUTO COMPLETE*****
+    $("#product").typeahead(
+	{
+		source: function(drug_result, result){
+		$.ajax({
+			url : 'autocomplete2.php',
+			method :'POST',
+			data :{drug_result:drug_result},
+			dataType:"json",
+			success:function(data)
+				{
+					result($.map(data,function(item){
+					return item;
+					}));
+				},
+			});
+		},
 
     });
-
-      //****AUTO COMPLETE*****
-
-
-
-     //****Medicine name and Date*****
-     $("#product").focusout(function(){
-         
-               var value = $("#product").val();
-
-               var res= value.split(",");
-
-               var name = res[0];
-
-               var date = res[1];
-
-            $("#product_hidden").val(name);
-          $("#date_hidden").val(date);
-
-    });
+	//****AUTO COMPLETE*****
     //****Medicine name and Date*****
+    $("#product").focusout(function()
+		{        
+			var value = $("#product").val();
+			var res= value.split(",");
+			var name = res[0];
+			var date = res[1];
+			$("#product_hidden").val(name);
+			  $("#date_hidden").val(date);
+		});
+		//****Medicine name and Date*****
+		//*******Qty Update*******
+	for(var i=1;i<=100;i++){
+	$("a.qty_upd"+i).click(function()
+		{
+			for(var i1=1;i1<=100;i1++)
+				{
+					var med_id=$("#med_id"+i1).val();
+					var med_name=$("#med_name"+i1).val();
+					var med_cat=$("#med_cat"+i1).val();
+					var ex_date=$("#ex_date"+i1).val();
+					var hid_qty = $("#hid_quantity"+i1).val();
+					var qty=$("#quantity"+i1).val();
 
-    //*******Qty Update*******
-  for(var i=1;i<=100;i++){
+					if(qty <= 0){
+						alert("Sorry Error");
+					}else{
 
-  $("a.qty_upd"+i).click(function(){
-
-        for(var i1=1;i1<=100;i1++){
-
-                var med_id=$("#med_id"+i1).val();
-                var med_name=$("#med_name"+i1).val();
-                var med_cat=$("#med_cat"+i1).val();
-                var ex_date=$("#ex_date"+i1).val();
-                var hid_qty = $("#hid_quantity"+i1).val();
-                var qty=$("#quantity"+i1).val();
-
-                if(qty <= 0){
-
-                  alert("Sorry Error");
-
-                }else{
-
-             $.ajax({
-              type:'POST',
-               beforeSend:function(){
-                 $('.ajax-loader'+i1).css("visibility", "visible");
-              },
-              url :'quantity_upd.php',
-              data:{med_id:med_id,med_name:med_name,med_cat:med_cat,ex_date:ex_date,hid_qty:hid_qty,qty:qty},
-
-              success:function(){
-
-                location.reload();
-
-              },
-
-            });
-
-           }
-
-         }
-  });
-
-}
-     //*******Qty Update*******
-
-  });
-  
-  
+						$.ajax({
+						type:'POST',
+						beforeSend:function(){
+						$('.ajax-loader'+i1).css("visibility", "visible");
+						},
+						url :'quantity_upd.php',
+						data:{med_id:med_id,med_name:med_name,med_cat:med_cat,ex_date:ex_date,hid_qty:hid_qty,qty:qty},
+						success:function()
+							{
+								location.reload();
+							},
+						});
+					}
+				}
+			});
+		}
+		//*******Qty Update*******
+	});
 </script>
  

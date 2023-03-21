@@ -7,6 +7,7 @@
 
         header("location:../index.php");
     }
+	include("../dbcon.php");
 ?>
 
 <body>
@@ -17,74 +18,84 @@
 				<td>Category:</td>
 				<td>
 					<select id="category" name="category" required > 
-						<option value="Tablet">Tablet</option>
-						<option value="Capsule">Capsule</option>
-						<option value="Drops">Drops</option>
-						<option value="Injections">Injections</option>	
-						<option value="Syrup">Syrup</option>
+						<option value="">Select Category</option>
+						<?php 
+						$sql = "SELECT * FROM `category`";
+						$result =  mysqli_query($con,$sql);
+							while( $row =  mysqli_fetch_array($result)) : 
+						?>
+						<option value="<?php echo $row['name']; ?>"><?php echo $row['name']; ?></option>
+							<?php endwhile ?>
 					</select>
 				</td>
 			</tr>
 			<tr id="row1">
 				<td>Medicine Name:</td>
-				<td><input type="text" name="med_name"  id="med_name" size="10" required ></td>
+				<td><input type="text" name="med_name"  id="med_name" size="" required ></td>
 			</tr>
 			<tr id="row1">
 				<td>Generic Name:</td>
-				<td><input type="text" name="med_name"  id="med_name" size="10" required ></td>
+				<td><input type="text" name="gen_name"  id="gen_name" size="" required ></td>
 			</tr>
 			<tr>
 				<td>Compnay Name:</td>
 				<!-- For more projects: Visit codeastro.com  -->
-				<td><input type="number" style="width: 95px;" name="quantity">
-					
+				<td>
+					<select id="company" name="company" required > 
+						<option value="">Select Company/Brand</option>
+						<?php 
+						$sql = "SELECT * FROM `inv_supplier`";
+						$result =  mysqli_query($con,$sql);
+							while( $row =  mysqli_fetch_array($result)) : 
+						?>
+						<option value="<?php echo $row['SupplierCompany']; ?>"><?php echo $row['SupplierCompany']; ?></option>
+							<?php endwhile ?>
+					</select>
 				</td>
 			</tr>
 			<tr>
 				<td>Packing Mode:</td>
 				<!-- For more projects: Visit codeastro.com  -->
 				<td>
-					<select style="width: 95px; height: 28px; border-color: #000080" name="sell_type" > 
-						<option value="Pics">BOX</option>
-						<option value="Bot">Pcs</option>
-						<option value="Stp">BOTTLE</option>
-						<option value="Tab">SET</option>
-						<option value="Sachet">NOS</option>	
-						<option value="Unit">VIAL</option>
+					<select style="" name="packing_mode" > 
+						<option value="BOX">BOX</option>
+						<option value="CARTON">CARTON</option>
+						<option value="SET">SET</option>
+						<option value="NOS">NOS</option>
 						
 					</select>
 				</td>
 			</tr>
 			<tr>
-				<td>Pcs Per Box/Cartoon</td>
-				<td><input type="text"  name="reg_date" id="" size="5"  required>  </td>
+				<td>Pcs Per Box/Carton</td>
+				<td><input type="text"  name="pcs_per_unit" id="pcs_per_unit" onkeyup="calculate_sell()" required></td>
 			</tr> 
 			
 			<tr>
                 <td>Buy Rate(CTN):</td>
-				<td><input type="number" name="actual_price" id="actual_price"></td>
+				<td><input type="number" name="actual_price" id="actual_price" onkeyup="calculate_sell()"></td>
 			</tr>
 			<tr>
                 <td>Sale Rate(CTN):</td>
-				<td><input type="number" name="selling_price" id="selling_price"></td>
+				<td><input type="number" name="selling_price" id="selling_price" onkeyup="calculate_sell()"></td>
 			</tr>
 			<tr><!-- For more projects: Visit codeastro.com  -->
                 <td>Sale Rate per Piece:</td>
-				<td><input type="text" name="profit_price" id="profit_price"></td>
+				<td><input type="text" name="sell_per_pcs" id="sell_per_pcs"></td>
 			</tr>
 			
 			<tr>
 				<td>Price Date:</td>
-				<td><input type="date"  name="reg_date" id="reg_date" size="5"  required>  </td>
+				<td><input type="date"  name="price_date" id="price_date" required>  </td>
 			</tr>
 			
 			<tr>
 				<td>Acive Status:</td>
 				<!-- For more projects: Visit codeastro.com  -->
 				<td>
-					<select style="width: 95px; height: 28px; border-color: #000080" name="sell_type" > 
-						<option value="Pics">Yes</option>
-						<option value="Pics">No</option>
+					<select name="active_status" > 
+						<option value="YES">YES</option>
+						<option value="NO">NO</option>
 					</select>
 				</td>
 			</tr>
@@ -98,49 +109,17 @@
 </body>
 
 <script type="text/javascript">
-		$(document).ready(function(){
+	function calculate_sell() {
+        let pcs_per_unit	=   $("#pcs_per_unit").val();
+        let selling_price	=   $("#selling_price").val();
+        let sellPerPcs   	=   parseFloat((selling_price / pcs_per_unit));
 
-      $(document).on('keyup','#med_name', 
+        document.getElementById('sell_per_pcs').value = sellPerPcs.toFixed(2);
+        
+    }
+</script>
+<script type="text/javascript">
 
-        function(){
-             var med_name_cap = $("#med_name").val();
-              
-              $("#med_name").val(med_name_cap.charAt(0).toUpperCase()+med_name_cap.slice(1));
-      
-        });
-
-
-      $(document).on('keyup','#category', 
-
-        function(){
-             var category_cap = $("#category").val();
-              
-              $("#category").val(category_cap.charAt(0).toUpperCase()+category_cap.slice(1));
-      
-        });
-
-
-      $(document).on('keyup','#actual_price', 
-
-        function(){
-             var act_price = $("#actual_price").val();
-      var sell_price = $("#selling_price").val();
-      var pro_price = parseInt(sell_price) - parseInt(act_price);
-	var percentage = Math.round((parseInt(pro_price)/parseInt(act_price))*100);
-	var output = pro_price.toString().concat("(")+percentage.toString().concat("%)");
-        $("#profit_price").val(output);
-        });
-
-       $(document).on('keyup','#selling_price', 
-        function(){
-      var act_price = $("#actual_price").val();
-      var sell_price = $("#selling_price").val();
-      var pro_price = parseInt(sell_price) - parseInt(act_price);
-	var percentage = Math.round((parseInt(pro_price)/parseInt(act_price))*100);
-	var output = pro_price.toString().concat("(")+percentage.toString().concat("%)");
-        $("#profit_price").val(output);
-            });
-});
   	
   </script>
 </html>

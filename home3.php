@@ -37,14 +37,14 @@ if(!isset($_SESSION['user_session']))
 				function()
 					{
 						var medicine_name = $("#product_hidden").val();
-						var price_date   = $("#date_hidden").val();
+						var expire_date   = $("#date_hidden").val();
 
 					$.ajax(
 						{
 							type:'POST',
-							url :'auto2.php',
+							url :'auto.php',
 							dataType:"json",
-							data:{medicine_name:medicine_name,price_date:price_date},
+							data:{medicine_name:medicine_name,expire_date:expire_date},
 							success:function(data)
 							{
 								$("#avai_qty").val(data);
@@ -119,7 +119,7 @@ if(!isset($_SESSION['user_session']))
 					<strong>
 						<?php
 							$date = date("Y-m-d");
-							$select_sql = "SELECT sum(total_amount) FROM sales WHERE Date = '$date'";
+							$select_sql = "SELECT sum(total_amount) from sales where Date = '$date'";
 							$select_query = mysqli_query($con,$select_sql);
 							while($row = mysqli_fetch_array($select_query))
 								{
@@ -147,14 +147,14 @@ if(!isset($_SESSION['user_session']))
 				<hr>
 				<center>
 					<div class="col-md-12">
-						<form method="POST" action="insert_invoice2.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
+						<form method="POST" action="insert_invoice.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
 							<input type="text" name="bar_code" id="bar_code" autocomplete="off" placeholder="Enter Barcode Number" class="form-control">
 							
 							<input type="text" id="product" required  autocomplete="off" placeholder="Medicine" class="form-control" autofocus>
 								<!-- <div class="ui-widget"> -->
 							<input type="hidden" name="product" id="product_hidden" required class="form-control" autocomplete="off" placeholder="Medicine" class="form-control">
 								<!-- </div> -->
-							<input type="hidden" name="price_date" id="date_hidden" required class="form-control" autocomplete="off" placeholder="Medicine" class="form-control">
+							<input type="hidden" name="expire_date" id="date_hidden" required class="form-control" autocomplete="off" placeholder="Medicine" class="form-control">
 							
 							<input type="number" name="avai_qty" id="avai_qty"  readonly placeholder="Available qty" class="form-control">
 
@@ -300,7 +300,7 @@ if(!isset($_SESSION['user_session']))
 	{
 		source: function(drug_result, result){
 		$.ajax({
-			url : 'autocomplete2.php',
+			url : 'autocomplete.php',
 			method :'POST',
 			data :{drug_result:drug_result},
 			dataType:"json",

@@ -123,14 +123,30 @@
 
       <div class="row">
         <div class="contentheader">
-          <h1>Category</h1>
+          <h1>Items / Medicines</h1>
            </div><br>
     
-            <input type="text"  id="name_med1" size="4"  onkeyup="med_name1()" placeholder="Filter using Name" title="Type BarCode">
-          
-			
-           <a href="index.php?invoice_number=<?php echo $_GET['invoice_number']?>" id="popup"><button class="btn btn-success btn-md" name="submit"><span class="icon-plus-sign icon-large"></span> Add New Category</button></a>
-             
+            <input type="text"  id="name_med1" size="4"  onkeyup="med_name1()" placeholder="Filter using BarCode" title="Type BarCode">
+            <input type="text" size="4"  id="med_quantity" onkeyup="quanti()" placeholder="Filter using Medicine Name" title="Type Medicine Name">
+            
+           <a href="index.php?invoice_number=<?php echo $_GET['invoice_number']?>" id="popup"><button class="btn btn-success btn-md" name="submit"><span class="icon-plus-sign icon-large"></span> Add New Medicine</button></a>
+               <form action="import_xls.php?invoice_number=<?php echo $_GET['invoice_number']?>" method="post"
+                name="frmExcelImport" id="frmExcelImport" enctype="multipart/form-data">
+                <div>
+              
+           
+               <input type="file" name="file"
+                   id="file" accept=".xls,.xlsx" required>
+                </div>
+    
+           <button class="btn btn-primary btn-md" name="submit"><span class="icon-download icon-large"></span> Import Excel file</button>
+    
+            <div id="response" class="<?php if(!empty($type)) { echo $type . " display-block"; } ?>"><?php if(!empty($message)) { echo $message; } ?>
+              
+            </div>
+        
+              
+            </form>
       </div>
  
   <!-- For more projects: Visit codeastro.com  -->
@@ -141,14 +157,14 @@
 
        include('../dbcon.php');
 
-         $select_sql = "SELECT * FROM category order by id";
+         $select_sql = "SELECT * FROM stock order by quantity";
          $select_query = mysqli_query($con,$select_sql);
          $row = mysqli_num_rows($select_query);
 
     ?>
 
       <div style="text-align:center;">
-        Total Category : <font color="green" style="font:bold 22px 'Aleo';">[<?php echo $row;?>]</font>
+        Total Medicines : <font color="green" style="font:bold 22px 'Aleo';">[<?php echo $row;?>]</font>
       </div>
     <!-- <div class="container" style="overflow-x:auto; overflow-y: auto;"> -->
       <div class="container">
@@ -161,14 +177,26 @@
           <table id="table0" class="table table-bordered table-striped table-hover">
            <thead>
              <tr style="background-color: #383838; color: #FFFFFF;" >
-             <th width="3%">Name</th>
+             <th width="3%">Code</th>
+             <th width="3%">Medicine</th>
+             <th width="1%">Category</th>
+             <th width="5%">Registered Qty</th>
+             <th width="1%">Sold Qty</th>
+             <th  width="1%">Remain Qty</th>
+             <th width="1%">Registered</th>
+             <th style="background-color: #c53f3f;" width="1%">Expiry</th>
+             <th width="1%">Remark</th>     
+             <th width="2%">Acutal Price</th>
+             <th width="2%">Selling Price</th>
+             <th width="2%">Profit</th>
+             <th width = "3%">Status</th>
              <th width = "5%">Actions</th>
              </tr>
            </thead>
             <tbody>
    
         <?php include("../dbcon.php"); ?>
-        <?php $sql = "SELECT  id,name FROM category order by name asc"; ?>
+        <?php $sql = "SELECT  id,bar_code, medicine_name, category, quantity,used_quantity, remain_quantity,act_remain_quantity, register_date, expire_date, company, sell_type , actual_price, selling_price, profit_price, status FROM stock order by id desc"; ?>
         <?php $result =  mysqli_query($con,$sql); ?>
       <!--Use a while loop to make a table row for every DB row-->
         <?php while( $row =  mysqli_fetch_array($result)) : ?>
@@ -176,7 +204,27 @@
   
         <tr style="">
             <!--Each table column is echoed in to a td cell-->
-            <td><?php echo $row['name']; ?></td>
+            <td><?php echo $row['bar_code']; ?></td>
+            <td><?php echo $row['medicine_name']; ?></td>
+            <td><?php echo $row['category']; ?></td>
+            <td><?php echo $row['quantity']."&nbsp;&nbsp;(<strong><i>".$row['sell_type']."</i></strong>)"?></td>              
+            <td><?php echo $row['used_quantity']; ?></td>
+            <td><?php echo $row['remain_quantity']; ?></td>
+            <td><?php echo  date("d-m-Y", strtotime($row['register_date'])); ?></td>
+            <td><?php echo date("d-m-Y", strtotime($row['expire_date'])); ?></td>
+            <td><?php echo $row['company']; ?></td>
+            <td><?php echo $row['actual_price']; ?></td>
+            <td><?php echo $row['selling_price']; ?></td>
+            <td><?php echo $row['profit_price']; ?></td>
+            <td><?php $status = $row['status'];
+  
+                if($status == 'Available'){
+                  echo '<span class="label label-success">'.$status.'</span>';
+                }else{
+                  echo '<span class="label label-danger">'.$status.'</span>';
+                }
+  
+            ?></td>
             <td><a id="popup" href="update_view.php?id=<?php echo $row['id']?>&invoice_number=<?php echo $_GET['invoice_number']?>"><button class="btn btn-info"><span class="icon-edit"></span></button></a>
           <button class="btn btn-danger delete" id="<?php echo $row['id']?>"><span class="icon-trash"></span>&nbsp;</button></td>
   

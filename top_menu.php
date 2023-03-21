@@ -47,6 +47,8 @@
 					
 					<li><a href="supplier/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-group"></span> Suppliers</a></li>
 					
+					<li><a href="company/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-th"></span> Category</a></li>
+					
 					<li><a href="company/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-flag"></span> Brand/Company</a></li>
 					
 					<li><a href="purchase.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-tasks"></span> Purchase</a></li>

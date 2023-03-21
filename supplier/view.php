@@ -103,7 +103,8 @@
 <!-- For more projects: Visit codeastro.com  -->
 		<li><a href="../product/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-th"></span> Products</a></li>
 					<li><a href="../supplier/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-th"></span> Suppliers</a></li>
-					<li><a href="../company/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-th"></span> Brand/Company</a></li>
+					<li><a href="../company/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-th"></span> Category</a></li>
+					<li><a href="../company/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-flag"></span> Brand/Company</a></li>
 					<li><a href="../purchase.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-shopping-cart"></span> Purchase</a></li>
 					<li><a href="../home.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-shopping-cart"></span> Sales</a></li>
 					<li><a href="../sales_report.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-bar-chart"></span> Report</a></li>   
@@ -142,7 +143,7 @@
 
        include('../dbcon.php');
 
-         $select_sql = "SELECT * FROM suppliers order by id";
+         $select_sql = "SELECT * FROM inv_supplier order by id";
          $select_query = mysqli_query($con,$select_sql);
          $row = mysqli_num_rows($select_query);
 
@@ -171,7 +172,7 @@
             <tbody>
    
         <?php include("../dbcon.php"); ?>
-        <?php $sql = "SELECT  id,name, address, phone, status FROM suppliers order by name asc"; ?>
+        <?php $sql = "SELECT * FROM inv_supplier order by SupplierCompany asc"; ?>
         <?php $result =  mysqli_query($con,$sql); ?>
       <!--Use a while loop to make a table row for every DB row-->
         <?php while( $row =  mysqli_fetch_array($result)) : ?>
@@ -179,9 +180,9 @@
   
         <tr style="">
             <!--Each table column is echoed in to a td cell-->
-            <td><?php echo $row['name']; ?></td>
-            <td><?php echo $row['address']; ?></td>
-            <td><?php echo $row['phone']; ?></td>
+            <td><?php echo $row['SupplierCompany']; ?></td>
+            <td><?php echo $row['SupplierAddress1']; ?></td>
+            <td><?php echo $row['SupplierPhone1']; ?></td>
             <td><a id="popup" href="update_view.php?id=<?php echo $row['id']?>&invoice_number=<?php echo $_GET['invoice_number']?>"><button class="btn btn-info"><span class="icon-edit"></span></button></a>
           <button class="btn btn-danger delete" id="<?php echo $row['id']?>"><span class="icon-trash"></span>&nbsp;</button></td>
   

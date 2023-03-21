@@ -57,7 +57,7 @@
         include("../dbcon.php");
 
           $quantity = "5";
-          $select_sql1 = "SELECT * FROM stock where remain_quantity <= '$quantity' and status='Available'";
+          $select_sql1 = "SELECT * FROM product where remain_quantity <= '$quantity' and active_prod='YES'";
           $result1 = mysqli_query($con,$select_sql1);
           $row2 = $result1->num_rows;
 
@@ -81,7 +81,7 @@
             <?php
               $date = date('d-m-Y');    
         $inc_date = date("Y-m-d", strtotime("+6 month", strtotime($date))); 
-        $select_sql = "SELECT  * FROM stock WHERE expire_date <= '$inc_date' and status='Available' ";
+        $select_sql = "SELECT  * FROM product WHERE price_date <= '$inc_date' and active_prod='YES' ";
          $result =  mysqli_query($con,$select_sql); 
           $row1 = $result->num_rows;
 
@@ -103,7 +103,8 @@
 <!-- For more projects: Visit codeastro.com  -->
 		<li><a href="../product/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-th"></span> Products</a></li>
 					<li><a href="../supplier/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-th"></span> Suppliers</a></li>
-					<li><a href="../company/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-th"></span> Brand/Company</a></li>
+					<li><a href="../company/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-th"></span> Category</a></li>
+					<li><a href="../company/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-flag"></span> Brand/Company</a></li>
 					<li><a href="../purchase.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-shopping-cart"></span> Purchase</a></li>
 					<li><a href="../home.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-shopping-cart"></span> Sales</a></li>
 					<li><a href="../sales_report.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-bar-chart"></span> Report</a></li>   
@@ -156,7 +157,7 @@
 
        include('../dbcon.php');
 
-         $select_sql = "SELECT * FROM stock order by quantity";
+         $select_sql = "SELECT * FROM product order by medicine_name";
          $select_query = mysqli_query($con,$select_sql);
          $row = mysqli_num_rows($select_query);
 
@@ -176,26 +177,17 @@
           <table id="table0" class="table table-bordered table-striped table-hover">
            <thead>
              <tr style="background-color: #383838; color: #FFFFFF;" >
-             <th width="3%">Code</th>
-             <th width="3%">Medicine</th>
-             <th width="1%">Category</th>
-             <th width="5%">Registered Qty</th>
-             <th width="1%">Sold Qty</th>
-             <th  width="1%">Remain Qty</th>
-             <th width="1%">Registered</th>
-             <th style="background-color: #c53f3f;" width="1%">Expiry</th>
-             <th width="1%">Remark</th>     
-             <th width="2%">Acutal Price</th>
-             <th width="2%">Selling Price</th>
-             <th width="2%">Profit</th>
-             <th width = "3%">Status</th>
-             <th width = "5%">Actions</th>
+				 <th width="3%">Medicine</th>
+				 <th width="1%">Category</th>
+				 <th width="5%">Stock Qty</th> 
+				 <th width="2%">Sale Price</th>
+				 <th width="5%">Actions</th>
              </tr>
            </thead>
             <tbody>
    
         <?php include("../dbcon.php"); ?>
-        <?php $sql = "SELECT  id,bar_code, medicine_name, category, quantity,used_quantity, remain_quantity,act_remain_quantity, register_date, expire_date, company, sell_type , actual_price, selling_price, profit_price, status FROM stock order by id desc"; ?>
+        <?php $sql = "SELECT * FROM product"; ?>
         <?php $result =  mysqli_query($con,$sql); ?>
       <!--Use a while loop to make a table row for every DB row-->
         <?php while( $row =  mysqli_fetch_array($result)) : ?>
@@ -203,27 +195,10 @@
   
         <tr style="">
             <!--Each table column is echoed in to a td cell-->
-            <td><?php echo $row['bar_code']; ?></td>
             <td><?php echo $row['medicine_name']; ?></td>
-            <td><?php echo $row['category']; ?></td>
-            <td><?php echo $row['quantity']."&nbsp;&nbsp;(<strong><i>".$row['sell_type']."</i></strong>)"?></td>              
-            <td><?php echo $row['used_quantity']; ?></td>
-            <td><?php echo $row['remain_quantity']; ?></td>
-            <td><?php echo  date("d-m-Y", strtotime($row['register_date'])); ?></td>
-            <td><?php echo date("d-m-Y", strtotime($row['expire_date'])); ?></td>
-            <td><?php echo $row['company']; ?></td>
-            <td><?php echo $row['actual_price']; ?></td>
-            <td><?php echo $row['selling_price']; ?></td>
-            <td><?php echo $row['profit_price']; ?></td>
-            <td><?php $status = $row['status'];
-  
-                if($status == 'Available'){
-                  echo '<span class="label label-success">'.$status.'</span>';
-                }else{
-                  echo '<span class="label label-danger">'.$status.'</span>';
-                }
-  
-            ?></td>
+            <td><?php echo $row['item_category']; ?></td>
+            <td><?php echo $row['remain_quantity']; ?></td> 
+            <td><?php echo $row['sale_per_pcs']; ?></td>
             <td><a id="popup" href="update_view.php?id=<?php echo $row['id']?>&invoice_number=<?php echo $_GET['invoice_number']?>"><button class="btn btn-info"><span class="icon-edit"></span></button></a>
           <button class="btn btn-danger delete" id="<?php echo $row['id']?>"><span class="icon-trash"></span>&nbsp;</button></td>
   
