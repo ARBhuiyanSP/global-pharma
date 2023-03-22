@@ -74,39 +74,7 @@ if(!isset($_SESSION['user_session']))
 			 //Disabled Button If Quantity Not Available
 			});
 		</script>
-		<script language="javascript" type="text/javascript">
-			//Clock
-			var timerID = null;
-			var timerRunning = false;
-			function stopclock ()
-				{
-					if(timerRunning)
-					clearTimeout(timerID);
-					timerRunning = false;
-				}
-			function showtime () 
-				{
-					var now = new Date();
-					var hours = now.getHours();
-					var minutes = now.getMinutes();
-					var seconds = now.getSeconds()
-					var timeValue = "" + ((hours >12) ? hours -12 :hours)
-					if (timeValue == "0") timeValue = 12;
-					timeValue += ((minutes < 10) ? ":0" : ":") + minutes
-					timeValue += ((seconds < 10) ? ":0" : ":") + seconds
-					timeValue += (hours >= 12) ? " P.M." : " A.M."
-					document.clock.face.value = timeValue;
-					timerID = setTimeout("showtime()",1000);
-					timerRunning = true;
-				}
-			function startclock() 
-				{
-					stopclock();
-					showtime();
-				}
-			window.onload=startclock;
-			//Clock 
-		</script>
+		
 	</head>
 	<body>
 		<!--*****Top Bar / Menu******-->
@@ -134,21 +102,17 @@ if(!isset($_SESSION['user_session']))
 							$new = date('l, F d, Y', strtotime($Today));
 							echo $new;
 						?><br><br>
-				<form name="clock" method="POST" action="#"><!--*****Clock******-->
-					<input style="width:150px;background: #000;color: #fff;border-radius: 5px;height: 30px;" readonly type="submit" class="trans" name="face" value="">
-				</form><!--*****Clock******-->
+				
 			</div>
 		</div>
 		<div class="container">
 			<div class="row">
 				<div class="contentheader">
-					<h2>Home - Manage Sales</h2>
+					<h2 style="margin:0px;">Home - Manage Sales</h2>
 				</div>
 				<hr>
-				<center>
 					<div class="col-md-12">
 						<form method="POST" action="insert_invoice2.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
-							<input type="text" name="bar_code" id="bar_code" autocomplete="off" placeholder="Enter Barcode Number" class="form-control">
 							
 							<input type="text" id="product" required  autocomplete="off" placeholder="Medicine" class="form-control" autofocus>
 								<!-- <div class="ui-widget"> -->
@@ -169,7 +133,6 @@ if(!isset($_SESSION['user_session']))
 							<Button type="submit"  name="submit" class="btn btn-success" id="btn_submit" ><i class="icon icon-plus-sign"></i> Add to Cart</button>
 						</form> 
 					</div>
-				</center>
 			</div>
 		</div>
 		<div class="container">
