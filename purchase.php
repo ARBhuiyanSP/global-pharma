@@ -49,7 +49,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
 
          //Disabled Button If Quantity Not Available
 
-	$("#qty").blur(function()
+	/* $("#qty").blur(function()
 		{
 			var avai_qty = $("#avai_qty").val();
 			var in_qty = parseInt($("#qty").val());
@@ -64,48 +64,20 @@ if(!isset($_SESSION['user_session'])){  //User_session
 					$("#btn_submit").removeAttr('disabled');
 				}
 
-		});
+		}); */
     //Disabled Button If Quantity Not Available
 	});
     </script>
-    <script language="javascript" type="text/javascript">
-		//Clock
-		var timerID = null;
-		var timerRunning = false;
-		function stopclock ()
-			{
-				if(timerRunning)
-				clearTimeout(timerID);
-				timerRunning = false;
-			}
-		function showtime () 
-			{
-				var now = new Date();
-				var hours = now.getHours();
-				var minutes = now.getMinutes();
-				var seconds = now.getSeconds()
-				var timeValue = "" + ((hours >12) ? hours -12 :hours)
-				if (timeValue == "0") timeValue = 12;
-				timeValue += ((minutes < 10) ? ":0" : ":") + minutes
-				timeValue += ((seconds < 10) ? ":0" : ":") + seconds
-				timeValue += (hours >= 12) ? " P.M." : " A.M."
-				document.clock.face.value = timeValue;
-				timerID = setTimeout("showtime()",1000);
-				timerRunning = true;
-			}
-		function startclock() 
-			{
-				stopclock();
-				showtime();
-			}
-		window.onload=startclock;
-		//Clock
-    </script>
 	<style>
 	.pre-scrollable {
-    max-height: 300px;
     overflow-y: scroll;
-}
+	}
+
+	#bottom-fixed {
+		position: absolute;
+		bottom: 30px;
+		width: 100%;
+	}
 	</style>
 </head>
 <body>
@@ -146,32 +118,45 @@ if(!isset($_SESSION['user_session'])){  //User_session
                 ?><br><br>
      
 
-     <form name="clock" method="POST" action="#"><!--*****Clock******-->
-     <input style="width:150px;background: #000;color: #fff;border-radius: 5px;height: 30px;" readonly type="submit" class="trans" name="face" value="">
-      </form><!--*****Clock******-->
-
-      
     </div>
   </div>
    
    <div class="container">
      <div class="row">
       <div class="contentheader">
-        <h2>Medicines - Purchase</h2>
+        <h2 style="margin:0px;">Medicines - Purchase</h2>
        </div> <hr>
-     
+				<?php
+				$invoice_number= $_GET['invoice_number'];
+					$medicine_name = "";
+					$category= "";
+					$quantity= "";
+      
+      
+					
+					
+					$select_sql_master 		= "SELECT * from purchase_details where invoice_number = '$invoice_number' ";
+					$select_query_master 	= mysqli_query($con ,$select_sql_master);
+					$rowMaster	= mysqli_fetch_array($select_query_master);
+					$dates	= isset($rowMaster['date']);
+					$supplier	= isset($rowMaster['supplier']);
+					$warehouse	= isset($rowMaster['company']);
+				?>
 			
 				<form method="POST" action="insert_purchase.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
 					
 					<input type="text" name="invoice_number" value="<?php echo $_GET['invoice_number'];?>">
-					<input type="date" name="date" id="price_date" value="<?php echo date("m/d/Y"); ?>">
-					<select class="form-control"  name="warehouse">
+					<input type="date" name="date" id="price_date" value="<?php echo $dates; ?>">
+					
+					
+					
+					<select class="form-control" name="company">
 						<?php 
-                            $warehouse_sql = "SELECT * FROM `inv_warehosueinfo`";
+							$warehouse_sql = "SELECT * FROM `inv_warehosueinfo`";
 							$warehouse_query = mysqli_query($con ,$warehouse_sql);
 							while($warehouse_row = mysqli_fetch_array($warehouse_query)):
 						?>
-						<option value="<?php echo $warehouse_row['name'] ?>"><?php echo $warehouse_row['name'] ?></option>
+						<option value="<?php echo $warehouse_row['name'] ?>" <?php if($warehouse==$warehouse_row["name"]){ echo "selected";}else {echo "";} ?>><?php echo $warehouse_row['name'] ?></option>
 						<?php endwhile; ?>
 					</select>
 					
@@ -179,11 +164,12 @@ if(!isset($_SESSION['user_session'])){  //User_session
 					
 					<select class="form-control" name="supplier">
 						<?php 
-							$supplier_sql = "SELECT * from suppliers where status = 'Active' ";
+							$supplier	= $rowMaster['supplier'];
+							$supplier_sql = "SELECT * FROM `inv_supplier`";
 							$supplier_query = mysqli_query($con ,$supplier_sql);
 							while($supplier_row = mysqli_fetch_array($supplier_query)):
 						?>
-						<option value="<?php echo $supplier_row['name'] ?>"><?php echo $supplier_row['name'] ?></option>
+						<option value="<?php echo $supplier_row['SupplierCompany'] ?>" <?php if($supplier==$supplier_row["SupplierCompany"]){ echo "selected";}else {echo "";} ?>><?php echo $supplier_row['SupplierCompany'] ?></option>
 						<?php endwhile; ?>
 					</select>
 					</br>
@@ -194,11 +180,11 @@ if(!isset($_SESSION['user_session'])){  //User_session
 					<input type="hidden" name="product" id="product_hidden" required class="form-control" autocomplete="off" placeholder="Medicine" style="">
 						<!-- </div> -->
 					
-					<input type="number" name="avai_qty" id="avai_qty"  readonly placeholder="Available qty" style="">
+					<input type="number" name="avai_qty" id="avai_qty"  placeholder="Available qty" style="">
 
 					<input type="number" name="qty" id="qty"  placeholder="Add Qty" autocomplete="off"  style="" required>
 					
-					<input type="hidden" name="price_date" id="date_hidden" required class="form-control" autocomplete="off" placeholder="Medicine" style="">
+					<input type="text" name="buy_price" id="buy_price" class="form-control" autocomplete="off" placeholder="buy price / empty for default price" style="">
 					
 					
 					<Button type="submit"  name="submit" class="btn btn-success" id="btn_submit" style=""><i class="icon icon-plus-sign"></i> Add Item</button>
@@ -224,15 +210,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
 				</thead>
 				<tbody>
                 <?php
-					$invoice_number= $_GET['invoice_number'];
-					$medicine_name = "";
-					$category= "";
-					$quantity= "";
-      
-					include("dbcon.php");
-      
 					$select_sql = "SELECT * from purchase_details where invoice_number = '$invoice_number' ";
-      
 					$select_query = mysqli_query($con ,$select_sql);
       
 					$i = 0;
@@ -269,14 +247,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
                         $type     =  $row['type'];
                         echo "<input type='hidden' id='hid_quantity$i' value='$quantity' name='hid_quantity'>";
                         echo "<input type='number' id='quantity$i' name='quantity' value='$quantity' min='1' max='10' style='width:50px'>"."&nbsp;(".$type.")&nbsp;&nbsp;&nbsp;&nbsp;";
-                        echo "<a href='#' class='qty_upd$i'><span class='icon-refresh'></span></a>";
-                        echo "<div class='ajax-loader$i' style='visibility:hidden'>
-      
-                             <img src='src/img/loading.gif'>
-      
-                             </div>
-                           ";
-                                     ?>
+                         ?>
                      </td>
                      
                      <td><?php echo $row['amount']; ?></td>
@@ -284,7 +255,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
       
                   <?php endwhile; ?>  
                 </tr>
-                <tr>
+                <!-- <tr>
               <th colspan="5" ><font size=6><strong> Total:</strong></font></th>
               <td  colspan="2"><strong>
       
@@ -302,11 +273,14 @@ if(!isset($_SESSION['user_session'])){  //User_session
                 }
                 ?>
               </td>
-            </tr>
+            </tr> -->
         </tbody>
       </table>
-	  <br>
-		<b>Total: </b> <input type="text" id="total" name="invoice_number" value="<?php
+	  
+    </div>
+	<div id="bottom-fixed">
+		<form method="POST" action="save_purchase.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
+			<b>Total: </b> <input type="text" id="total" name="total" value="<?php
       
                 $select_sql = "SELECT sum(amount) , sum(profit_amount) from purchase_details where invoice_number = '$invoice_number'";
       
@@ -328,25 +302,16 @@ if(!isset($_SESSION['user_session'])){  //User_session
           <?php
            if($medicine_name && $quantity !=null){
             ?>
+			
+			<!-- <a id="popup" href="save_purchase.php?invoice_number=<?php echo $_GET['invoice_number']?>" style="width:400px;" class="btn btn-info btn-sm">Save Purchase <i class="icon icon-save"></i></a> -->
+			
+			<input type="submit" name="submit" class="btn btn-success btn-sm" style="width: 225px" value="Save Purchase">
+			
+            <!-- <a id="popup" href="save_purchase.php?invoice_number=<?php echo $_GET['invoice_number']?>&medicine_name=<?php echo $medicine_name?>&category=<?php echo $category?>&quantity=<?php echo $quantity?>&total=<?php echo $grand_total?>" style="width:400px;" class="btn btn-info btn-large">Proceed <i class="icon icon-share-alt"></i></a> -->
       
-            <a id="popup" href="checkout.php?invoice_number=<?php echo $_GET['invoice_number']?>&medicine_name=<?php echo $medicine_name?>&category=<?php echo $category?>&ex_date=<?php echo $ex_date?>&quantity=<?php echo $quantity?>&total=<?php echo $grand_total?>&profit=<?php echo $grand_profit?>" style="width:400px;" class="btn btn-info btn-large">Proceed <i class="icon icon-share-alt"></i></a>
-      
-          <?php
-           }else{
-      
-      
-            ?>
-      
-      <div class="alert alert-danger">
-        <h3><center>No Sales Available!!</center> </h3>
-    </div>
-      
-          <?php
-       
-                }
-      
-          ?>
-    </div>
+          <?php }else{ } ?>
+		  </form>
+		</div>
       </div>
  
   </body>

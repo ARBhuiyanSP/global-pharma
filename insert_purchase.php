@@ -14,15 +14,26 @@ session_start();
 		$price_date		=	$_POST['price_date'];
 		$qty    		=	$_POST['qty'];
 		$date   		=	$_POST['date'];
+		$buy_price   	=	$_POST['buy_price'];
+		
 		$select_sql		=	"SELECT * FROM `product` WHERE `medicine_name` = '$product'";
 		$select_query	=	mysqli_query($con,$select_sql);
 		while($row = mysqli_fetch_array($select_query))
 			{
-				$medicine_name = $row['medicine_name'];
-				$category      = $row['category'];
-				$quantity      = $row['quantity'];
-				$sell_type     = $row['pack_size'];
-				$cost          = $row['sale_per_pcs'];
+				$medicine_name 	= $row['medicine_name'];
+				$category      	= $row['category'];
+				$quantity      	= $row['quantity'];
+				$sell_type     	= $row['pack_size'];
+				$pcs_per_pack  	= $row['pcs_per_pack'];
+				$unit_buy_price	= $row['unit_buy_price'];
+				
+				if($_POST['buy_price']){
+					$buy_cost		= $_POST['buy_price'];
+				}else {
+					$buy_cost		= $unit_buy_price / $pcs_per_pack;
+				}
+				
+				$cost          	= $row['sale_per_pcs'];
 				//$profit        = $row['profit_price'];
 				//$price_date    = $row['price_date'];
 
@@ -49,9 +60,9 @@ session_start();
 					$update_quantity_query = mysqli_query($con,$update_quantity_sql);
 				}
 
-			$amount		= 	$qty*$cost;
+			$amount		= 	$qty*$buy_cost;
 			$profit_amt = 	$profit*$qty;
-			$insert_sql =	"INSERT INTO `purchase_details` values('','$invoice_number','$supplier','$company','$medicine_name','$category','$price_date','$qty','$sell_type','$cost','$amount','$profit_amt','$date')";
+			$insert_sql =	"INSERT INTO `purchase_details` values('','$invoice_number','$supplier','$company','$medicine_name','$category','$price_date','$qty','$sell_type','$buy_cost','$amount','$profit_amt','$date')";
 			
 			$insert_query = mysqli_query($con,$insert_sql);
 			//*****INSERTING INTO on_HOLD TABLE*******

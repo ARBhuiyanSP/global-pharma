@@ -143,11 +143,11 @@ if(!isset($_SESSION['user_session'])){  //User_session
 					
 					<select class="form-control" name="supplier">
 						<?php 
-							$supplier_sql = "SELECT * from suppliers where status = 'Active' ";
+							$supplier_sql = "SELECT * FROM `inv_supplier`";
 							$supplier_query = mysqli_query($con ,$supplier_sql);
 							while($supplier_row = mysqli_fetch_array($supplier_query)):
 						?>
-						<option value="<?php echo $supplier_row['name'] ?>" <?php if($supplier=='$supplier_row["name"]'){ echo "selected";}else {echo "";} ?>><?php echo $supplier_row['name'] ?></option>
+						<option value="<?php echo $supplier_row['SupplierCompany'] ?>" <?php if($supplier=='$supplier_row["SupplierCompany"]'){ echo "selected";}else {echo "";} ?>><?php echo $supplier_row['SupplierCompany'] ?></option>
 						<?php endwhile; ?>
 					</select>
 					
