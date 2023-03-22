@@ -11,7 +11,7 @@
 				<ul class="nav pull-right">
 					<li>
 						<?php 
-							include("dbcon.php");
+							include("dbcon.php"); 
 							$quantity = "10";
 							$select_sql1 = "SELECT * FROM `stock` where `remain_quantity` <= '$quantity' and status='Available'";
 							$result1 = mysqli_query($con,$select_sql1);

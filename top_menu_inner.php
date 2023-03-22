@@ -10,7 +10,7 @@
 			<div class="nav-collapse">
 				<ul class="nav pull-right">
 					<li>
-						<?php 
+						<?php  
 							include("dbcon.php");
 							$quantity = "10";
 							$select_sql1 = "SELECT * FROM `stock` where `remain_quantity` <= '$quantity' and status='Available'";

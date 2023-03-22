@@ -112,7 +112,7 @@ if(!isset($_SESSION['user_session']))
 				</div>
 				<hr>
 					<div class="col-md-12">
-						<form method="POST" action="insert_invoice2.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
+						<form method="POST" action="insert_invoice2.php?invoice_number=<?php echo $_GET['invoice_number']?> " > 
 							
 							<input type="text" id="product" required  autocomplete="off" placeholder="Medicine" class="form-control" autofocus>
 								<!-- <div class="ui-widget"> -->
