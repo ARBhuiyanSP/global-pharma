@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2023 at 12:50 PM
+-- Generation Time: Mar 22, 2023 at 12:38 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -284,6 +284,7 @@ CREATE TABLE `inv_purchasereturndetail` (
 --
 
 CREATE TABLE `inv_receive` (
+  `id` int(11) NOT NULL,
   `MRRNo` varchar(12) NOT NULL,
   `MRRDate` timestamp(6) NULL DEFAULT NULL,
   `SupplierID` varchar(12) DEFAULT NULL,
@@ -298,15 +299,6 @@ CREATE TABLE `inv_receive` (
   `Type` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `inv_receive`
---
-
-INSERT INTO `inv_receive` (`MRRNo`, `MRRDate`, `SupplierID`, `Remarks`, `ReceiveType`, `ReceiveTotal`, `InWord`, `GoDownA`, `DiscountRate`, `DiscountAmount`, `GrandTotAfrDis`, `Type`) VALUES
-('RP00001-23', '2023-01-29 18:00:00.000000', 'SUL-00001', '', 'Regular', 795.95, '', 'GoDown-1', 0, 0, 0, 'Company'),
-('RP00002-23', '2023-02-27 18:00:00.000000', 'SUL-00001', '', 'Regular', 3183.8, '', 'GoDown-1', 0, 0, 0, 'Company'),
-('RP00003-23', '2023-02-27 18:00:00.000000', 'SUL-00001', '', 'Regular', 10530, '', 'GoDown-1', 0, 0, 0, 'Company');
-
 -- --------------------------------------------------------
 
 --
@@ -314,6 +306,7 @@ INSERT INTO `inv_receive` (`MRRNo`, `MRRDate`, `SupplierID`, `Remarks`, `Receive
 --
 
 CREATE TABLE `inv_receivedetail` (
+  `id` int(11) NOT NULL,
   `MRRNo` varchar(12) DEFAULT NULL,
   `MaterialID` varchar(9) DEFAULT NULL,
   `ReceiveQty` float DEFAULT NULL,
@@ -323,15 +316,6 @@ CREATE TABLE `inv_receivedetail` (
   `TotalPCS` float DEFAULT NULL,
   `ItemName` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `inv_receivedetail`
---
-
-INSERT INTO `inv_receivedetail` (`MRRNo`, `MaterialID`, `ReceiveQty`, `UnitPrice`, `Free`, `TotalReceive`, `TotalPCS`, `ItemName`) VALUES
-('RP00001-23', '02-01293', 5, 159.19, 0, 795.95, 600, 'NA'),
-('RP00002-23', '02-01293', 20, 159.19, 0, 3183.8, 2400, 'NA'),
-('RP00003-23', '01-00543', 30, 351, 0, 10530, 15000, 'NA');
 
 -- --------------------------------------------------------
 
@@ -648,10 +632,10 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `item_id`, `product_code`, `medicine_name`, `generic_name`, `pack_size`, `pcs_per_pack`, `quantity`, `used_quantity`, `remain_quantity`, `act_remain_quantity`, `unit_buy_price`, `unit_sale_price`, `sale_per_pcs`, `price_date`, `supplier`, `supplier_id`, `item_category`, `active_prod`) VALUES
-(1, '01-00000', '01-00014', 'LEOZINC - B 100 ML', 'VITMIN B1 CIMPLEX & ZINC', 'PCS', 1, 1000, 20, 1031, 997, 39.59, 45, 45, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'SYRUP/LIQUID', 'YES'),
-(2, '02-00000', '02-00030', 'NOVAZITH TAB 500 MG', 'AZITHROMYCIN', 'BOX', 12, 0, 0, 0, 0, 369.48, 420, 35, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'TABLET/PILLS', 'YES'),
+(1, '01-00000', '01-00014', 'LEOZINC - B 100 ML', 'VITMIN B1 CIMPLEX & ZINC', 'PCS', 1, 1005, 20, 985, 985, 39.59, 45, 45, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'SYRUP/LIQUID', 'YES'),
+(2, '02-00000', '02-00030', 'NOVAZITH TAB 500 MG', 'AZITHROMYCIN', 'BOX', 12, 80, 0, 90, 80, 369.48, 420, 35, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'TABLET/PILLS', 'YES'),
 (3, '02-00000', '02-00031', 'ELFEXO TAB 120 MG', 'FEXOFENADINE HYDROCHLORIDE', 'BOX', 30, 0, 0, 0, 0, 184.74, 210, 7, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'TABLET/PILLS', 'YES'),
-(4, '02-00000', '02-00032', 'RABOZ TAB 20 MG', 'RABEPRAZOLE SODIUM', 'BOX', 50, 0, 0, 0, 0, 219.9, 250, 5, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'TABLET/PILLS', 'YES'),
+(4, '02-00000', '02-00032', 'RABOZ TAB 20 MG', 'RABEPRAZOLE SODIUM', 'BOX', 50, 15, 0, 15, 15, 219.9, 250, 5, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'TABLET/PILLS', 'YES'),
 (5, '01-00000', '01-00015', 'LROZINC SYP 100 ML', 'ZINC SULPHATE MONOYDRATE', 'PCS', 1, 0, 0, 0, 0, 28.15, 32, 32, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'SYRUP/LIQUID', 'YES'),
 (6, '01-00000', '01-00016', 'POLYXIM DS 50 ML', 'CEFIXIME', 'PCS', 1, 0, 0, 0, 0, 281.5, 320, 320, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'SYRUP/LIQUID', 'YES'),
 (7, '02-00000', '02-00033', 'NOVAXEN PLUS TAB 20 MG', 'NAPROXEN 500 MG & ESOMEPRAZLE 20 MG', 'BOX', 28, 0, 0, 0, 0, 246.31, 280, 10, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'TABLET/PILLS', 'YES'),
@@ -662,9 +646,9 @@ INSERT INTO `product` (`id`, `item_id`, `product_code`, `medicine_name`, `generi
 (12, '03-00000', '03-00011', 'PERIZOL CAP 20 MG', 'OMEPRAZOLE', 'BOX', 100, 0, 0, 0, 0, 439.8, 500, 5, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'CAPSUL', 'YES'),
 (13, '03-00000', '03-00012', 'PEPZOL CAP 20 MG', 'ESOMEPRAZOLE', 'BOX', 60, 0, 0, 0, 0, 369, 420, 7, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'CAPSUL', 'YES'),
 (14, '03-00000', '03-00013', 'PEPZOL CAP 40 MG', 'ESOMEPRAZOLE', 'BOX', 30, 0, 0, 0, 0, 263.91, 300, 10, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'CAPSUL', 'YES'),
-(15, '01-00000', '01-00020', 'KETOSME SYP 100 ML', 'KETOTIFEN FUMARATE', 'PCS', 1, 0, 0, 0, 0, 39.59, 45, 45, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'SYRUP/LIQUID', 'YES'),
+(15, '01-00000', '01-00020', 'KETOSME SYP 100 ML', 'KETOTIFEN FUMARATE', 'PCS', 1, 0, 0, 10, 0, 39.59, 45, 45, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'SYRUP/LIQUID', 'YES'),
 (16, '01-00000', '01-00021', 'NOVAZITH SUS 35 ML', 'AZITHROMYCIN', 'PCS', 1, 0, 0, 0, 0, 118.76, 135, 135, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'SYRUP/LIQUID', 'YES'),
-(17, '03-00000', '03-00014', 'FLUTAM CAP 250 MG', 'FLUCLOXACILLIN', 'BOX', 40, 0, 0, 0, 0, 200.6, 228, 5.7, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'CAPSUL', 'YES'),
+(17, '03-00000', '03-00014', 'FLUTAM CAP 250 MG', 'FLUCLOXACILLIN', 'BOX', 40, 0, 0, 10, 0, 200.6, 228, 5.7, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'CAPSUL', 'YES'),
 (18, '02-00000', '02-00035', 'NOVACAL-D TAB 500 MG', 'CALCIUM & VITAMIN', 'BOX', 50, 0, 0, 0, 0, 200.9, 251, 5.02, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'TABLET/PILLS', 'YES'),
 (19, '02-00000', '02-00036', 'VISALEX TAB 50 MG', 'TLEMONIUM  METHYLSULPHATE', 'BOX', 50, 0, 0, 0, 0, 219.9, 250, 5, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'TABLET/PILLS', 'YES'),
 (20, '02-00000', '02-00037', 'KETOSMA TAB 1 MG', 'KETOTIFEN', 'BOX', 100, 0, 0, 0, 0, 176, 200, 2, '2015-06-04', 'LEON PHARMACEUTICALS LTD', 'SUL-00037', 'TABLET/PILLS', 'YES'),
@@ -701,7 +685,7 @@ INSERT INTO `product` (`id`, `item_id`, `product_code`, `medicine_name`, `generi
 (51, '03-00000', '03-00022', 'LINDEX CAP 250 MG', 'CEPHRADINE', 'BOX', 20, 0, 0, 0, 0, 114.36, 130, 6.5, '2015-06-04', 'RANGS PHARMACEUTICALS LTD', 'SUL-00045', 'CAPSUL', 'YES'),
 (52, '03-00000', '03-00023', 'LINDEX CAP 500 MG', 'CEPHRADINE', 'BOX', 20, 0, 0, 0, 0, 219.92, 250, 12.5, '2015-06-04', 'RANGS PHARMACEUTICALS LTD', 'SUL-00045', 'CAPSUL', 'YES'),
 (53, '01-00000', '01-00024', 'LINDEX SYP (125MG) 100ML', 'CEPHRADINE', 'PCS', 1, 0, 0, 0, 0, 70.38, 80, 80, '2015-06-04', 'RANGS PHARMACEUTICALS LTD', 'SUL-00045', 'SYRUP/LIQUID', 'YES'),
-(54, '02-00000', '02-00058', 'NEURODOL TAB', 'VITAMIN B1+B6+B12', 'PCS', 1, 0, 0, 0, 0, 105.57, 120, 120, '2015-06-04', 'RANGS PHARMACEUTICALS LTD', 'SUL-00045', 'TABLET/PILLS', 'YES'),
+(54, '02-00000', '02-00058', 'NEURODOL TAB', 'VITAMIN B1+B6+B12', 'PCS', 1, 10, 0, 10, 10, 105.57, 120, 120, '2015-06-04', 'RANGS PHARMACEUTICALS LTD', 'SUL-00045', 'TABLET/PILLS', 'YES'),
 (55, '03-00000', '03-00024', 'NGCEF CAP 200 MG', 'CEFIXIM', 'BOX', 6, 0, 0, 0, 0, 158.35, 180, 30, '2015-06-04', 'RANGS PHARMACEUTICALS LTD', 'SUL-00045', 'CAPSUL', 'YES'),
 (56, '01-00000', '01-00025', 'NGCEF GS 50 ML', 'CEFIXIM', 'PCS', 1, 0, 0, 0, 0, 171.55, 195, 195, '2015-06-04', 'RANGS PHARMACEUTICALS LTD', 'SUL-00045', 'SYRUP/LIQUID', 'YES'),
 (57, '04-00000', '04-00006', 'ORYX INJ 1GM IV', 'CEFTRIAXONE', 'PCS', 1, 0, 0, 0, 0, 175.94, 200, 200, '2015-06-04', 'RANGS PHARMACEUTICALS LTD', 'SUL-00045', 'INJECTION', 'YES'),
@@ -726,7 +710,7 @@ INSERT INTO `product` (`id`, `item_id`, `product_code`, `medicine_name`, `generi
 (76, '04-00000', '04-00011', 'TRIALON INJ 40 MG', 'TRIAMCINOLONE', 'PCS', 3, 0, 0, 0, 0, 198.68, 225.75, 75.25, '2015-06-04', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'INJECTION', 'YES'),
 (77, '04-00000', '04-00012', 'CALCIROL INJ', 'CHOLECALCIFEROL', 'PCS', 1, 0, 0, 0, 0, 105.95, 120, 120, '2015-06-04', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'INJECTION', 'YES'),
 (78, '04-00000', '04-00013', 'COSEC-40 MG INJ', 'OMEPRAZOLE', 'PCS', 1, 0, 0, 0, 0, 79.47, 90.3, 90.3, '2015-06-04', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'INJECTION', 'YES'),
-(79, '04-00000', '04-00014', 'PANSEC - 40 MG INJ', 'PANTOPRAZOLE', 'PCS', 1, 0, 0, 0, 0, 79.47, 90.3, 90.3, '2015-06-04', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'INJECTION', 'YES'),
+(79, '04-00000', '04-00014', 'PANSEC - 40 MG INJ', 'PANTOPRAZOLE', 'PCS', 1, 0, 0, 10, 0, 79.47, 90.3, 90.3, '2015-06-04', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'INJECTION', 'YES'),
 (80, '04-00000', '04-00015', 'FUREX- 1 GM INJ', 'CEFUROXIME', 'PCS', 1, 0, 0, 0, 0, 176.58, 200.65, 200.65, '2015-06-04', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'INJECTION', 'YES'),
 (81, '04-00000', '04-00016', 'PRONEX - 40 MG INJ', 'ESOMEPRAZOLE', 'PCS', 1, 0, 0, 0, 0, 79.47, 90.3, 90.3, '2015-06-04', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'INJECTION', 'YES'),
 (82, '04-00000', '04-00017', 'VISONIUM INJ', 'TIEMONIUM', 'BOX', 5, 0, 0, 0, 0, 110.45, 125, 25, '2015-06-04', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'INJECTION', 'YES'),
@@ -804,8 +788,8 @@ INSERT INTO `product` (`id`, `item_id`, `product_code`, `medicine_name`, `generi
 (154, '02-00000', '02-00101', 'FUROTIXOL 500 MG TAB', 'CEFUROXIME', 'BOX', 8, 0, 0, 0, 0, 316.7, 360, 45, '2015-06-04', 'SHARIF PHARMACEUTICALS LTD', 'SUL-00049', 'TABLET/PILLS', 'YES'),
 (155, '01-00000', '01-00041', 'FUROTIXOL SYP 70 ML', 'CEFROXIME', 'PCS', 1, 0, 0, 0, 0, 174.18, 198, 198, '2015-06-04', 'SHARIF PHARMACEUTICALS LTD', 'SUL-00049', 'SYRUP/LIQUID', 'YES'),
 (156, '02-00000', '02-00102', 'MTP KIT TAB', 'MIFEPRISTONE MISOPROSTOL', 'BOX', 2, 0, 0, 0, 0, 263.91, 300, 150, '2015-06-04', 'SHARIF PHARMACEUTICALS LTD', 'SUL-00049', 'TABLET/PILLS', 'YES'),
-(157, '02-00000', '02-00103', 'NAPROTEC 500 MG TAB', 'NAPROXEN + ESOMEPRAZOLE', 'BOX', 30, 0, 0, 0, 0, 263.91, 300, 10, '2015-06-04', 'SHARIF PHARMACEUTICALS LTD', 'SUL-00049', 'TABLET/PILLS', 'YES'),
-(158, '02-00000', '02-00104', 'NERBO TAB', 'VITMIN B1+B6+B12', 'BOX', 50, 0, 0, 0, 0, 175.94, 200, 4, '2015-06-04', 'SHARIF PHARMACEUTICALS LTD', 'SUL-00049', 'TABLET/PILLS', 'YES'),
+(157, '02-00000', '02-00103', 'NAPROTEC 500 MG TAB', 'NAPROXEN + ESOMEPRAZOLE', 'BOX', 30, 0, 0, 40, 0, 263.91, 300, 10, '2015-06-04', 'SHARIF PHARMACEUTICALS LTD', 'SUL-00049', 'TABLET/PILLS', 'YES'),
+(158, '02-00000', '02-00104', 'NERBO TAB', 'VITMIN B1+B6+B12', 'BOX', 50, 10, 0, 10, 10, 175.94, 200, 4, '2015-06-04', 'SHARIF PHARMACEUTICALS LTD', 'SUL-00049', 'TABLET/PILLS', 'YES'),
 (159, '02-00000', '02-00105', 'RABONAC 20 MG TAB', 'RABEPRAZOLE SODIUM', 'BOX', 60, 0, 0, 0, 0, 263.91, 300, 5, '2015-06-04', 'SHARIF PHARMACEUTICALS LTD', 'SUL-00049', 'TABLET/PILLS', 'YES'),
 (160, '02-00000', '02-00106', 'RIFACOL 200 MG TAB', 'RIFAXIMIM', 'BOX', 20, 0, 0, 0, 0, 351.88, 400, 20, '2015-06-04', 'SHARIF PHARMACEUTICALS LTD', 'SUL-00049', 'TABLET/PILLS', 'YES'),
 (161, '02-00000', '02-00107', 'RUPANEX TAB 10 MG', 'RUPATADINE', 'BOX', 30, 0, 0, 0, 0, 263.91, 300, 10, '2015-06-04', 'SHARIF PHARMACEUTICALS LTD', 'SUL-00049', 'TABLET/PILLS', 'YES'),
@@ -933,7 +917,7 @@ INSERT INTO `product` (`id`, `item_id`, `product_code`, `medicine_name`, `generi
 (282, '01-00000', '01-00059', 'ZITON SYP 100ML', 'ZINC SULFATE', 'BOX', 1, 0, 0, 0, 0, 26.49, 30.1, 30.1, '2015-06-05', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'SYRUP/LIQUID', 'YES'),
 (283, '19-00000', '19-00001', 'DEVAS 100 ML SYP', 'HERBAL COUGH SYRUP', 'PCS', 1, 0, 0, 0, 0, 51.72, 60, 60, '2015-06-05', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'HERBAL DIVISION SYP', 'YES'),
 (284, '20-00000', '20-00001', 'GINAX CAP 500MG', 'GINSENG', 'BOX', 32, 0, 0, 0, 0, 193.1, 224, 7, '2015-06-05', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'HERBAL DIVISION CAPSUL', 'YES'),
-(285, '20-00000', '20-00002', 'HEPANOR CAP 500 MG', 'SILYMARIN', 'BOX', 20, 0, 0, 0, 0, 344.83, 400, 20, '2015-06-05', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'HERBAL DIVISION CAPSUL', 'YES'),
+(285, '20-00000', '20-00002', 'HEPANOR CAP 500 MG', 'SILYMARIN', 'BOX', 20, 0, 0, 10, 0, 344.83, 400, 20, '2015-06-05', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'HERBAL DIVISION CAPSUL', 'YES'),
 (286, '20-00000', '20-00003', 'HEPANOR 70MG CAP', 'SILYMARIN', 'BOX', 32, 0, 0, 0, 0, 165.52, 192, 6, '2015-06-05', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'HERBAL DIVISION CAPSUL', 'YES'),
 (287, '20-00000', '20-00004', 'PRIMACAP CAP 500 MG', 'PRIMROSE OIL', 'BOX', 50, 0, 0, 0, 0, 258.62, 300, 6, '2015-06-05', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'HERBAL DIVISION CAPSUL', 'YES'),
 (288, '19-00000', '19-00002', 'D-ALOVERA SYRUP 450ML', 'SHARBAT GHEEKOWAR', 'PCS', 1, 0, 0, 0, 0, 215.52, 250, 250, '2015-06-05', 'DRUG INTERNATIONAL LTD.', 'SUL-00005', 'HERBAL DIVISION SYP', 'YES'),
@@ -5234,15 +5218,7 @@ CREATE TABLE `purchase_details` (
 --
 
 INSERT INTO `purchase_details` (`id`, `invoice_number`, `supplier`, `company`, `medicine_name`, `category`, `expire_date`, `qty`, `type`, `cost`, `amount`, `profit_amount`, `date`) VALUES
-(162, 'CA-2299009', 'No Supplier', 'No Brand', 'Napa Extra', 'Tablet', '2025-03-07', 10, 'Pics', 2, 20, 10, '03/14/2023'),
-(163, 'CA-2299009', 'Supplier-1', 'Square', 'Diclofenac', 'Tablet', '2025-03-07', 3, 'Pics', 10, 30, 15, '03/14/2023'),
-(164, 'CA-9399290', 'UNITED TRADERS', 'ACI', 'Napa Extra', 'Tablet', '2025-03-07', 15, 'Pics', 2, 30, 15, '03/18/2023'),
-(165, 'CA-2200902', 'UNITED TRADERS', 'ACI', 'Napa Extra', 'Tablet', '2025-03-07', 20, 'Pics', 2, 40, 20, '03/18/2023'),
-(166, 'CA-0902909', 'UNITED TRADERS', 'Beximco', 'Napa Extra', 'Tablet', '2025-03-07', 20, 'Pics', 2, 40, 20, '03/18/2023'),
-(167, 'CA-0902909', 'ALIF TRADERS', 'IBN-SINA', 'Diclofenac', 'Tablet', '2025-03-07', 1, 'Pics', 10, 10, 5, '03/18/2023'),
-(168, 'CA-0002030', 'UNITED TRADERS', '', 'Napa Extra', 'Tablet', '2025-03-07', 2, 'Pics', 2, 4, 2, '03/20/2023'),
-(169, 'CA-9290002', 'BEXIMCO PHARMA', '', 'Napa Extra', 'Tablet', '2025-03-07', 5, 'Pics', 2, 10, 5, '03/21/2023'),
-(185, 'CA-2090990', 'BEXIMCO PHARMA', '', 'LEOZINC - B 100 ML', '', '0000-00-00', 10, 'PCS', 45, 450, 0, '');
+(248, 'CA-2092230', 'BEXIMCO PHARMACEUTICALS LTD.', 'CENTRAL WAREHOUSE', 'NOVAZITH TAB 500 MG', '', '0000-00-00', 10, 'BOX', 31, 308, 0, '');
 
 -- --------------------------------------------------------
 
@@ -5262,19 +5238,6 @@ CREATE TABLE `purchase_master` (
   `date` date NOT NULL,
   `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `purchase_master`
---
-
-INSERT INTO `purchase_master` (`id`, `invoice_number`, `supplier`, `company`, `total_qty`, `discount`, `paid`, `due`, `date`, `status`) VALUES
-(1, 'CA-9909399', 'Supplier-1', 'Beximco', '', 'Napa Extra', '', '', '0000-00-00', ''),
-(2, 'CA-9909399', 'Supplier-1', 'Beximco', '', 'Napa Extra', '', '', '0000-00-00', ''),
-(3, 'CA-9909399', 'Supplier-1', 'Beximco', '', 'Napa Extra', '', '', '0000-00-00', 'Hold'),
-(4, 'CA-9909399', 'Supplier-1', 'Beximco', '', 'Napa Extra', '', '', '0000-00-00', 'Hold'),
-(5, 'CA-9909399', 'Supplier-1', 'Beximco', '', 'Napa Extra', '', '', '0000-00-00', 'Hold'),
-(6, 'CA-9909399', 'No Supplier', 'No Brand', '', 'Napa Extra', '', '', '0000-00-00', 'Hold'),
-(7, 'CA-9909399', 'No Supplier', 'No Brand', '', 'Napa Extra', '', '', '0000-00-00', 'Hold');
 
 -- --------------------------------------------------------
 
@@ -5436,6 +5399,18 @@ ALTER TABLE `inv_paymentto`
   ADD UNIQUE KEY `PK_Inv_PaymentTo` (`MRNo`);
 
 --
+-- Indexes for table `inv_receive`
+--
+ALTER TABLE `inv_receive`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `inv_receivedetail`
+--
+ALTER TABLE `inv_receivedetail`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `inv_supplier`
 --
 ALTER TABLE `inv_supplier`
@@ -5506,6 +5481,18 @@ ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
+-- AUTO_INCREMENT for table `inv_receive`
+--
+ALTER TABLE `inv_receive`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `inv_receivedetail`
+--
+ALTER TABLE `inv_receivedetail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
 -- AUTO_INCREMENT for table `inv_supplier`
 --
 ALTER TABLE `inv_supplier`
@@ -5533,7 +5520,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `purchase_details`
 --
 ALTER TABLE `purchase_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=186;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
 
 --
 -- AUTO_INCREMENT for table `purchase_master`
