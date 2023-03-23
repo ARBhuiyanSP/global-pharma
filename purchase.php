@@ -201,7 +201,6 @@ if(!isset($_SESSION['user_session'])){  //User_session
 				<thead>
 					<tr style="background-color: #383838; color: #FFFFFF;" >
 						<th> Medicine </th>
-						<th> Category</th>
 						<th> Price </th>
 						<th> Qty </th>
 						<th> Amount </th>
@@ -230,12 +229,11 @@ if(!isset($_SESSION['user_session'])){  //User_session
                        echo "<input type='hidden' value=$med_id id='med_id$i' name='med_id'>";
                        echo "<input type='hidden' value=$medicine_name id='med_name$i' name='med_name'>"
                       ?></td>
-                     <td><?php $category = $row['category'];
-                     echo $category;
+                   <?php $category = $row['category'];
                       ?>
                          <input type="hidden" value='<?php echo $category?>' id='med_cat<?php echo $i?>' name='med_cat'>
                         
-                      </td>
+                      
                        
       
                      
@@ -296,7 +294,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
                 ?>" style="width:40px" readonly >
 			<b>Discount:</b> <input type="text" id="discount" name="discount" value="" style="width:80px" onkeyup="calculate_purchase_amount()" >
 			<b>SubTotal:</b> <input type="text" id="subtotal" name="subtotal" value="" style="width:80px" readonly >
-			<b>Paid:</b> <input type="text" id="paid" name="paid" value="" style="width:40px" onkeyup="calculate_purchase_amount()" >
+			<b>Paid:</b> <input type="text" id="paid" name="paid" value="" style="width:40px" onkeyup="calculate_purchase_amount()" required >
 			<b>Due:</b> <input type="text" id="due" name="due" value="" style="width:80px" readonly >
       
           <?php
