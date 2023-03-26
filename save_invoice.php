@@ -3,32 +3,28 @@ include "dbcon.php";
 require "fpdf.php";
 	session_start();
 		if(!isset($_SESSION['user_session'])){
-
 			header("location:index.php");
 		}
+	class myPDF extends FPDF{
 		
-		class myPDF extends FPDF{
-	
+		function invoice_number()
+			{//*****Outputting a New Voucher code*******
+				$chars = "09302909209300923";
+				srand((double)microtime()*1000000);
+				$i = 1;
+				$pass = '';
+				while($i <=7)
+					{
 
-	
-	function invoice_number()
-		{//*****Outputting a New Voucher code*******
-			$chars = "09302909209300923";
-			srand((double)microtime()*1000000);
-			$i = 1;
-			$pass = '';
-			while($i <=7)
-				{
-
-					$num  = rand()%10;
-					$tmp  = substr($chars, $num,1);
-					$pass = $pass.$tmp;
-					$i++;
-				}
-			return $pass;
+						$num  = rand()%10;
+						$tmp  = substr($chars, $num,1);
+						$pass = $pass.$tmp;
+						$i++;
+					}
+				return $pass;
+			}
+		/*****Outputting a New Voucher code*******/
 		}
-	/*****Outputting a New Voucher code*******/
-	}
 	
 		if(isset($_POST['submit'])){
 			$invoice_number = 	$_GET['invoice_number'];
@@ -38,9 +34,7 @@ require "fpdf.php";
 			$paid 			=	$_POST['paid'];
 			$due			=	$_POST['due'];
 			
-			
 			$pdf = new myPDF();
-		
 			
 			$select_sql		=	"SELECT * FROM `on_hold` WHERE `invoice_number` = '$invoice_number'";
 			$select_query	=	mysqli_query($con,$select_sql);
@@ -55,6 +49,9 @@ require "fpdf.php";
 					
 					$insert_sql = "INSERT INTO inv_issuedetail values('','$invoice_number','$medicine_name','$quantity','$cost','','$amount','','','','')";
 					$insert_query = mysqli_query($con,$insert_sql);
+					
+					/* $insert_balance_sql = "INSERT INTO inv_issuedetail values('','$invoice_number','$medicine_name','$quantity','$cost','','$amount','','','','')";
+					$insert_balance_query = mysqli_query($con,$insert_balance_sql); */
 			
 			
 					$update_stock = "UPDATE product SET act_remain_quantity = act_remain_quantity - '". $quantity ."' where medicine_name = '$medicine_name'";
@@ -65,7 +62,7 @@ require "fpdf.php";
 				}
 				
 			/* Insert Issue Master Table*/
-			$issueMaster_sql = "INSERT INTO inv_issue values('','$invoice_number','$date','$quantity','','','Issue','','$total','$paid','$Due','$subtotal','','','','','$discount','','')";
+			$issueMaster_sql = "INSERT INTO inv_issue values('','$invoice_number','$date','$quantity','','','','','','','','','','','','','','')";
 			$issueMaster_query = mysqli_query($con,$issueMaster_sql);
 			
 			$new_invoice_number  = "CA-".$pdf->invoice_number();

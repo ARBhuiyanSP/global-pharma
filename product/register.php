@@ -8,7 +8,7 @@
 		if(isset($_POST['submit'])){
 			$invoice_number = $_GET['invoice_number'];
 			echo "<h1>....LOADING</h1>";
-			//$bar_code= $_POST['bar_code']; 
+			$bar_code		= $_POST['bar_code']; 
 			$category		= $_POST['category']; 
 			$med_name		= 	$_POST['med_name'];  
 			$gen_name		= 	$_POST['gen_name'];
@@ -23,7 +23,7 @@
 			$price_dates 	= 	strtotime($_POST['price_date']);
 			$price_date 	=   date('Y-m-d',$price_dates);
 			
-			$sql="INSERT INTO product(medicine_name, generic_name, pack_size, pcs_per_pack,quantity,  unit_buy_price , unit_sale_price,sale_per_pcs, price_date,supplier, item_category, active_prod) VALUES ('$med_name','$gen_name','$packing_mode','$pcs_per_unit','$quantity','$actual_price','$selling_price','$sell_per_pcs','$price_date','$company','$category','$status')";
+			$sql="INSERT INTO product(bar_code, medicine_name, generic_name, pack_size, pcs_per_pack,quantity,  unit_buy_price , unit_sale_price,sale_per_pcs, price_date,supplier, item_category, active_prod) VALUES ('$bar_code', '$med_name','$gen_name','$packing_mode','$pcs_per_unit','$quantity','$actual_price','$selling_price','$sell_per_pcs','$price_date','$company','$category','$status')";
 
 			$result =mysqli_query($con,$sql);
 			if($result)

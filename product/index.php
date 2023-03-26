@@ -15,6 +15,10 @@
 		<table id="table" style="width: 600px; margin: auto;overflow-x:auto; overflow-y: auto;">
 			
 			<tr>
+				<td>Bar Code:</td>
+				<td><input type="text" name="bar_code" id="bar_code" size="10" placeholder="Set a bar code"></td>
+			</tr>
+			<tr>
 				<td>Category:</td>
 				<td>
 					<select id="category" name="category" required > 
