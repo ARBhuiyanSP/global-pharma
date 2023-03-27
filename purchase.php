@@ -196,7 +196,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
 
   
   <div class="container">
-    <div class="row pre-scrollable">	
+    <div class="row pre-scrollable" style="border:1px solid gray;min-height:250px;max-height:300px;">	
 		<table class="table table-bordered table-striped table-hover" id="resultTable" data-responsive="table">
 				<thead>
 					<tr style="background-color: #383838; color: #FFFFFF;" >

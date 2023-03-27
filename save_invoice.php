@@ -50,8 +50,9 @@ require "fpdf.php";
 					$insert_sql = "INSERT INTO inv_issuedetail values('','$invoice_number','$medicine_name','$quantity','$cost','','$amount','','','','')";
 					$insert_query = mysqli_query($con,$insert_sql);
 					
-					/* $insert_balance_sql = "INSERT INTO inv_issuedetail values('','$invoice_number','$medicine_name','$quantity','$cost','','$amount','','','','')";
-					$insert_balance_query = mysqli_query($con,$insert_balance_sql); */
+					/* Insert Material Balance Table*/
+					$materialBalance_sql = "INSERT INTO inv_materialbalance VALUES('','$invoice_number','$medicine_name','','','','','$quantity','$cost','','','','Issue','','','','','')";
+					$materialBalance_query = mysqli_query($con,$materialBalance_sql);	
 			
 			
 					$update_stock = "UPDATE product SET act_remain_quantity = act_remain_quantity - '". $quantity ."' where medicine_name = '$medicine_name'";
@@ -64,6 +65,7 @@ require "fpdf.php";
 			/* Insert Issue Master Table*/
 			$issueMaster_sql = "INSERT INTO inv_issue values('','$invoice_number','$date','$quantity','','','','','','','','','','','','','','')";
 			$issueMaster_query = mysqli_query($con,$issueMaster_sql);
+			
 			
 			$new_invoice_number  = "CA-".$pdf->invoice_number();
 			header("location:home.php?invoice_number=$new_invoice_number");
