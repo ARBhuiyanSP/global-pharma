@@ -13,7 +13,7 @@ session_start();
 
 $id = $_GET['id'];
 
-$delete_sql = "DELETE from stock where id = '$id'";
+$delete_sql = "DELETE FROM product WHERE id = '$id'";
 
 $delete_query = mysqli_query($con,$delete_sql);
 
