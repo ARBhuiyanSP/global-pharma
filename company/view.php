@@ -32,13 +32,16 @@
   })//*****POP_UP FORMS*********
 
     </script>
+	<style>
+	body {  background-image: url(https://thumbs.dreamstime.com/b/pharmacy-interior-blurred-background-58416047.jpg); } 
+	</style>
      <!-- For more projects: Visit codeastro.com  -->
 </head>
 <body>
    <?php include('../top_menu_inner.php'); ?>
 
 
-     <div class="container"><!---****SEARCHES_CONTENT*****--->
+     <div class="container" style="background-color:#fff;"><!---****SEARCHES_CONTENT*****--->
 
       <div class="row">
         <div class="contentheader">
@@ -66,11 +69,12 @@
 
     ?>
 
-      <div style="text-align:center;">
+      
+    <!-- <div class="container" style="overflow-x:auto; overflow-y: auto;"> -->
+      <div class="container" style="background-color:#fff;">
+	  <div style="text-align:center;">
         Total Category : <font color="green" style="font:bold 22px 'Aleo';">[<?php echo $row;?>]</font>
       </div>
-    <!-- <div class="container" style="overflow-x:auto; overflow-y: auto;"> -->
-      <div class="container">
       <!---***CONTENT****----->
     <div class="row">
       <div class="col-12">
