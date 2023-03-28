@@ -81,59 +81,41 @@ if(!isset($_SESSION['user_session'])){  //User_session
 	</style>
 </head>
 <body>
-
- 
 	<div class="container" style="background-color:#fff;">
 
-	<?php include('top_menu.php'); ?>
-    <div class="row">
-      <div class="pull-right">
-        <font>Today's Sales:</font>
-                  <strong><?php
-  
-                    include("dbcon.php");
-  
-                    $date = date("Y-m-d");
-  
-                    $select_sql = "SELECT sum(total_amount) from sales where Date = '$date'";
-  
-                    $select_query = mysqli_query($con,$select_sql);
-  
-                    while($row = mysqli_fetch_array($select_query)){
-  
-                               echo '$'.$row['sum(total_amount)'];
-  
-  
-                    }
-  
-  
-  
-                  ?></strong>  
-        </div>
-      <i class="icon-calendar icon-large"></i>
+		<?php include('top_menu.php'); ?>
+		<div class="row">
+			<div class="pull-right">
+				<font>Today's Sales:</font>
+					<strong>
+						<?php
+							$date = date("Y-m-d");
+							$select_sql = "SELECT sum(total_amount) from sales where Date = '$date'";
+							$select_query = mysqli_query($con,$select_sql);
+							while($row = mysqli_fetch_array($select_query))
+								{
+									echo '$'.$row['sum(total_amount)'];
+								}
+						?>
+					</strong>  
+			</div>
+			<i class="icon-calendar icon-large"></i>
                 <?php
                 $Today = date('y:m:d',mktime());
                 $new = date('l, F d, Y', strtotime($Today));
                 echo $new;
                 ?><br><br>
-     
-
-    </div>
-
-
-     <div class="row">
-      <div class="contentheader">
-        <h2 style="margin:0px;">Home - Manage Sales</h2>
-       </div> <hr>
+		</div>
+		<div class="row">
+			<div class="contentheader">
+				<h2 style="margin:0px;">Home - Manage Sales</h2>
+			</div> <hr>
 				<?php
 				$invoice_number= $_GET['invoice_number'];
 					$medicine_name = "";
 					$category= "";
 					$quantity= "";
       
-      
-					
-					
 					$select_sql_master 		= "SELECT * from on_hold where invoice_number = '$invoice_number' ";
 					$select_query_master 	= mysqli_query($con ,$select_sql_master);
 					$rowMaster	= mysqli_fetch_array($select_query_master);
@@ -141,35 +123,32 @@ if(!isset($_SESSION['user_session'])){  //User_session
 					$supplier	= isset($rowMaster['supplier']);
 					$warehouse	= isset($rowMaster['company']);
 				?>
-			
-				<form method="POST" action="insert_invoice2.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
-					
-					<input type="text" name="invoice_number" value="<?php echo $_GET['invoice_number'];?>">
-					<input type="date" name="date" id="price_date" value="<?php echo $dates;?>">
-					
-					
-					
-					</br>
-					<!-- <input type="text" name="bar_code" id="bar_code" autocomplete="off" placeholder="Enter Barcode Number" style="width:300px;height: 30px;"> --->
-					
-					<input type="text" id="product" required  autocomplete="off" placeholder="Medicine" style="" autofocus>
-						<!-- <div class="ui-widget"> -->
-					<input type="hidden" name="product" id="product_hidden" required class="form-control" autocomplete="off" placeholder="Medicine" style="">
-						<!-- </div> -->
-					
-					<input type="number" name="avai_qty" id="avai_qty"  placeholder="Available qty" style="">
+			<form method="POST" action="insert_invoice2.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
+				
+				<input type="text" name="invoice_number" value="<?php echo $_GET['invoice_number'];?>">
+				<input type="date" name="date" id="price_date" value="<?php echo $dates;?>">
+				
+				</br>
+				<!-- <input type="text" name="bar_code" id="bar_code" autocomplete="off" placeholder="Enter Barcode Number" style="width:300px;height: 30px;"> --->
+				
+				<input type="text" id="product" required  autocomplete="off" placeholder="Medicine" style="" autofocus>
+					<!-- <div class="ui-widget"> -->
+				<input type="hidden" name="product" id="product_hidden" required class="form-control" autocomplete="off" placeholder="Medicine" style="">
+					<!-- </div> -->
+				
+				<input type="number" name="avai_qty" id="avai_qty"  placeholder="Available qty" style="">
 
-					<input type="number" name="qty" id="qty"  placeholder="Add Qty" autocomplete="off"  style="" required>
-					
-					<input type="text" name="salerateperpcs" id="salerateperpcs" class="form-control" autocomplete="off" placeholder="Sale rate / empty for default rate" style="">
-					
-					
-					<Button type="submit"  name="submit" class="btn btn-success" id="btn_submit" style=""><i class="icon icon-plus-sign"></i> Add Item</button>
-				</form> 
-			</div>
+				<input type="number" name="qty" id="qty"  placeholder="Add Qty" autocomplete="off"  style="" required>
+				
+				<input type="text" name="salerateperpcs" id="salerateperpcs" class="form-control" autocomplete="off" placeholder="Sale rate / empty for default rate" style="">
+				
+				
+				<Button type="submit"  name="submit" class="btn btn-success" id="btn_submit" style=""><i class="icon icon-plus-sign"></i> Add Item</button>
+			</form> 
+		</div>
 
-    <div class="row pre-scrollable" style="border:1px solid gray;min-height:250px;max-height:300px;">	
-		<table class="table table-bordered table-striped table-hover" id="resultTable" data-responsive="table">
+		<div class="row pre-scrollable" style="border:1px solid gray;min-height:250px;max-height:300px;">
+			<table class="table table-bordered table-striped table-hover" id="resultTable" data-responsive="table">
 				<thead>
 					<tr style="background-color: #383838; color: #FFFFFF;" >
 						<th> Medicine </th>
@@ -180,19 +159,19 @@ if(!isset($_SESSION['user_session'])){  //User_session
 					</tr>
 				</thead>
 				<tbody>
-                <?php
-					$select_sql = "SELECT * from `on_hold` WHERE `invoice_number` = '$invoice_number' ";
-					$select_query = mysqli_query($con ,$select_sql);
+					<?php
+						$select_sql = "SELECT * from `on_hold` WHERE `invoice_number` = '$invoice_number' ";
+						$select_query = mysqli_query($con ,$select_sql);
+		  
+						$i = 0;
+						
+						while($row = mysqli_fetch_array($select_query)):
+		  
+							$i++;
+					?>
       
-					$i = 0;
-                    
-					while($row = mysqli_fetch_array($select_query)):
-      
-						$i++;
-                ?>
-      
-                <tr class="record">
-                     <td><?php
+					<tr class="record">
+						<td><?php
       
       
                        $med_id = $row['id'];
@@ -201,7 +180,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
                        echo "<input type='hidden' value=$med_id id='med_id$i' name='med_id'>";
                        echo "<input type='hidden' value=$medicine_name id='med_name$i' name='med_name'>"
                       ?></td>
-                   <?php $category = $row['category'];
+						<?php $category = $row['category'];
                       ?>
                          <input type="hidden" value='<?php echo $category?>' id='med_cat<?php echo $i?>' name='med_cat'>
                         
@@ -248,7 +227,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
       </table>
 	  
     </div>
-	  <div class="row" id="bottom-fixed" style="">
+	  <div class="row" id="bottom-fixed" style="width:75%;background-color:#fff;">
 		<form method="POST" action="save_invoice.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
 			<b>Total: </b> <input type="text" id="total" name="total" value="<?php
       

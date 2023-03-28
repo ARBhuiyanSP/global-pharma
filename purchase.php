@@ -75,16 +75,16 @@ if(!isset($_SESSION['user_session'])){  //User_session
 
 	#bottom-fixed {
 		position: absolute;
-		bottom: 30px;
-		width: 100%;
+		bottom: 20px;
 	}
+	body {  background-image: url(https://thumbs.dreamstime.com/b/pharmacy-interior-blurred-background-58416047.jpg); }
 	</style>
 </head>
 <body>
 	<?php include('top_menu.php'); ?>
 
  
- <div class="container">
+ <div class="container" style="background-color:#fff;">
 
     <div class="row">
       <div class="pull-right">
@@ -119,9 +119,8 @@ if(!isset($_SESSION['user_session'])){  //User_session
      
 
     </div>
-  </div>
-   
-   <div class="container">
+ 
+ 
      <div class="row">
       <div class="contentheader">
         <h2 style="margin:0px;">Medicines - Purchase</h2>
@@ -190,12 +189,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
 					<Button type="submit"  name="submit" class="btn btn-success" id="btn_submit" style=""><i class="icon icon-plus-sign"></i> Add Item</button>
 				</form> 
 			</div>
-     </div>
-
-  </div>
-
-  
-  <div class="container">
+    
     <div class="row pre-scrollable" style="border:1px solid gray;min-height:250px;max-height:300px;">	
 		<table class="table table-bordered table-striped table-hover" id="resultTable" data-responsive="table">
 				<thead>
@@ -276,7 +270,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
       </table>
 	  
     </div>
-	<div id="bottom-fixed">
+	 <div class="row" id="bottom-fixed" style="width:75%;background-color:#fff;">
 		<form method="POST" action="save_purchase.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
 			<b>Total: </b> <input type="text" id="total" name="total" value="<?php
       

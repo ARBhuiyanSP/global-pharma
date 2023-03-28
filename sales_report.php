@@ -51,13 +51,15 @@
       
     </script>
 
-
+<style>
+body {  background-image: url(https://thumbs.dreamstime.com/b/pharmacy-interior-blurred-background-58416047.jpg); } 
+</style>
      
 </head>
 <body>
   <?php include('top_menu.php'); ?>
 
-      <div class="container">
+      <div class="container" style="background-color:#fff;">
 
 
     <div class="row">
