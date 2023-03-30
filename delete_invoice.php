@@ -18,6 +18,7 @@ $medicine_name= $_GET['name'];
 //$price_date = $_GET['price_date'];
 $quantity  = $_GET['quantity'];
 $invoice_number=$_GET['invoice_number'];
+$inv_date=$_GET['inv_date'];
 
 
 $update_sql = "UPDATE  product set used_quantity = used_quantity+'$quantity', remain_quantity = remain_quantity + '$quantity' , active_prod = 'YES' where medicine_name = '$medicine_name'"; //***UPDATE STOCK when medicine deleted from Sale *******
@@ -30,7 +31,7 @@ $update_query = mysqli_query($con,$update_sql);
 
 	     if($delete_query){
 
-	     	header("location:home.php?invoice_number=$invoice_number");
+	     	header("location:home.php?invoice_number=$invoice_number&inv_date=$inv_date");
 	     }else{
 
 	     	echo "Sorry";

@@ -3,7 +3,21 @@ include("dbcon.php");
 session_start();
 if(!isset($_SESSION['user_session'])){  //User_session
   header("location:index.php");
- }                       
+ } 
+
+/* $invoice_number = getDefaultCategoryCode('inv_issue', 'IssueID', '03d', '001', 'INV-');
+
+function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $prefix){
+    global $con;
+    $sql    = "SELECT count($fieldName) as total_row FROM $table";
+    $result = $con->query($sql);
+    $name   =   '';
+    $lastRows   = $result->fetch_object();
+    $number     = intval($lastRows->total_row) + 1;
+    $defaultCode = $prefix.sprintf('%'.$modifier, $number);
+    return $defaultCode;
+    
+} */ 
 ?>
 <!DOCTYPE html>
 <html>
@@ -111,7 +125,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
 				<h2 style="margin:0px;">Home - Manage Sales</h2>
 			</div> <hr>
 				<?php
-				$invoice_number= $_GET['invoice_number'];
+				//$invoice_number= $_GET['invoice_number'];
 					$medicine_name = "";
 					$category= "";
 					$quantity= "";
@@ -119,14 +133,17 @@ if(!isset($_SESSION['user_session'])){  //User_session
 					$select_sql_master 		= "SELECT * from on_hold where invoice_number = '$invoice_number' ";
 					$select_query_master 	= mysqli_query($con ,$select_sql_master);
 					$rowMaster	= mysqli_fetch_array($select_query_master);
-					$dates	= isset($rowMaster['date']);
-					$supplier	= isset($rowMaster['supplier']);
-					$warehouse	= isset($rowMaster['company']);
+					$dates		= isset($rowMaster['date']);
+					if(isset($_GET['inv_date'])){
+						$inv_date = $_GET['inv_date'];
+					}else{
+						$inv_date = $dates;
+					}
 				?>
-			<form method="POST" action="insert_invoice2.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
+			<form method="POST" action="insert_invoice2.php?invoice_number=<?php echo $invoice_number;?> " >
 				
-				<input type="text" name="invoice_number" value="<?php echo $_GET['invoice_number'];?>">
-				<input type="date" name="date" id="price_date" value="<?php echo $dates;?>">
+				<input type="text" name="invoice_number" value="<?php echo $invoice_number;?>">
+				<input type="date" name="date" id="price_date" value="<?php echo $inv_date;?>" required >
 				
 				</br>
 				<!-- <input type="text" name="bar_code" id="bar_code" autocomplete="off" placeholder="Enter Barcode Number" style="width:300px;height: 30px;"> --->
@@ -200,7 +217,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
                      </td>
                      
                      <td><?php echo $row['amount']; ?></td>
-						<td><a href="delete_invoice.php?invoice_number=<?php echo $_GET['invoice_number']?>&id=<?php echo $row['id'];?>&name=<?php echo $row['medicine_name']?>&quantity=<?php echo $row['qty'];?>" class="btn btn-danger">Remove</a></td>
+						<td><a href="delete_invoice.php?invoice_number=<?php echo $invoice_number;?>&id=<?php echo $row['id'];?>&name=<?php echo $row['medicine_name']?>&quantity=<?php echo $row['qty'];?>&inv_date=<?php echo $row['date'];?>" class="btn btn-danger">Remove</a></td>
       
                   <?php endwhile; ?>  
                 </tr>
@@ -228,7 +245,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
 	  
     </div>
 	  <div class="row" id="bottom-fixed" style="width:75%;background-color:#fff;">
-		<form method="POST" action="save_invoice.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
+		<form method="POST" action="save_invoice.php?invoice_number=<?php echo $invoice_number;?> " >
 			<b>Total: </b> <input type="text" id="total" name="total" value="<?php
       
                 $select_sql = "SELECT sum(amount) , sum(profit_amount) from on_hold where invoice_number = '$invoice_number'";

@@ -8,24 +8,24 @@ require "fpdf.php";
 		}
 		class myPDF extends FPDF{
 	
-	function invoice_number()
-		{//*****Outputting a New Voucher code*******
-			$chars = "09302909209300923";
-			srand((double)microtime()*1000000);
-			$i = 1;
-			$pass = '';
-			while($i <=7)
-				{
 
-					$num  = rand()%10;
-					$tmp  = substr($chars, $num,1);
-					$pass = $pass.$tmp;
-					$i++;
-				}
-			return $pass;
-		}
 	/*****Outputting a New Voucher code*******/
 	}
+	
+			$newInvoice_number = getCode('inv_receive', 'MRRNo', '03d', '001', 'PO-');
+			$newDates= date('Y-m-d');
+
+			function getCode($table, $fieldName, $modifier, $defaultCode, $prefix){
+				global $con;
+				$sql    = "SELECT count($fieldName) as total_row FROM $table";
+				$result = $con->query($sql);
+				$name   =   '';
+				$lastRows   = $result->fetch_object();
+				$number     = intval($lastRows->total_row) + 2;
+				$defaultCode = $prefix.sprintf('%'.$modifier, $number);
+				return $defaultCode;
+				
+			}
 	
 	if(isset($_POST['submit'])){
 		$invoice_number = 	$_GET['invoice_number'];
@@ -75,8 +75,8 @@ require "fpdf.php";
 			
 			
 		
-		$new_invoice_number  = "CA-".$pdf->invoice_number();
-		header("location:purchase.php?invoice_number=$new_invoice_number");
+		//$new_invoice_number  = "CA-".$pdf->invoice_number();
+		header("location:purchase.php?invoice_number=$newInvoice_number&inv_date=$newDates");
 		
 	}
  

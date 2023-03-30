@@ -1,3 +1,20 @@
+<?php
+$invoice_number = getDefaultCategoryCode('inv_issue', 'IssueID', '03d', '001', 'INV-');
+$purchase_number = getDefaultCategoryCode('inv_receive', 'MRRNo', '03d', '001', 'PO-');
+$dates= date('Y-m-d');
+
+function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $prefix){
+    global $con;
+    $sql    = "SELECT count($fieldName) as total_row FROM $table";
+    $result = $con->query($sql);
+    $name   =   '';
+    $lastRows   = $result->fetch_object();
+    $number     = intval($lastRows->total_row) + 1;
+    $defaultCode = $prefix.sprintf('%'.$modifier, $number);
+    return $defaultCode;
+    
+}
+ ?>
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class=" navbar-inner">
 		<div class="container-fluid">
@@ -43,21 +60,18 @@
 								}
 						?>
 					</li>
-					<li><a href="product/view.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-qrcode"></span> Products</a></li>
+					<li><a href="product/view.php?invoice_number=<?php echo $purchase_number;?>&inv_date=<?php echo $dates; ?>"><span class="icon-qrcode"></span> Products</a></li>
+					<li><a href="purchase.php?invoice_number=<?php echo $purchase_number;?>&inv_date=<?php echo $dates; ?>"><span class="icon-tasks"></span> Purchase</a></li>
 					
+					<li><a href="home.php?invoice_number=<?php echo $invoice_number;?>&inv_date=<?php echo $dates; ?>"><span class="icon-shopping-cart"></span> Sales</a></li>
 					
-					
-					<li><a href="purchase.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-tasks"></span> Purchase</a></li>
-					
-					<li><a href="home.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-shopping-cart"></span> Sales</a></li>
-					
-					<li><a href="sales_report.php?invoice_number=<?php echo $_GET['invoice_number']?>"><span class="icon-bar-chart"></span> Report</a></li>
+					<li><a href="sales_report.php?invoice_number=<?php echo $purchase_number;?>&inv_date=<?php echo $dates; ?>"><span class="icon-bar-chart"></span> Report</a></li>
 
 					<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                          <li><a href="company/view.php?invoice_number=<?php echo $_GET['invoice_number']?>">Category</a></li>
-                          <li><a href="supplier/view.php?invoice_number=<?php echo $_GET['invoice_number']?>">Suppliers</a></li>
+                          <li><a href="company/view.php?invoice_number=<?php echo $purchase_number;?>&inv_date=<?php echo $dates; ?>">Category</a></li>
+                          <li><a href="supplier/view.php?invoice_number=<?php echo $purchase_number;?>&inv_date=<?php echo $dates; ?>">Suppliers</a></li>
                         </ul>
                     </li>					
 					

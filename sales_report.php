@@ -1,12 +1,9 @@
 <?php
-
-   session_start();
-
-  if(!isset($_SESSION['user_session'])){
-    
-      header("location:index.php");
-
-  }
+include("dbcon.php");
+session_start();
+if(!isset($_SESSION['user_session'])){  //User_session
+  header("location:index.php");
+ }
 
 ?>
 <!DOCTYPE html>
@@ -107,23 +104,21 @@ body {  background-image: url(https://thumbs.dreamstime.com/b/pharmacy-interior-
               if(isset($_POST['submit'])){
               $d1=$_POST['d1'];
               $d2=$_POST['d2'];
-              $select_sql = "SELECT * FROM sales where Date BETWEEN '$d1' and '$d2' order by Date desc";
+              $select_sql = "SELECT * FROM inv_issue where IssueDate BETWEEN '$d1' and '$d2' order by IssueDate desc";
               $select_query = mysqli_query($con,$select_sql);
               while($row = mysqli_fetch_array($select_query)) :
            ?>
             <tbody>
             <tr>
-              <td><?php echo $row['Date']?></td>
-              <td><?php $invoice_number =  $row['invoice_number'];
+              <td><?php echo $row['IssueDate']?></td>
+              <td><?php $invoice_number =  $row['IssueID'];
   
                    echo $invoice_number;
   
                    ?></td>
-            
-              <td><?php echo $row['medicines']?></td>
-              <td><?php echo $row['quantity']?></td>
-              <td><?php echo $row['total_amount']?></td>
-              <td><?php echo $row['total_profit']?></td>
+           
+              <td><?php echo $row['GrandAmt']?></td>
+              <td><?php echo $row['TotalProfit']?></td>
                   <td><a href="download.php?invoice_number=<?php echo $invoice_number?>"><button class="btn btn-success btn-md"><span class="icon-download-alt"></span> Download</button></a>
                </td>
   
@@ -136,13 +131,13 @@ body {  background-image: url(https://thumbs.dreamstime.com/b/pharmacy-interior-
                 <th>
                   <?php
   
-                  $select_sql = "SELECT sum(total_amount) from sales where Date BETWEEN '$d1' and '$d2'";
+                  $select_sql = "SELECT GrandAmt from inv_issue where IssueDate BETWEEN '$d1' and '$d2'";
   
                   $select_query = mysqli_query($con, $select_sql);
   
                   while($row = mysqli_fetch_array($select_query)){
   
-                     echo '$'.$row['sum(total_amount)'];
+                     echo '$'.$row['GrandAmt'];
   
                 }
   
@@ -151,13 +146,13 @@ body {  background-image: url(https://thumbs.dreamstime.com/b/pharmacy-interior-
                 <th colspan="2">
                   <?php
   
-                  $select_sql = "SELECT sum(total_profit) from sales where Date BETWEEN '$d1' and '$d2'";
+                  $select_sql = "SELECT TotalProfit from inv_issue where IssueDate BETWEEN '$d1' and '$d2'";
   
                   $select_query = mysqli_query($con, $select_sql);
   
                   while($row = mysqli_fetch_array($select_query)){
   
-                     echo '$'.$row['sum(total_profit)'];
+                     echo '$'.$row['TotalProfit'];
                 }
                   ?>
                             <?php }else{
@@ -165,7 +160,7 @@ body {  background-image: url(https://thumbs.dreamstime.com/b/pharmacy-interior-
   
   
   
-                            $select_sql = "SELECT * FROM sales where Date = '$date'";
+                            $select_sql = "SELECT * FROM inv_issue where IssueDate = '$date'";
                             $select_query = mysqli_query($con,$select_sql);
                             while($row = mysqli_fetch_array($select_query)) :
   
@@ -174,18 +169,17 @@ body {  background-image: url(https://thumbs.dreamstime.com/b/pharmacy-interior-
   
                                <tbody>
             <tr> 
-              <td><?php echo $row['Date']?>&nbsp;&nbsp;(<font size='2' color='#009688;'>Today</font>)</td>
-              <td><?php $invoice_number =  $row['invoice_number'];
+              <td><?php echo $row['IssueDate']?>&nbsp;&nbsp;(<font size='2' color='#009688;'>Today</font>)</td>
+              <td><?php $invoice_number =  $row['IssueID'];
   
                    echo $invoice_number;
   
                    ?></td>
             
-             <td><?php echo $row['medicines']?></td>
-             <td><?php echo $row['quantity']?></td>
+          
   
-              <td><?php echo $row['total_amount']?></td>
-              <td><?php echo $row['total_profit']?></td>
+              <td><?php echo $row['GrandAmt']?></td>
+              <td><?php echo $row['TotalProfit']?></td>
               <td><a href="download.php?invoice_number=<?php echo $invoice_number?>"><button class="btn btn-success btn-md"><span class="icon-download-alt"></span> Download</button></a>
           </td>
          <?php endwhile;?>

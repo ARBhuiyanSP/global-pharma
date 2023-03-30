@@ -1,5 +1,6 @@
 <?php
 
+       include('../dbcon.php');
    session_start();
 
   if(!isset($_SESSION['user_session'])){
@@ -62,7 +63,6 @@
  
     <?php
 
-       include('../dbcon.php');
 
          $select_sql = "SELECT * FROM inv_supplier order by id";
          $select_query = mysqli_query($con,$select_sql);

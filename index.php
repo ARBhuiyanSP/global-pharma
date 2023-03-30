@@ -3,10 +3,25 @@
 error_reporting(1);
 session_start();
 include("dbcon.php");
+$invoice_number = getDefaultCategoryCode('inv_issue', 'IssueID', '03d', '001', 'INV-');
+			$dates= date('Y-m-d');
+
+			function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $prefix){
+				global $con;
+				$sql    = "SELECT count($fieldName) as total_row FROM $table";
+				$result = $con->query($sql);
+				$name   =   '';
+				$lastRows   = $result->fetch_object();
+				$number     = intval($lastRows->total_row) + 1;
+				$defaultCode = $prefix.sprintf('%'.$modifier, $number);
+				return $defaultCode;
+				
+			}
 if(isset($_SESSION['user_session'])){
   
   $invoice_number="CA-".invoice_number();
-	header("location:home.php?invoice_number=$invoice_number");
+	//header("location:home.php?invoice_number=$invoice_number");
+	header("location:home.php?invoice_number=$invoice_number&inv_date=$dates");
 }
 
    if(isset($_POST['submit'])){  //******Login Form*******
@@ -30,9 +45,10 @@ if(isset($_SESSION['user_session'])){
 
  if($s_username == $username && $s_password == $password){
           
-         $_SESSION['user_session'] = $s_username;
-         $invoice_number="CA-".invoice_number();
- 	       header("location:home.php?invoice_number=$invoice_number");
+			$_SESSION['user_session'] = $s_username;
+			//$invoice_number="CA-".invoice_number();
+ 	       //header("location:home.php?invoice_number=$invoice_number");
+ 	       header("location:home.php?invoice_number=$invoice_number&inv_date=$dates");
 
 
  }else{

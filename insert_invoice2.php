@@ -7,7 +7,7 @@ session_start();
 	include("dbcon.php");
 	if(isset($_POST['submit']))
 		{
-		$invoice_number	=	$_GET['invoice_number'];
+		$invoice_number	=	$_POST['invoice_number'];
 		$product 		=	$_POST['product'];
 		//$supplier 		=	$_POST['supplier'];
 		//$company 		=	$_POST['company'];
@@ -79,7 +79,7 @@ session_start();
 
 			if($insert_query)
 				{
-					header("location:home.php?invoice_number=$invoice_number");
+					header("location:home.php?invoice_number=$invoice_number&inv_date=$date");
 					// echo "<script type='text/javascript'>window.location.href = home.php?invoice_number=$invoice_number '</script>";
 				}
 					else

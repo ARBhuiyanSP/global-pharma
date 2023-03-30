@@ -1,5 +1,6 @@
 <?php
 
+       include('../dbcon.php');
    session_start();
 
   if(!isset($_SESSION['user_session'])){
@@ -78,7 +79,6 @@ body {  background-image: url(https://thumbs.dreamstime.com/b/pharmacy-interior-
  
     <?php
 
-       include('../dbcon.php');
 
          $select_sql = "SELECT * FROM product order by medicine_name";
          $select_query = mysqli_query($con,$select_sql);

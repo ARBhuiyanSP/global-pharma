@@ -7,7 +7,14 @@ require "fpdf.php";
 		}
 	class myPDF extends FPDF{
 		
-		function invoice_number()
+		
+		/*---------------*/
+		//$newInvoice_number = getDefaultCategoryCode('inv_issue', 'IssueID', '03d', '001', 'INV-');
+		
+
+		
+		/*---------------*/
+		/* function invoice_number()
 			{//*****Outputting a New Voucher code*******
 				$chars = "09302909209300923";
 				srand((double)microtime()*1000000);
@@ -22,10 +29,24 @@ require "fpdf.php";
 						$i++;
 					}
 				return $pass;
-			}
+			} */
 		/*****Outputting a New Voucher code*******/
 		}
-	
+		
+			$newInvoice_number = getCode('inv_issue', 'IssueID', '03d', '001', 'INV-');
+			$newDates= date('Y-m-d');
+
+			function getCode($table, $fieldName, $modifier, $defaultCode, $prefix){
+				global $con;
+				$sql    = "SELECT count($fieldName) as total_row FROM $table";
+				$result = $con->query($sql);
+				$name   =   '';
+				$lastRows   = $result->fetch_object();
+				$number     = intval($lastRows->total_row) + 2;
+				$defaultCode = $prefix.sprintf('%'.$modifier, $number);
+				return $defaultCode;
+				
+			}
 		if(isset($_POST['submit'])){
 			$invoice_number = 	$_GET['invoice_number'];
 			$total 			=	$_POST['total'];
@@ -62,13 +83,14 @@ require "fpdf.php";
 					$del_hold_query = mysqli_query($con,$del_hold_sql);
 				}
 				
+			
 			/* Insert Issue Master Table*/
 			$issueMaster_sql = "INSERT INTO inv_issue values('','$invoice_number','$date','$quantity','','','','','','','','','','','','','','')";
 			$issueMaster_query = mysqli_query($con,$issueMaster_sql);
 			
 			
-			$new_invoice_number  = "CA-".$pdf->invoice_number();
-			header("location:home.php?invoice_number=$new_invoice_number");
+			//$new_invoice_number  = $pdf->getDefaultCategoryCode();
+			header("location:home.php?invoice_number=$newInvoice_number&inv_date=$newDates");
 			
 		}
  

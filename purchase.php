@@ -137,7 +137,14 @@ if(!isset($_SESSION['user_session'])){  //User_session
 					$select_sql_master 		= "SELECT * from purchase_details where invoice_number = '$invoice_number' ";
 					$select_query_master 	= mysqli_query($con ,$select_sql_master);
 					$rowMaster	= mysqli_fetch_array($select_query_master);
-					$dates	= isset($rowMaster['date']);
+					$dates		= isset($rowMaster['date']);
+					
+					if(isset($_GET['inv_date'])){
+						$inv_date = $_GET['inv_date'];
+					}else{
+						$inv_date = $dates;
+					}
+					
 					$supplier	= isset($rowMaster['supplier']);
 					$warehouse	= isset($rowMaster['company']);
 				?>
@@ -145,17 +152,18 @@ if(!isset($_SESSION['user_session'])){  //User_session
 				<form method="POST" action="insert_purchase.php?invoice_number=<?php echo $_GET['invoice_number']?> " >
 					
 					<input type="text" name="invoice_number" value="<?php echo $_GET['invoice_number'];?>">
-					<input type="date" name="date" id="price_date" value="<?php echo $dates; ?>">
+					<input type="date" name="date" id="price_date" value="<?php echo $inv_date; ?>">
 					
 					
 					
 					<select class="form-control" name="company">
 						<?php 
+							$company	= $rowMaster['company'];
 							$warehouse_sql = "SELECT * FROM `inv_warehosueinfo`";
 							$warehouse_query = mysqli_query($con ,$warehouse_sql);
 							while($warehouse_row = mysqli_fetch_array($warehouse_query)):
 						?>
-						<option value="<?php echo $warehouse_row['name'] ?>" <?php if($warehouse==$warehouse_row["name"]){ echo "selected";}else {echo "";} ?>><?php echo $warehouse_row['name'] ?></option>
+						<option value="<?php echo $warehouse_row['name'] ?>" <?php if($company==$warehouse_row["name"]){ echo "selected";}else {echo "";} ?>><?php echo $warehouse_row['name'] ?></option>
 						<?php endwhile; ?>
 					</select>
 					
@@ -243,7 +251,7 @@ if(!isset($_SESSION['user_session'])){  //User_session
                      </td>
                      
                      <td><?php echo $row['amount']; ?></td>
-						<td><a href="delete_purchase.php?invoice_number=<?php echo $_GET['invoice_number']?>&id=<?php echo $row['id'];?>&name=<?php echo $row['medicine_name']?>&quantity=<?php echo $row['qty'];?>" class="btn btn-danger">Remove</a></td>
+						<td><a href="delete_purchase.php?invoice_number=<?php echo $_GET['invoice_number']?>&id=<?php echo $row['id'];?>&name=<?php echo $row['medicine_name']?>&quantity=<?php echo $row['qty'];?>&inv_date=<?php echo $row['date'];?>" class="btn btn-danger">Remove</a></td>
       
                   <?php endwhile; ?>  
                 </tr>

@@ -79,7 +79,7 @@ session_start();
 
 			if($insert_query)
 				{
-					header("location:purchase.php?invoice_number=$invoice_number");
+					header("location:purchase.php?invoice_number=$invoice_number&inv_date=$date");
 					// echo "<script type='text/javascript'>window.location.href = home.php?invoice_number=$invoice_number '</script>";
 				}
 					else
