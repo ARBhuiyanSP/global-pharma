@@ -1,173 +1,131 @@
 <!-- For more projects: Visit codeastro.com  -->
 <?php
-
-   session_start();
-
-   include("../dbcon.php");
-
-  if(!isset($_SESSION['user_session'])){
-    
-      header("location:../index.php");
-
-  }
-
-  //****SELECTINg FROM stock******
-
-$id = $_GET['id'];
-
-$invoice_number = $_GET['invoice_number'];
-
-$select_sql = "SELECT * FROM stock where id = '$id' ";
-  
-$select_query = mysqli_query($con,$select_sql);
-
-  while($row = mysqli_fetch_array($select_query)):
-
-
-
+	session_start();
+	include("../dbcon.php");
+	if(!isset($_SESSION['user_session']))
+	{
+		header("location:../index.php");
+	}
+	//****SELECTINg FROM stock******
+	$id = $_GET['id'];
+	$invoice_number = $_GET['invoice_number'];
+	$select_sql = "SELECT * FROM product where id = '$id' ";
+	$select_query = mysqli_query($con,$select_sql);
+	while($row = mysqli_fetch_array($select_query)):
 ?>
 <body>  
     <form method="POST" action="update.php?invoice_number=<?php echo $invoice_number?>">
-          <table id="table" style="width: 400px; margin: auto;">
-         <td><input type="hidden" name="id" value="<?php echo $row['id']?>"></td>
-
-         <tr id="row">
-         <td>Medicine Name:</td>
-         <td><input type="text" name="med_name"  id="med_name" size="10" value="<?php echo $row['medicine_name']?>" required ></td>
-        </tr>
-
-        <tr>
-                   <td>Category:</td>
-
-          <td><input type="text" name="category" id="category" size="10" value="<?php echo $row['category']?>"  required></td>
-        </tr>
-         <tr>
-                   <td>Quantity:</td>
-
-        <td><input type="number" style="width: 95px;" name="quantity" value="<?php echo $row['quantity']?>">
-
-             <select style="width: 95px; height: 28px; border-color: #000080" name="sell_type" > 
-                 <option value="<?php echo $row['sell_type']?>" disabled><?php echo $row['sell_type']?></option>
-                 <option value="Bot">Bot</option>
-                 <option value="Stp">Stp</option>
-                  <option value="Tab">Tab</option>
-		 <option value="Sachet">Sachet</option>	
-		<option value="Unit">Unit</option>
-		<option value="Tube">Tube</option>
-                 </select></td>
-        
-        </tr> 
-        <tr>
-                   <td>Used Quantity:</td>
-
-          <td><input type="number" name="used_quantity" readonly id="used_quantity"  value="<?php echo $row['used_quantity']?>" ></td>
-        </tr>
-
-        <tr>
-
-        <td>Remain Quantity:</td>
-
-        <td><input type="number" name="remain_quantity" readonly id="remain_quantity" value="<?php echo $row['remain_quantity']?>" ></td>
-
-        </tr>
-
-        <tr>
-                   <td>Registered Date:</td>
-
-          <td><input type="date"  name="reg_date" id="reg_date" size="5" value="<?php echo $row['register_date']?>"  required>  </td>
-        </tr>
-        <tr>
-                   <td>Expired Date:</td>
-
-          <td><input type="date" name="exp_date" id="exp_date" size="5" value="<?php echo $row['expire_date']?>"  required></td>
-        </tr>
-        <tr>
-                   <td>Remark:</td>
-
-          <td><input type="text" name="company" id="company" size="10" value="<?php echo $row['company']?>"></td>
-        </tr>
-    
-          <tr>
-                     <td>Actual Price:</td>
-
-          <td><input type="number" name="actual_price" id="actual_price" value="<?php echo $row['actual_price']?>" ></td>
-        </tr>
-        <tr>
-                   <td>Selling Price:</td>
-
-          <td><input type="number" name="selling_price" id="selling_price"   value="<?php echo $row['selling_price']?>" ></td>
-        </tr>
-        <tr>
-                   <td>Profit:</td>
-
-          <td><input type="text" name="profit_price" id="profit_price" value="<?php echo $row['profit_price']?>"  readonly></td>
-        </tr>
-
-        <tr>
-            <td>Status:</td>
-            <td>
-                <select style="width: 230px; height: 35px; border-color: #000080" name="status"> 
-                 <option  disabled><?php echo $row['status']?></option>
-                 <option value="Available">Available</option>
-                 <option value="Not Available">Unavailable</option>
-                 </select></td>
-        </tr>
-      <?php endwhile; ?>
-        <tr>
-          <td></td>
-          <td> <input type="submit" name="update" class="btn btn-success btn-md" style="width: 225px" value="Save Changes"> </td>
-        </tr>
-
-         </table> 
+		<table id="table" style="width: 400px; margin: auto;">
+			<input type="hidden" name="id" value="<?php echo $row['id']?>">
+			<tr>
+				<td>Bar Code:</td>
+				<td><input type="text" name="bar_code" id="bar_code" size="10" placeholder="Set a bar code" value="<?php echo $row['bar_code']?>"></td>
+			</tr>
+			
+			<tr>
+				<td>Category:</td>
+				<td>
+					<select id="category" name="category" required > 
+						<option value="">Select Category</option>
+						<?php 
+						$category	=	$row['item_category'];
+						$sqls = "SELECT * FROM `category`";
+						$results =  mysqli_query($con,$sqls);
+							while( $rows =  mysqli_fetch_array($results)) : 
+						?>
+						<option value="<?php echo $rows['name']; ?>"><?php echo $rows['name']; ?></option>
+							<?php endwhile ?>
+					</select>
+				</td>
+			</tr>
+			<tr id="row">
+				<td>Medicine Name:</td>
+				<td><input type="text" name="med_name"  id="med_name" size="10" value="<?php echo $row['medicine_name']?>" required ></td>
+			</tr> 
+			<tr id="row1">
+				<td>Generic Name:</td>
+				<td><input type="text" name="gen_name"  id="gen_name" size="" value="<?php echo $row['generic_name']?>" required ></td>
+			</tr>
+			<tr>
+				<td>Compnay Name:</td>
+				<!-- For more projects: Visit codeastro.com  -->
+				<td>
+					<select id="company" name="company" required > 
+						<option value="">Select Company/Brand</option>
+						<?php 
+						$sql2 = "SELECT * FROM `inv_supplier`";
+						$result2 =  mysqli_query($con,$sql2);
+							while( $row2 =  mysqli_fetch_array($result2)) : 
+						?>
+						<option value="<?php echo $row2['SupplierCompany']; ?>"><?php echo $row2['SupplierCompany']; ?></option>
+							<?php endwhile ?>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Packing Mode:</td>
+				<!-- For more projects: Visit codeastro.com  -->
+				<td>
+					<select style="" name="packing_mode" > 
+						<option value="BOX">BOX</option>
+						<option value="CARTON">CARTON</option>
+						<option value="SET">SET</option>
+						<option value="NOS">NOS</option>
+						
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Pcs Per Box/Carton</td>
+				<td><input type="text"  name="pcs_per_unit" id="pcs_per_unit" value="<?php echo $row['pcs_per_pack']?>" onkeyup="calculate_sell()" required ></td>
+			</tr>
+			<tr>
+                <td>Buy Rate(CTN):</td>
+				<td><input type="number" name="actual_price" id="actual_price" value="<?php echo $row['unit_buy_price'] ?>" onkeyup="calculate_sell()"></td>
+			</tr>
+			<tr>
+                <td>Sale Rate(CTN):</td>
+				<td><input type="number" name="selling_price" id="selling_price" value="<?php echo $row['unit_sale_price'] ?>" onkeyup="calculate_sell()"></td>
+			</tr>
+			<tr><!-- For more projects: Visit codeastro.com  -->
+                <td>Sale Rate per Piece:</td>
+				<td><input type="text" name="sell_per_pcs" id="sell_per_pcs" value="<?php echo $row['sale_per_pcs'] ?>"></td>
+			</tr>
+			
+			<tr>
+				<td>Price Date:</td>
+				<td><input type="date"  name="price_date" id="price_date" required>  </td>
+			</tr>
+			
+			<tr>
+				<td>Acive Status:</td>
+				<!-- For more projects: Visit codeastro.com  -->
+				<td>
+					<select name="active_status" > 
+						<option value="YES">YES</option>
+						<option value="NO">NO</option>
+					</select>
+				</td>
+			</tr>
+			<?php endwhile; ?>
+			<tr>
+			  <td></td>
+			  <td> <input type="submit" name="update" class="btn btn-success btn-md" style="width: 225px" value="Save Changes"> </td>
+			</tr>
+        </table> 
         <br>
-         </form><br>
+    </form><br>
 </body>
 
 <script type="text/javascript">
-    $(document).ready(function(){//***AUTO CALCULATION****
+	function calculate_sell() {
+        let pcs_per_unit	=   $("#pcs_per_unit").val();
+        let selling_price	=   $("#selling_price").val();
+        let sellPerPcs   	=   parseFloat((selling_price / pcs_per_unit));
 
-        $(document).on('keyup','#med_name', 
-
-        function(){
-             var med_name_cap = $("#med_name").val();
-              
-              $("#med_name").val(med_name_cap.charAt(0).toUpperCase()+med_name_cap.slice(1));
-      
-        });
-
-
-      $(document).on('keyup','#category', 
-
-        function(){
-             var category_cap = $("#category").val();
-              
-              $("#category").val(category_cap.charAt(0).toUpperCase()+category_cap.slice(1));
-      
-        });
-
-
-      $(document).on('keyup','#actual_price', 
-
-        function(){
-             var act_price = $("#actual_price").val();
-      var sell_price = $("#selling_price").val();
-      var pro_price = parseInt(sell_price) - parseInt(act_price);
-	var percentage = Math.round((parseInt(pro_price)/parseInt(act_price))*100);
-	var output = pro_price.toString().concat("(")+percentage.toString().concat("%)");
-        $("#profit_price").val(output);
-        });
-
-       $(document).on('keyup','#selling_price', 
-        function(){
-      var act_price = $("#actual_price").val();
-      var sell_price = $("#selling_price").val();
-      var pro_price = parseInt(sell_price) - parseInt(act_price);
-	var percentage = Math.round((parseInt(pro_price)/parseInt(act_price))*100);
-	var output = pro_price.toString().concat("(")+percentage.toString().concat("%)");
-        $("#profit_price").val(output);
-            });
-});
-    
-  </script>
+        document.getElementById('sell_per_pcs').value = sellPerPcs.toFixed(2);
+        
+    }
+</script>
 </html>
 
