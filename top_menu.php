@@ -65,6 +65,18 @@ function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $pr
 					
 					<li><a href="home.php?invoice_number=<?php echo $invoice_number;?>&inv_date=<?php echo $dates; ?>"><span class="icon-shopping-cart"></span> Sales</a></li>
 					
+					<li><a href="salesreturn.php?invoice_number=<?php echo $invoice_number;?>&inv_date=<?php echo $dates; ?>"><span class="icon-shopping-cart"></span> Sales Return</a></li>
+					
+					<li><a href="purchasereturn.php?invoice_number=<?php echo $invoice_number;?>&inv_date=<?php echo $dates; ?>"><span class="icon-shopping-cart"></span> purchase Return</a></li>
+					
+					
+					<li><a href="supplierpayment/index.php"><span class="icon-shopping-cart"></span> supplier Payment</a></li>
+					
+					
+					
+					<li><a href="supplierpayment.php?invoice_number=<?php echo $invoice_number;?>&inv_date=<?php echo $dates; ?>"><span class="icon-shopping-cart"></span> Party Payment</a></li>
+					
+					
 					<li><a href="sales_report.php?invoice_number=<?php echo $purchase_number;?>&inv_date=<?php echo $dates; ?>"><span class="icon-bar-chart"></span> Report</a></li>
 
 					<li class="dropdown">
@@ -72,6 +84,9 @@ function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $pr
                         <ul class="dropdown-menu">
                           <li><a href="company/view.php?invoice_number=<?php echo $purchase_number;?>&inv_date=<?php echo $dates; ?>">Category</a></li>
                           <li><a href="supplier/view.php?invoice_number=<?php echo $purchase_number;?>&inv_date=<?php echo $dates; ?>">Suppliers</a></li>
+						  
+						   <li><a href="customer/view.php?invoice_number=<?php echo $purchase_number;?>&inv_date=<?php echo $dates; ?>">Customer</a></li>
+						   
                         </ul>
                     </li>					
 					

@@ -11,9 +11,9 @@ session_start();
   }
 
 
-$SupplierID = $_GET['SupplierID'];
+$id = $_GET['id'];
 
-$delete_sql = "DELETE from inv_supplier where SupplierID = '$SupplierID'";
+$delete_sql = "DELETE from suppliers where id = '$id'";
 
 $delete_query = mysqli_query($con,$delete_sql);
 

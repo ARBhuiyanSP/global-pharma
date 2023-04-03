@@ -39,31 +39,32 @@
      <!-- For more projects: Visit codeastro.com  -->
 </head>
 <body>
- <?php include('../top_menu.php'); ?>
+ <?php include('../top_menu_inner.php'); ?>
 
      <div class="container" style="background-color:#fff;"><!---****SEARCHES_CONTENT*****--->
 
       <div class="row">
         <div class="contentheader">
-          <h1>Suppliers</h1>
+          <h1>Customer Entry</h1>
            </div><br>
     
-            <input type="text"  id="name_search" size="4"  onkeyup="supplier_name_search()" placeholder="Filter using Name" title="Type BarCode">
-            
+            <input type="text"  id="name_med1" size="4"  onkeyup="med_name1()" placeholder="Filter using Name" title="Type BarCode">
+            <input type="text" size="4"  id="med_quantity" onkeyup="quanti()" placeholder="Filter using Address" title="Type Medicine Name">
 			
            
 			
-           <a href="index.php" id="popup"><button class="btn btn-success btn-md" name="submit"><span class="icon-plus-sign icon-large"></span> Add New Supplier</button></a>
+           <a href="index.php?invoice_number=<?php echo $_GET['invoice_number']?>" id="popup"><button class="btn btn-success btn-md" name="submit"><span class="icon-plus-sign icon-large"></span> Add New Customer</button></a>
              
       </div>
-
+ 
+  <!-- For more projects: Visit codeastro.com  -->
     </div><!---****SEARCHES_CONTENT*****--->
 
  
     <?php
 
 
-         $select_sql = "SELECT * FROM inv_supplier order by id";
+         $select_sql = "SELECT * FROM inv_customer order by id";
          $select_query = mysqli_query($con,$select_sql);
          $row = mysqli_num_rows($select_query);
 
@@ -73,7 +74,7 @@
     <!-- <div class="container" style="overflow-x:auto; overflow-y: auto;"> -->
       <div class="container" style="background-color:#fff;">
 	   <div style="text-align:center;">
-        Total Suppliers : <font color="green" style="font:bold 22px 'Aleo';">[<?php echo $row;?>]</font>
+        Total Customer : <font color="green" style="font:bold 22px 'Aleo';">[<?php echo $row;?>]</font>
       </div>
       <!---***CONTENT****----->
     <div class="row">
@@ -84,7 +85,6 @@
           <table id="table0" class="table table-bordered table-striped table-hover">
            <thead>
              <tr style="background-color: #383838; color: #FFFFFF;" >
-			 <th width="3%">ID</th>
              <th width="3%">Name</th>
              <th width="3%">Address</th>
              <th width="1%">Phone</th>
@@ -94,7 +94,7 @@
             <tbody>
    
         <?php include("../dbcon.php"); ?>
-        <?php $sql = "SELECT * FROM inv_supplier order by SupplierCompany asc"; ?>
+        <?php $sql = "SELECT * FROM inv_customer order by customername asc"; ?>
         <?php $result =  mysqli_query($con,$sql); ?>
       <!--Use a while loop to make a table row for every DB row-->
         <?php while( $row =  mysqli_fetch_array($result)) : ?>
@@ -102,16 +102,11 @@
   
         <tr style="">
             <!--Each table column is echoed in to a td cell-->
-			<td><?php echo $row['SupplierID']; ?></td>
-            <td><?php echo $row['SupplierCompany']; ?></td>
-            <td><?php echo $row['SupplierAddress1']; ?></td>
-            <td><?php echo $row['SupplierPhone1']; ?></td>
-			
-			
-            <td>
-			<a id="popup" href="update_view.php?SupplierID=<?php echo $row['SupplierID']?>"><button class="btn btn-info"><span class="icon-edit"></span></button></a>
-			
-          <button class="btn btn-danger delete" SupplierID="<?php echo $row['SupplierID']?>"><span class="icon-trash"></span>&nbsp;</button></td>
+            <td><?php echo $row['customername']; ?></td>
+            <td><?php echo $row['Address']; ?></td>
+            <td><?php echo $row['Phone']; ?></td>
+            <td><a id="popup" href="update_view.php?id=<?php echo $row['id']?>&invoice_number=<?php echo $_GET['invoice_number']?>"><button class="btn btn-info"><span class="icon-edit"></span></button></a>
+          <button class="btn btn-danger delete" id="<?php echo $row['id']?>"><span class="icon-trash"></span>&nbsp;</button></td>
   
             </tr>
         <?php endwhile ?>
@@ -126,10 +121,9 @@
 </html>
 <!-- For more projects: Visit codeastro.com  -->
 <script type="text/javascript">
-
-function supplier_name_search() {//***Search For Medicine *****
+function med_name1() {//***Search For Medicine *****
   var input, filter, table, tr, td, i;
-  input = document.getElementById("name_search");
+  input = document.getElementById("name_med1");
   filter = input.value.toUpperCase();
   table = document.getElementById("table0");
   tr = table.getElementsByTagName("tr");
@@ -146,14 +140,68 @@ function supplier_name_search() {//***Search For Medicine *****
 }
 
 
+function quanti() {//***Search For quantity *****
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("med_quantity");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("table0");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+function exp_date() {//***Search For expireDate *****
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("med_exp_date");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("table0");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[6];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+
+function stat_search() {//***Search For Status*****
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("med_status");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("table0");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[11];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
 
 $(".delete").click(function(){//***Showing Alert When Deleting*****
 
   var element = $(this);
 
-  var del_id = element.attr("SupplierID");
+  var del_id = element.attr("id");
 
-  var info = 'SupplierID='+del_id;
+  var info = 'id='+del_id;
 
   if(confirm("Delte This Product!!Are You Sure??")){
 

@@ -14,13 +14,16 @@
 
    if(isset($_POST['submit'])){
 	
-$SupplierID= $_POST['SupplierID'];
-$SupplierCompany= $_POST['SupplierCompany'];  
-$SupplierAddress1= $_POST['SupplierAddress1']; 
-$SupplierPhone1= $_POST['SupplierPhone1']; ;
+$SBRefID= $_POST['SBRefID'];
+$SBDate= $_POST['SBDate'];  
+$SBSupplierID= $_POST['SBSupplierID']; 
+$SBDrAmount= $_POST['SBDrAmount']; 
+$SBCrAmount= 0; 
+$SBRemark= $_POST['SBRemark'];
+$Type= $_POST['Type'];	
 
- $sql="INSERT INTO inv_supplier(SupplierID,SupplierCompany,SupplierAddress1, SupplierPhone1) 
- VALUES ('$SupplierID','$SupplierCompany','$SupplierAddress1','$SupplierPhone1')";
+ $sql="INSERT INTO inv_supplierbalance(SBRefID,SBDate,SBSupplierID, SBDrAmount,SBCrAmount,SBRemark,Type) 
+ VALUES ('$SBRefID','$SBDate','$SBSupplierID','$SBDrAmount','$SBCrAmount','$SBRemark','$Type')";
 
    $result =mysqli_query($con,$sql);
 

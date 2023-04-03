@@ -13,11 +13,11 @@
 
   //****SELECTINg FROM stock******
 
-$SupplierID = $_GET['SupplierID'];
+$id = $_GET['id'];
 
 
 
-$select_sql = "SELECT * FROM inv_supplier where SupplierID = '$SupplierID' ";
+$select_sql = "SELECT * FROM inv_customer where id = '$id' ";
   
 $select_query = mysqli_query($con,$select_sql);
 
@@ -27,31 +27,32 @@ $select_query = mysqli_query($con,$select_sql);
 
 ?>
 <body>  
-    <form method="POST" action="update.php">
+    <form method="POST" action="update.php?">
           <table id="table" style="width: 400px; margin: auto;">
 			<td><input type="hidden" name="id" value="<?php echo $row['id']?>"></td>
 
-
 			<tr id="row">
 				<td> Name:</td>
-				<td><input type="text" name="SupplierID"  id="SupplierID" size="10" value="<?php echo $row['SupplierID']?>" required ></td>
-			</tr>
-			
-			
-			<tr id="row">
-				<td> Name:</td>
-				<td><input type="text" name="SupplierCompany"  id="SupplierCompany" size="10" value="<?php echo $row['SupplierCompany']?>" required ></td>
+				<td><input type="text" name="customername"  id="customername" size="10" value="<?php echo $row['name']?>" required ></td>
 			</tr>
 			<tr id="row">
 				<td> Address:</td>
-				<td><input type="text" name="SupplierAddress1"  id="SupplierAddress1" size="10" value="<?php echo $row['SupplierAddress1']?>" required ></td>
+				<td><input type="text" name="address"  id="address" size="10" value="<?php echo $row['address']?>" required ></td>
 			</tr>
 			<tr id="row">
 				<td> Phone:</td>
-				<td><input type="text" name="SupplierPhone1"  id="SupplierPhone1" size="10" value="<?php echo $row['SupplierPhone1']?>" required ></td>
+				<td><input type="text" name="phone"  id="phone" size="10" value="<?php echo $row['phone']?>" required ></td>
 			</tr>
 
-			
+			<tr>
+				<td>Status:</td>
+				<td>
+					<select style="width: 230px; height: 35px; border-color: #000080" name="status"> 
+						<option  disabled><?php echo $row['status']?></option>
+						<option value="Active">Active</option>
+						<option value="Inactive">Inactive</option>
+				</select></td>
+			</tr>
       <?php endwhile; ?>
         <tr>
           <td></td>

@@ -10,26 +10,20 @@
 ?>
 
 <body>
-	<form method="POST" action="register.php">
+	<form method="POST" action="register.php?invoice_number=<?php echo $_GET['invoice_number']?>">
 		<table id="table" style="width: 400px; margin: auto;overflow-x:auto; overflow-y: auto;">
-			
-			
-			<tr id="row1">
-				<td>Supplier ID:</td>
-				<td><input type="text" name="SupplierID"  id="SupplierID" size="10" required ></td>
-			</tr>
 			
 			<tr id="row1">
 				<td>Name:</td>
-				<td><input type="text" name="SupplierCompany"  id="SupplierCompany" size="10" required ></td>
+				<td><input type="text" name="customername"  id="customername" size="10" required ></td>
 			</tr>
 			<tr id="row1">
 				<td>Address:</td>
-				<td><input type="text" name="SupplierAddress1"  id="SupplierAddress1" size="10" required ></td>
+				<td><input type="text" name="address"  id="address" size="10" required ></td>
 			</tr>
 			<tr id="row1">
 				<td>Phone:</td>
-				<td><input type="text" name="SupplierPhone1"  id="SupplierPhone1" size="10" required ></td>
+				<td><input type="text" name="phone"  id="phone" size="10" required ></td>
 			</tr>
 			<tr>
 				<td></td>

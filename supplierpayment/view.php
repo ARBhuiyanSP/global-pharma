@@ -43,19 +43,7 @@
 
      <div class="container" style="background-color:#fff;"><!---****SEARCHES_CONTENT*****--->
 
-      <div class="row">
-        <div class="contentheader">
-          <h1>Suppliers</h1>
-           </div><br>
-    
-            <input type="text"  id="name_search" size="4"  onkeyup="supplier_name_search()" placeholder="Filter using Name" title="Type BarCode">
-            
-			
-           
-			
-           <a href="index.php" id="popup"><button class="btn btn-success btn-md" name="submit"><span class="icon-plus-sign icon-large"></span> Add New Supplier</button></a>
-             
-      </div>
+     
 
     </div><!---****SEARCHES_CONTENT*****--->
 
@@ -84,17 +72,18 @@
           <table id="table0" class="table table-bordered table-striped table-hover">
            <thead>
              <tr style="background-color: #383838; color: #FFFFFF;" >
-			 <th width="3%">ID</th>
-             <th width="3%">Name</th>
-             <th width="3%">Address</th>
-             <th width="1%">Phone</th>
+			 <th width="3%">Voucher ID</th>
+             <th width="3%">Date</th>
+             <th width="3%">Supplier</th>
+             <th width="1%">Amount</th>
+			 <th width="3%">Remarks</th>
              <th width = "5%">Actions</th>
              </tr>
            </thead>
             <tbody>
    
         <?php include("../dbcon.php"); ?>
-        <?php $sql = "SELECT * FROM inv_supplier order by SupplierCompany asc"; ?>
+        <?php $sql = "SELECT * FROM inv_supplierbalance order by SBRefID asc"; ?>
         <?php $result =  mysqli_query($con,$sql); ?>
       <!--Use a while loop to make a table row for every DB row-->
         <?php while( $row =  mysqli_fetch_array($result)) : ?>
@@ -102,16 +91,17 @@
   
         <tr style="">
             <!--Each table column is echoed in to a td cell-->
-			<td><?php echo $row['SupplierID']; ?></td>
-            <td><?php echo $row['SupplierCompany']; ?></td>
-            <td><?php echo $row['SupplierAddress1']; ?></td>
-            <td><?php echo $row['SupplierPhone1']; ?></td>
+			<td><?php echo $row['SBRefID']; ?></td>
+            <td><?php echo $row['SBDate']; ?></td>
+            <td><?php echo $row['SBSupplierID']; ?></td>
+            <td><?php echo $row['SBDrAmount']; ?></td>
+			<td><?php echo $row['SBRemark']; ?></td>
 			
 			
             <td>
-			<a id="popup" href="update_view.php?SupplierID=<?php echo $row['SupplierID']?>"><button class="btn btn-info"><span class="icon-edit"></span></button></a>
+			<a id="popup" href="update_view.php?SBRefID=<?php echo $row['SBRefID']?>"><button class="btn btn-info"><span class="icon-edit"></span></button></a>
 			
-          <button class="btn btn-danger delete" SupplierID="<?php echo $row['SupplierID']?>"><span class="icon-trash"></span>&nbsp;</button></td>
+          <button class="btn btn-danger delete" SBRefID="<?php echo $row['SBRefID']?>"><span class="icon-trash"></span>&nbsp;</button></td>
   
             </tr>
         <?php endwhile ?>
@@ -151,9 +141,9 @@ $(".delete").click(function(){//***Showing Alert When Deleting*****
 
   var element = $(this);
 
-  var del_id = element.attr("SupplierID");
+  var del_id = element.attr("SBRefID");
 
-  var info = 'SupplierID='+del_id;
+  var info = 'SBRefID='+del_id;
 
   if(confirm("Delte This Product!!Are You Sure??")){
 
