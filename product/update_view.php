@@ -53,11 +53,12 @@
 					<select id="company" name="company" required > 
 						<option value="">Select Company/Brand</option>
 						<?php 
+						$supplier	= $row['supplier'];
 						$sql2 = "SELECT * FROM `inv_supplier`";
 						$result2 =  mysqli_query($con,$sql2);
 							while( $row2 =  mysqli_fetch_array($result2)) : 
 						?>
-						<option value="<?php echo $row2['SupplierCompany']; ?>"><?php echo $row2['SupplierCompany']; ?></option>
+						<option value="<?php echo $row2['SupplierCompany']; ?>" <?php if($supplier==$row2["SupplierCompany"]){ echo "selected";}else {echo "";} ?>><?php echo $row2['SupplierCompany']; ?></option>
 							<?php endwhile ?>
 					</select>
 				</td>
@@ -66,11 +67,13 @@
 				<td>Packing Mode:</td>
 				<!-- For more projects: Visit codeastro.com  -->
 				<td>
+					<?php $pack_size	= $row['pack_size']; ?>
 					<select style="" name="packing_mode" > 
-						<option value="BOX">BOX</option>
-						<option value="CARTON">CARTON</option>
-						<option value="SET">SET</option>
-						<option value="NOS">NOS</option>
+						<option value="PCS" <?php if($pack_size=='PCS'){ echo "selected";}else {echo "";} ?>>PCS</option>
+						<option value="BOX" <?php if($pack_size=='BOX'){ echo "selected";}else {echo "";} ?>>BOX</option>
+						<option value="CARTON"<?php if($pack_size=='CARTON'){ echo "selected";}else {echo "";} ?>>CARTON</option>
+						<option value="SET"<?php if($pack_size=='SET'){ echo "selected";}else {echo "";} ?>>SET</option>
+						<option value="NOS"<?php if($pack_size=='NOS'){ echo "selected";}else {echo "";} ?>>NOS</option>
 						
 					</select>
 				</td>

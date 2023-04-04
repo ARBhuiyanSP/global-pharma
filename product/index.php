@@ -64,6 +64,7 @@ body {  background-image: url(https://thumbs.dreamstime.com/b/pharmacy-interior-
 				<!-- For more projects: Visit codeastro.com  -->
 				<td>
 					<select style="" name="packing_mode" > 
+						<option value="PCS">PCS</option>
 						<option value="BOX">BOX</option>
 						<option value="CARTON">CARTON</option>
 						<option value="SET">SET</option>
