@@ -39,7 +39,7 @@
      <!-- For more projects: Visit codeastro.com  -->
 </head>
 <body>
- <?php include('../top_menu.php'); ?>
+ <?php include('../top_menu_inner.php'); ?>
 
      <div class="container" style="background-color:#fff;"><!---****SEARCHES_CONTENT*****--->
 
