@@ -1,6 +1,7 @@
 <?php
 $invoice_number = getDefaultCategoryCode('inv_issue', 'IssueID', '03d', '001', 'INV-');
 $purchase_number = getDefaultCategoryCode('inv_receive', 'MRRNo', '03d', '001', 'PO-');
+$voucher_number = getDefaultCategoryCode('inv_supplierpayment', 'voucherid', '03d', '001', 'VID-');
 $dates= date('Y-m-d');
 
 function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $prefix){
@@ -14,6 +15,7 @@ function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $pr
     return $defaultCode;
     
 }
+
  ?>
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class=" navbar-inner">
@@ -70,7 +72,7 @@ function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $pr
 					<li><a href="purchasereturn.php?invoice_number=<?php echo $invoice_number;?>&inv_date=<?php echo $dates; ?>"><span class="icon-shopping-cart"></span> purchase Return</a></li>
 					
 					
-					<li><a href="supplier_payment.php"><span class="icon-shopping-cart"></span> supplier Payment</a></li>
+					<li><a href="supplier_payment.php?invoice_number=<?php echo $voucher_number;?>&inv_date=<?php echo $dates; ?>"><span class="icon-shopping-cart"></span> supplier Payment</a></li>
 					
 					<li><a href="supplier_payment.php"><span class="icon-shopping-cart"></span> Party Payment</a></li>
 					

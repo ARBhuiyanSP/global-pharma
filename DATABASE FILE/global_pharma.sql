@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2023 at 09:09 AM
+-- Generation Time: Apr 04, 2023 at 08:33 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -224,21 +224,6 @@ CREATE TABLE `inv_paymentfrom` (
   `MRNo` varchar(20) NOT NULL,
   `DDate` timestamp(6) NULL DEFAULT NULL,
   `DID` varchar(12) DEFAULT NULL,
-  `PayType` varchar(12) DEFAULT NULL,
-  `Remarks` varchar(255) DEFAULT NULL,
-  `Amount` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `inv_paymentto`
---
-
-CREATE TABLE `inv_paymentto` (
-  `MRNo` varchar(20) NOT NULL,
-  `DDate` timestamp(6) NULL DEFAULT NULL,
-  `SID` varchar(12) DEFAULT NULL,
   `PayType` varchar(12) DEFAULT NULL,
   `Remarks` varchar(255) DEFAULT NULL,
   `Amount` float DEFAULT NULL
@@ -539,7 +524,7 @@ INSERT INTO `inv_supplier` (`id`, `SupplierID`, `SupplierCompany`, `SupplierAddr
 CREATE TABLE `inv_supplierbalance` (
   `id` int(11) NOT NULL,
   `SBRefID` varchar(50) DEFAULT NULL,
-  `SBDate` timestamp(6) NULL DEFAULT NULL,
+  `SBDate` date DEFAULT NULL,
   `SBSupplierID` varchar(50) DEFAULT NULL,
   `SBDrAmount` float DEFAULT NULL,
   `SBCrAmount` float DEFAULT NULL,
@@ -552,8 +537,49 @@ CREATE TABLE `inv_supplierbalance` (
 --
 
 INSERT INTO `inv_supplierbalance` (`id`, `SBRefID`, `SBDate`, `SBSupplierID`, `SBDrAmount`, `SBCrAmount`, `SBRemark`, `Type`) VALUES
-(8, 'PO-001', '0000-00-00 00:00:00.000000', '', 0, 0, '', ''),
-(9, 'PO-002', '0000-00-00 00:00:00.000000', '', 0, 0, '', '');
+(8, 'PO-001', '0000-00-00', '', 0, 0, '', ''),
+(9, 'PO-002', '0000-00-00', '', 0, 0, '', ''),
+(10, 'VID-001', '2023-04-04', 'BEXIMCO PHARMACEUTICALS LTD.', 0, 200, '', 'in'),
+(11, 'VID-002', '2023-04-04', 'BEXIMCO PHARMACEUTICALS LTD.', 0, 100, '', 'in'),
+(12, 'VID-003', '2023-04-01', 'SUL-00051', 0, 250, 'EditOKay', 'in'),
+(13, 'VID-004', '2023-04-04', 'SUL-00002', 0, 200, 'okay', 'in'),
+(14, 'VID-005', '2023-04-04', 'SUL-00052', 0, 150, 'pl\r\n', 'in'),
+(15, 'VID-006', '2023-04-04', 'SUL-00012', 0, 78, 'ukdfgdfgdf', 'in'),
+(16, 'VID-007', '2023-04-04', 'SUL-00051', 0, 78, '67898', 'in'),
+(17, 'VID-008', '2023-04-04', 'SUL-00051', 0, 2342, 'wrer', 'in');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inv_supplierpayment`
+--
+
+CREATE TABLE `inv_supplierpayment` (
+  `id` int(11) NOT NULL,
+  `voucherid` varchar(20) NOT NULL,
+  `voucherdate` date NOT NULL,
+  `supplierid` varchar(20) NOT NULL,
+  `paymenttype` varchar(20) NOT NULL,
+  `amount` float NOT NULL,
+  `receivermode` varchar(30) NOT NULL,
+  `remarks` longtext NOT NULL,
+  `entry_by` varchar(30) NOT NULL,
+  `updated_by` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `inv_supplierpayment`
+--
+
+INSERT INTO `inv_supplierpayment` (`id`, `voucherid`, `voucherdate`, `supplierid`, `paymenttype`, `amount`, `receivermode`, `remarks`, `entry_by`, `updated_by`) VALUES
+(1, 'VID-001', '2023-04-04', 'BEXIMCO PHARMACEUTIC', 'BOX', 200, '', '', '', ''),
+(2, 'VID-002', '2023-04-04', 'BEXIMCO PHARMACEUTIC', 'BOX', 100, '', '', '', ''),
+(3, 'VID-003', '2023-04-01', 'SUL-00051', 'Cash', 250, '', 'EditOKay', '', ''),
+(4, 'VID-004', '2023-04-04', 'SUL-00002', 'BKash', 200, '', 'okay', '', ''),
+(5, 'VID-005', '2023-04-04', 'SUL-00052', 'BKash', 150, '', 'pl\r\n', '', ''),
+(6, 'VID-006', '2023-04-04', 'SUL-00012', 'BKash', 78, '', 'ukdfgdfgdf', '', ''),
+(7, 'VID-007', '2023-04-04', 'SUL-00051', 'BKash', 78, '', '67898', '', ''),
+(8, 'VID-008', '2023-04-04', 'SUL-00051', 'BKash', 2342, '', 'wrer', '', '');
 
 -- --------------------------------------------------------
 
@@ -5406,13 +5432,6 @@ ALTER TABLE `inv_materialbalance`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `inv_paymentto`
---
-ALTER TABLE `inv_paymentto`
-  ADD PRIMARY KEY (`MRNo`),
-  ADD UNIQUE KEY `PK_Inv_PaymentTo` (`MRNo`);
-
---
 -- Indexes for table `inv_receive`
 --
 ALTER TABLE `inv_receive`
@@ -5434,6 +5453,12 @@ ALTER TABLE `inv_supplier`
 -- Indexes for table `inv_supplierbalance`
 --
 ALTER TABLE `inv_supplierbalance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `inv_supplierpayment`
+--
+ALTER TABLE `inv_supplierpayment`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -5540,7 +5565,13 @@ ALTER TABLE `inv_supplier`
 -- AUTO_INCREMENT for table `inv_supplierbalance`
 --
 ALTER TABLE `inv_supplierbalance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `inv_supplierpayment`
+--
+ALTER TABLE `inv_supplierpayment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `inv_warehosueinfo`
