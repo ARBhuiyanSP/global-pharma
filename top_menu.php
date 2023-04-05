@@ -80,7 +80,7 @@ function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $pr
 					<li><a href="purchasereturn.php?invoice_number=<?php echo $invoice_number;?>&inv_date=<?php echo $dates; ?>"><span class="icon-shopping-cart"></span> Party Payment</a></li>
 					
 					
-					<li><a href="sales_report.php?invoice_number=<?php echo $purchase_number;?>&inv_date=<?php echo $dates; ?>"><span class="icon-bar-chart"></span> Report</a></li>
+					<li><a href="stock_report.php"><span class="icon-bar-chart"></span> Report</a></li>
 
 					<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
