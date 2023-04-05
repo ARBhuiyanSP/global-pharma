@@ -59,7 +59,7 @@ if(!isset($_SESSION['user_session'])){
 			$materialBalance_query = mysqli_query($con,$materialBalance_sql);
 			
 			/* Insert Material Balance Table*/
-			$materialBalance_sqlout = "INSERT INTO inv_materialbalance VALUES('','OP','$med_name','$price_date','','','','$op_qty','','','','','OP','','','','','')";
+			$materialBalance_sqlout = "INSERT INTO inv_materialbalance VALUES('','OP','$med_name','$price_date','','','','$pre_op','','','','','OP','','','','','')";
 			$materialBalance_queryout = mysqli_query($con,$materialBalance_sqlout);
 
 	echo "<h1>...LOADING</h1>";
