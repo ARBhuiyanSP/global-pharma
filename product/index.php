@@ -8,6 +8,8 @@
         header("location:../index.php");
     }
 	include("../dbcon.php");
+	
+	
 ?>
 <style>
 body {  background-image: url(https://thumbs.dreamstime.com/b/pharmacy-interior-blurred-background-58416047.jpg); }
@@ -91,9 +93,26 @@ body {  background-image: url(https://thumbs.dreamstime.com/b/pharmacy-interior-
 				<td><input type="text" name="sell_per_pcs" id="sell_per_pcs"></td>
 			</tr>
 			
+			
+			
+			<tr><!-- For more projects: Visit codeastro.com  -->
+                <td>Opening Qty:</td>
+				<td><input type="text" name="op_qty" id="op_qty"></td>
+			</tr>
+			
+			
+			
 			<tr>
 				<td>Price Date:</td>
-				<td><input type="date"  name="price_date" id="price_date" required>  </td>
+				<?php 
+					$dates = date("Y-m-d");
+					if(isset($_GET['inv_date'])){
+						$inv_date = $_GET['inv_date'];
+					}else{
+						$inv_date = $dates;
+					}
+				?>
+				<td><input type="date" value="<?php echo $inv_date; ?>" name="price_date" id="price_date" required>  </td>
 			</tr>
 			
 			<tr>

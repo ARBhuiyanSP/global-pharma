@@ -33,7 +33,7 @@
 						$results =  mysqli_query($con,$sqls);
 							while( $rows =  mysqli_fetch_array($results)) : 
 						?>
-						<option value="<?php echo $rows['name']; ?>"><?php echo $rows['name']; ?></option>
+						<option value="<?php echo $rows['name']; ?>"  <?php if($category==$rows["name"]){ echo "selected";}else {echo "";} ?>><?php echo $rows['name']; ?></option>
 							<?php endwhile ?>
 					</select>
 				</td>
@@ -95,9 +95,18 @@
 				<td><input type="text" name="sell_per_pcs" id="sell_per_pcs" value="<?php echo $row['sale_per_pcs'] ?>"></td>
 			</tr>
 			
+			
+			
+			<tr><!-- For more projects: Visit codeastro.com  -->
+                <td>Opening Qty:</td>
+				<td><input type="text" name="op_qty" id="op_qty" value="<?php echo $row['op_qty'] ?>"></td>
+			</tr>
+			
+			
+			
 			<tr>
 				<td>Price Date:</td>
-				<td><input type="date"  name="price_date" id="price_date" required>  </td>
+				<td><input type="date" value="<?php echo $row['price_date'];  ?>" name="price_date" id="price_date" required>  </td>
 			</tr>
 			
 			<tr>
