@@ -77,7 +77,13 @@ function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $pr
 					<li><a href="../supplier_payment.php"><span class="icon-shopping-cart"></span> Party Payment</a></li>
 					
 					
-					<li><a href="../stock_report.php"><span class="icon-bar-chart"></span> Report</a></li>
+					<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="../stock_report.php">Stock Report</a></li>
+						   
+                        </ul>
+                    </li>
 
 					<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
