@@ -25,7 +25,7 @@
 			$price_dates 	= 	strtotime($_POST['price_date']);
 			$price_date 	=   date('Y-m-d',$price_dates);
 			
-			$sql="INSERT INTO product(bar_code, medicine_name, generic_name, pack_size, pcs_per_pack,quantity,  unit_buy_price , unit_sale_price,sale_per_pcs, price_date,supplier, item_category, active_prod,op_qty) VALUES ('$bar_code', '$med_name','$gen_name','$packing_mode','$pcs_per_unit','$quantity','$actual_price','$selling_price','$sell_per_pcs','$price_date','$company','$category','$status','$op_qty')";
+			$sql="INSERT INTO product(bar_code, medicine_name, generic_name, pack_size, pcs_per_pack,quantity,remain_quantity,act_remain_quantity, unit_buy_price , unit_sale_price,sale_per_pcs, price_date,supplier, item_category, active_prod,op_qty) VALUES ('$bar_code', '$med_name','$gen_name','$packing_mode','$pcs_per_unit','$quantity','$quantity','$quantity','$actual_price','$selling_price','$sell_per_pcs','$price_date','$company','$category','$status','$op_qty')";
 
 			$result =mysqli_query($con,$sql);
 			
