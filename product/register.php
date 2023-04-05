@@ -18,7 +18,7 @@
 			$actual_price 	= 	$_POST['actual_price'];  
 			$selling_price 	= 	$_POST['selling_price'];
 			$sell_per_pcs 	= 	$_POST['sell_per_pcs'];	
-$op_qty 	= 	$_POST['op_qty'];	
+			$op_qty 		= 	$_POST['op_qty'];	
 			
 			$status			=  	$_POST['active_status']; 
 			$quantity		=  	$_POST['op_qty'];
