@@ -145,8 +145,10 @@ function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $pr
 				<input type="text" name="invoice_number" value="<?php echo $invoice_number;?>">
 				<input type="date" name="date" id="price_date" value="<?php echo $inv_date;?>" required >
 				
+				
+				
+				<input type="text" name="bar_code" id="bar_code" autocomplete="off" placeholder="Enter Barcode Number" style="width:300px;height: 30px;">
 				</br>
-				<!-- <input type="text" name="bar_code" id="bar_code" autocomplete="off" placeholder="Enter Barcode Number" style="width:300px;height: 30px;"> --->
 				
 				<input type="text" id="product" required  autocomplete="off" placeholder="Medicine" style="" autofocus>
 					<!-- <div class="ui-widget"> -->
@@ -301,7 +303,7 @@ function calculate_purchase_amount() {
 
   $(document).ready(function(){
 
-     /* $("#product").focus(
+      $("#product").focus(
 
             function(){
 
@@ -318,7 +320,7 @@ function calculate_purchase_amount() {
               },
 
             });
-    }); */
+    }); 
 
       //****AUTO COMPLETE*****
     $("#product").typeahead({
