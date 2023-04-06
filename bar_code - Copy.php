@@ -11,7 +11,7 @@ if(!isset($_SESSION['user_session'])){
 }
    @$bar_code=mysqli_real_escape_string($con,$_POST['bar_code']);
 
-   $query="SELECT * FROM product WHERE bar_code = '$bar_code' AND active_prod= 'YES'
+   $query="SELECT * from stock where bar_code = '$bar_code' and status= 'Available'
    ";
 
    $result =mysqli_query($con,$query);
@@ -22,7 +22,7 @@ if(!isset($_SESSION['user_session'])){
    while($row = mysqli_fetch_array($result)){
 
 
-   	$data [] = $row["medicine_name"].",".$row['price_date'].",(".$row['pack_size'].")";
+   	$data [] = $row["medicine_name"].",".$row['expire_date'].",(".$row['sell_type'].")";
 
    }
      echo json_encode($data);
