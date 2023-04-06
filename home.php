@@ -63,7 +63,7 @@ function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $pr
 
          //Disabled Button If Quantity Not Available
 
-	/* $("#qty").blur(function()
+	 $("#qty").blur(function()
 		{
 			var avai_qty = $("#avai_qty").val();
 			var in_qty = parseInt($("#qty").val());
@@ -78,7 +78,7 @@ function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $pr
 					$("#btn_submit").removeAttr('disabled');
 				}
 
-		}); */
+		}); 
     //Disabled Button If Quantity Not Available
 	});
     </script>
@@ -147,10 +147,10 @@ function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $pr
 				
 				
 				
-				<input type="text" name="bar_code" id="bar_code" autocomplete="off" placeholder="Enter Barcode Number" style="width:300px;height: 30px;">
+				<input type="text" name="bar_code" id="bar_code" autocomplete="off" placeholder="Enter Barcode Number" style="" autofocus>
 				</br>
 				
-				<input type="text" id="product" required  autocomplete="off" placeholder="Medicine" style="" autofocus>
+				<input type="text" id="product" required  autocomplete="off" placeholder="Medicine" style="" >
 					<!-- <div class="ui-widget"> -->
 				<input type="hidden" name="product" id="product_hidden" required class="form-control" autocomplete="off" placeholder="Medicine" style="">
 					<!-- </div> -->
