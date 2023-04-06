@@ -50,8 +50,8 @@ body {  background-image: url(https://thumbs.dreamstime.com/b/pharmacy-interior-
           <h1>Items / Medicines</h1>
            </div><br>
     
-            <input type="text"  id="name_med1" size="4"  onkeyup="med_name1()" placeholder="Filter using BarCode" title="Type BarCode">
-            <input type="text" size="4"  id="med_quantity" onkeyup="quanti()" placeholder="Filter using Medicine Name" title="Type Medicine Name">
+            <!-- <input type="text"  id="bar_code1" size="4"  onkeyup="bar_code1()" placeholder="Filter using BarCode" title="Type BarCode"> -->
+            <input type="text" size="4"  id="name_med1" onkeyup="med_name1()" placeholder="Filter using Medicine Name" title="Type Medicine Name">
             
            <a href="index.php?invoice_number=<?php echo $_GET['invoice_number']?>" id="popup"><button class="btn btn-success btn-md" name="submit"><span class="icon-plus-sign icon-large"></span> Add New Medicine</button></a>
                <form action="import_xls.php?invoice_number=<?php echo $_GET['invoice_number']?>" method="post"
