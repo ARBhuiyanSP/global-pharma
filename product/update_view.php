@@ -84,15 +84,15 @@
 			</tr>
 			<tr>
                 <td>Buy Rate(CTN):</td>
-				<td><input type="number" name="actual_price" id="actual_price" value="<?php echo $row['unit_buy_price'] ?>" onkeyup="calculate_sell()"></td>
+				<td><input type="number" name="actual_price" id="actual_price" value="<?php echo $row['unit_buy_price'] ?>" onkeyup="calculate_sell()" step='any'></td>
 			</tr>
 			<tr>
                 <td>Sale Rate(CTN):</td>
-				<td><input type="number" name="selling_price" id="selling_price" value="<?php echo $row['unit_sale_price'] ?>" onkeyup="calculate_sell()"></td>
+				<td><input type="number" name="selling_price" id="selling_price" value="<?php echo $row['unit_sale_price'] ?>" onkeyup="calculate_sell()" step='any'></td>
 			</tr>
 			<tr><!-- For more projects: Visit codeastro.com  -->
                 <td>Sale Rate per Piece:</td>
-				<td><input type="text" name="sell_per_pcs" id="sell_per_pcs" value="<?php echo $row['sale_per_pcs'] ?>"></td>
+				<td><input type="text" name="sell_per_pcs" id="sell_per_pcs" value="<?php echo $row['sale_per_pcs'] ?>" step='any'></td>
 			</tr>
 			
 			

@@ -82,15 +82,15 @@ body {  background-image: url(https://thumbs.dreamstime.com/b/pharmacy-interior-
 			
 			<tr>
                 <td>Buy Rate(CTN):</td>
-				<td><input type="number" name="actual_price" id="actual_price" onkeyup="calculate_sell()"></td>
+				<td><input type="number" name="actual_price" id="actual_price" onkeyup="calculate_sell()" step='any'></td>
 			</tr>
 			<tr>
                 <td>Sale Rate(CTN):</td>
-				<td><input type="number" name="selling_price" id="selling_price" onkeyup="calculate_sell()"></td>
+				<td><input type="number" name="selling_price" id="selling_price" onkeyup="calculate_sell()" step='any'></td>
 			</tr>
 			<tr><!-- For more projects: Visit codeastro.com  -->
                 <td>Sale Rate per Piece:</td>
-				<td><input type="text" name="sell_per_pcs" id="sell_per_pcs"></td>
+				<td><input type="text" name="sell_per_pcs" id="sell_per_pcs" step='any'></td>
 			</tr>
 			
 			
