@@ -81,8 +81,9 @@ function getDefaultCategoryCode($table, $fieldName, $modifier, $defaultCode, $pr
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                           <li><a href="../stock_report.php">Stock Report</a></li>
-						   
-                        </ul>
+						  <li><a href="../sales_report.php">Sales Report</a></li>
+						</ul>
+
                     </li>
 
 					<li class="dropdown">

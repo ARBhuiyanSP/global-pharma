@@ -34,7 +34,8 @@ session_start();
 				} 
 				
 				//$cost          	= $row['sale_per_pcs'];
-				//$profit        = $row['profit_price'];
+				$perPicsBuy        = $unit_buy_price / $pcs_per_pack;
+				$profit        = $cost-$perPicsBuy;
 				//$price_date    = $row['price_date'];
 
 			}

@@ -66,9 +66,10 @@ require "fpdf.php";
 					$quantity      	= $row['qty'];
 					$cost          	= $row['cost'];
 					$amount         = $row['amount'];
+					$profit_amount  = $row['profit_amount'];
 					$date         	= $row['date'];
 					
-					$insert_sql = "INSERT INTO inv_issuedetail values('','$invoice_number','$medicine_name','$quantity','$cost','','$amount','','','','')";
+					$insert_sql = "INSERT INTO inv_issuedetail values('','$invoice_number','$medicine_name','$quantity','$cost','','$amount','$profit_amount','','','')";
 					$insert_query = mysqli_query($con,$insert_sql);
 					
 					/* Insert Material Balance Table*/
