@@ -55,11 +55,14 @@
 	<body>
 		<div class="container">
 			<div id="content">
-				<center><div style="font:bold 25px 'Arial';">Pharma POS</div><br></center><br><br>
+				<?php 
+					$sql = "SELECT * FROM inv_issue where IssueID = '$invoice_number'";
+					$query =mysqli_query($con,$sql);
+					$details =mysqli_fetch_array($query);
+				?>
+				<center><div style="font:bold 25px 'Arial';">Global Pharma</div><br></center><br><br>
+				<h3>Invoice Number:<?php echo $invoice_number?><span style="float:right;">Date:<?php echo $details['IssueDate'];?></span></h3>
 				<table class="table table-bordered table-hover" border="1" cellpadding="4" cellspacing="0" style="font-family: arial; font-size: 12px;text-align:left;" width="100%">
-					<tr>
-						<strong><h3>Invoice Number:<?php echo $invoice_number?></h3></strong> 
-					</tr>
 					<thead>
 						<tr>
 							<th> Medicine </th>
@@ -87,9 +90,12 @@
 					<?php endwhile;?>
 					<!-- For more projects: Visit codeastro.com  -->
 						<tr>
-						  <td colspan="2" style=" text-align:right;"><strong style="font-size: 12px;">Total: &nbsp;</strong></td>
-						  <td colspan=""><strong style="font-size: 12px;"><?php echo $IssuePrice;?></strong></td>
+						  <td colspan="3" style=" text-align:right;"><strong style="font-size: 12px;">Total: &nbsp;</strong></td>
 						  <td colspan=""><strong style="font-size: 12px;"><?php echo $TotalIssue;?></strong></td>
+						</tr>
+						<tr>
+							<td colspan="3" style=" text-align:right;"><strong style="font-size: 12px;">Discount: &nbsp;</strong></td>
+							<td colspan=""><strong style="font-size: 12px;"></strong></td>
 						</tr>
 					</tbody>
 				</table><br/>
