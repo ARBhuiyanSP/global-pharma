@@ -56,19 +56,19 @@
 		<div class="container">
 			<div id="content">
 				<?php 
-					$sql = "SELECT * FROM inv_issue where IssueID = '$invoice_number'";
-					$query =mysqli_query($con,$sql);
-					$details =mysqli_fetch_array($query);
+					$sql		= "SELECT * FROM inv_issue where IssueID = '$invoice_number'";
+					$query 		= mysqli_query($con,$sql);
+					$details 	= mysqli_fetch_array($query);
 				?>
 				<center><div style="font:bold 25px 'Arial';">Global Pharma</div><br></center><br><br>
 				<h3>Invoice Number:<?php echo $invoice_number?><span style="float:right;">Date:<?php echo $details['IssueDate'];?></span></h3>
 				<table class="table table-bordered table-hover" border="1" cellpadding="4" cellspacing="0" style="font-family: arial; font-size: 12px;text-align:left;" width="100%">
 					<thead>
 						<tr>
-							<th> Medicine </th>
-							<th> Quantity </th>
-							<th> Price </th>
-							<th> Amount </th>
+							<th> Medicine</th>
+							<th> Quantity</th>
+							<th> Price</th>
+							<th> Amount</th>
 						</tr>
 					</thead>
 					<tbody><!-- For more projects: Visit codeastro.com  -->
@@ -103,4 +103,5 @@
 			<a href="home.php?invoice_number=<?php echo $newInvoice_number; ?>&inv_date=<?php echo $newDates;?>"><button class="btn btn-success btn-md"><i class="icon-arrow-left"></i> Back to Sales</button></a>
 			<a href="javascript:Clickheretoprint()" class="btn btn-danger btn-md" style=""><i class="icon icon-print"></i> Print</a>
 	</body>
-</html><!-- For more projects: Visit codeastro.com  -->
+</html>
+<!-- For more projects: Visit codeastro.com  -->
