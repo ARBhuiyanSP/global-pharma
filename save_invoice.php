@@ -91,7 +91,8 @@ require "fpdf.php";
 			
 			
 			//$new_invoice_number  = $pdf->getDefaultCategoryCode();
-			header("location:home.php?invoice_number=$newInvoice_number&inv_date=$newDates");
+			//header("location:home.php?invoice_number=$newInvoice_number&inv_date=$newDates");
+			header("location:preview.php?invoice_number=$invoice_number");
 			
 		}
  
