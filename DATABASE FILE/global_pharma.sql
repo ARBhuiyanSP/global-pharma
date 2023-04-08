@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2023 at 05:40 AM
+-- Generation Time: Apr 08, 2023 at 06:41 AM
 -- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -134,17 +134,28 @@ CREATE TABLE `inv_issue` (
   `IssueType` varchar(50) DEFAULT NULL,
   `InWord` varchar(255) DEFAULT NULL,
   `TotalPrice` float DEFAULT NULL,
+  `DiscountAmt` float DEFAULT NULL,
   `PaidAmt` float DEFAULT NULL,
   `Due` float DEFAULT NULL,
   `GrandAmt` float DEFAULT NULL,
   `TotalProfit` float DEFAULT NULL,
   `CName` varchar(50) DEFAULT 'Nill',
   `Mob` varchar(50) DEFAULT NULL,
-  `DiscountPer` float DEFAULT NULL,
-  `DiscountAmt` float DEFAULT NULL,
   `GoDownIss` varchar(50) DEFAULT NULL,
   `PID` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `inv_issue`
+--
+
+INSERT INTO `inv_issue` (`id`, `IssueID`, `IssueDate`, `BuyerID`, `Remarks`, `IssueType`, `InWord`, `TotalPrice`, `DiscountAmt`, `PaidAmt`, `Due`, `GrandAmt`, `TotalProfit`, `CName`, `Mob`, `GoDownIss`, `PID`) VALUES
+(15, 'INV-001', '2023-04-07', '1', '', '', '', 0, 0, 0, 0, 0, 0, '', '', '', ''),
+(16, 'INV-002', '2023-04-07', '2', '', '', '', 0, 0, 0, 0, 0, 0, '', '', '', ''),
+(17, 'INV-003', '2023-04-07', '3', '', '', '', 0, 0, 0, 0, 0, 0, '', '', '', ''),
+(18, 'INV-004', '2023-04-07', '5', '', '', '', 0, 0, 0, 0, 0, 0, '', '', '', ''),
+(25, 'INV-005', '2023-04-07', '2', '', '', '', 0, 0, 0, 0, 0, 0, '', '', '', ''),
+(26, 'INV-006', '2023-04-08', '', '', '', '', 3310, 10, 3000, 300, 0, 0, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -165,6 +176,21 @@ CREATE TABLE `inv_issuedetail` (
   `CartonRate` float DEFAULT NULL,
   `SupplierID` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `inv_issuedetail`
+--
+
+INSERT INTO `inv_issuedetail` (`id`, `IssueID`, `MaterialID`, `IssueQty`, `IssuePrice`, `IFree`, `TotalIssue`, `ProfitItem`, `QtyCtnwise`, `CartonRate`, `SupplierID`) VALUES
+(28, 'INV-001', 'FIBRELAX ', 5, 400, 0, 2000, 280, 0, 0, ''),
+(29, 'INV-001', 'HIMALAYA ', 1, 220, 0, 220, 22, 0, 0, ''),
+(30, 'INV-002', 'FIBRELAX ', 5, 400, 0, 2000, 280, 0, 0, ''),
+(31, 'INV-002', 'FIBRELAX ', 2, 400, 0, 800, 112, 0, 0, ''),
+(32, 'INV-003', 'FIBRELAX ', 3, 400, 0, 1200, 168, 0, 0, ''),
+(33, 'INV-004', 'FIBRELAX ', 5, 400, 0, 2000, 280, 0, 0, ''),
+(34, 'INV-005', 'FIBRELAX ', 2, 400, 0, 800, 112, 0, 0, ''),
+(35, 'INV-006', 'FIBRELAX ', 8, 400, 0, 3200, 448, 0, 0, ''),
+(36, 'INV-006', 'ENGLISH A', 1, 110, 0, 110, 15, 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -261,7 +287,20 @@ INSERT INTO `inv_materialbalance` (`id`, `MBRefID`, `MBMaterialID`, `MBDate`, `M
 (104, 'OP', 'CIPRO A 5ML', '2023-04-04 18:00:00.000000', 0, 0, 0, 3, 0, 0, 0, 0, 'OP', '', 0, 0, 0, ''),
 (105, 'OP', 'CANDISTIN', '2023-04-04 18:00:00.000000', 2, 0, 0, 0, 0, 0, 0, 0, 'OP', '', 0, 0, 0, ''),
 (106, 'OP', 'LOTEFLAM T 5ML', '2023-04-04 18:00:00.000000', 1, 0, 0, 0, 0, 0, 0, 0, 'OP', '', 0, 0, 0, ''),
-(107, 'OP', 'INVENTI-D 5ML', '2023-04-04 18:00:00.000000', 1, 0, 0, 0, 0, 0, 0, 0, 'OP', '', 0, 0, 0, '');
+(107, 'OP', 'INVENTI-D 5ML', '2023-04-04 18:00:00.000000', 1, 0, 0, 0, 0, 0, 0, 0, 'OP', '', 0, 0, 0, ''),
+(108, 'OP', 'FIBRELAX 130MG', '2023-04-04 18:00:00.000000', 1, 0, 0, 0, 0, 0, 0, 0, 'OP', '', 0, 0, 0, ''),
+(109, 'OP', 'FIBRELAX 130MG', '2023-04-04 18:00:00.000000', 0, 0, 0, 1, 0, 0, 0, 0, 'OP', '', 0, 0, 0, ''),
+(110, 'OP', 'FIBRELAX 130MG', '2023-04-04 18:00:00.000000', 100, 0, 0, 0, 0, 0, 0, 0, 'OP', '', 0, 0, 0, ''),
+(111, 'OP', 'FIBRELAX 130MG', '2023-04-04 18:00:00.000000', 0, 0, 0, 1, 0, 0, 0, 0, 'OP', '', 0, 0, 0, ''),
+(112, 'INV-001', 'FIBRELAX 130MG', '0000-00-00 00:00:00.000000', 0, 0, 0, 5, 400, 0, 0, 0, 'Issue', '', 0, 0, 0, ''),
+(113, 'INV-001', 'HIMALAYA SHAMPO', '0000-00-00 00:00:00.000000', 0, 0, 0, 1, 220, 0, 0, 0, 'Issue', '', 0, 0, 0, ''),
+(114, 'INV-002', 'FIBRELAX 130MG', '0000-00-00 00:00:00.000000', 0, 0, 0, 5, 400, 0, 0, 0, 'Issue', '', 0, 0, 0, ''),
+(115, 'INV-002', 'FIBRELAX 130MG', '0000-00-00 00:00:00.000000', 0, 0, 0, 2, 400, 0, 0, 0, 'Issue', '', 0, 0, 0, ''),
+(116, 'INV-003', 'FIBRELAX 130MG', '0000-00-00 00:00:00.000000', 0, 0, 0, 3, 400, 0, 0, 0, 'Issue', '', 0, 0, 0, ''),
+(117, 'INV-004', 'FIBRELAX 130MG', '0000-00-00 00:00:00.000000', 0, 0, 0, 5, 400, 0, 0, 0, 'Issue', '', 0, 0, 0, ''),
+(118, 'INV-005', 'FIBRELAX 130MG', '0000-00-00 00:00:00.000000', 0, 0, 0, 2, 400, 0, 0, 0, 'Issue', '', 0, 0, 0, ''),
+(119, 'INV-006', 'FIBRELAX 130MG', '0000-00-00 00:00:00.000000', 0, 0, 0, 8, 400, 0, 0, 0, 'Issue', '', 0, 0, 0, ''),
+(120, 'INV-006', 'ENGLISH ANTILIC', '0000-00-00 00:00:00.000000', 0, 0, 0, 1, 110, 0, 0, 0, 'Issue', '', 0, 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -666,11 +705,11 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `item_id`, `product_code`, `bar_code`, `medicine_name`, `generic_name`, `pack_size`, `pcs_per_pack`, `quantity`, `used_quantity`, `remain_quantity`, `act_remain_quantity`, `unit_buy_price`, `unit_sale_price`, `sale_per_pcs`, `price_date`, `supplier`, `supplier_id`, `item_category`, `active_prod`, `op_qty`) VALUES
-(4547, NULL, '', '1', 'FIBRELAX 130MG', 'ISPALNGE HUSK', 'PCS', 1, 1, 0, 1, 1, 344, 400, 400, '2023-04-05', 'INCEPTA PHARMACEUTICALS LTD.', NULL, 'SYRUP/LIQUID', 'YES', 1),
+(4547, NULL, '', '123', 'FIBRELAX 130MG', 'ISPALNGE HUSK', 'PCS', 1, 100, 30, 70, 70, 344, 400, 400, '2023-04-05', 'INCEPTA PHARMACEUTICALS LTD.', NULL, 'SYRUP/LIQUID', 'YES', 100),
 (4548, NULL, '', '2', 'NATLAX 100MG', 'PSYLLIUM & SENNA EXTRACT', 'NOS', 1, 1, 0, 1, 1, 361, 400, 400, '2023-04-05', 'RADIANT PHARMACEUTICALS LIMITED.', NULL, 'SYRUP/LIQUID', 'YES', 1),
 (4549, NULL, '', '3', 'FIBERLAX ULTRA', 'ISPAGHULA HUSK', 'NOS', 1, 1, 0, 1, 1, 360, 400, 400, '2023-04-05', 'INCEPTA PHARMACEUTICALS LTD.', NULL, 'SYRUP/LIQUID', 'YES', 1),
-(4550, NULL, '', '8908008142284', 'HIMALAYA SHAMPOO 180MG', 'ANTI HAIR FALL', 'NOS', 1, 2, 0, 2, 2, 198, 220, 220, '2023-04-05', 'HAMDARD LABORATORIES (WAQF)', NULL, 'SHAMPOO', 'YES', 2),
-(4551, NULL, '', '859875003124', 'ENGLISH ANTILICE SHAMPOO', 'ANTILICE', 'NOS', 1, 1, 0, 1, 1, 95, 110, 110, '2023-04-05', 'GENERAL PHARMACEUTICALS LTD.', NULL, 'CREAM/OINMENT', 'YES', 1),
+(4550, NULL, '', '8908008142284', 'HIMALAYA SHAMPOO 180MG', 'ANTI HAIR FALL', 'NOS', 1, 2, 1, 1, 1, 198, 220, 220, '2023-04-05', 'HAMDARD LABORATORIES (WAQF)', NULL, 'SHAMPOO', 'YES', 2),
+(4551, NULL, '', '859875003124', 'ENGLISH ANTILICE SHAMPOO', 'ANTILICE', 'NOS', 1, 1, 1, 0, 0, 95, 110, 110, '2023-04-05', 'GENERAL PHARMACEUTICALS LTD.', NULL, 'CREAM/OINMENT', 'YES', 1),
 (4552, NULL, '', '4', 'FECILAX POWDER', 'P&S HERBAL', 'NOS', 1, 2, 0, 2, 2, 301, 350, 350, '2023-04-05', 'ACME LABORATORIES LTD.', NULL, 'SYRUP/LIQUID', 'YES', 2),
 (4553, NULL, '', '7117217311744', 'RADIGEL 120MG', 'PSYLLIUM POWDER', 'PCS', 1, 1, 0, 1, 1, 365, 415, 415, '2023-04-05', 'RADIANT PHARMACEUTICALS LIMITED.', NULL, 'SYRUP/LIQUID', 'YES', 1),
 (4554, NULL, '', '8906133000332', 'DAY CREAM', 'CREAM', 'NOS', 1, 1, 0, 1, 1, 748, 850, 850, '2023-04-05', 'MULTI BRANDS LTD', NULL, 'CREAM/OINMENT', 'YES', 1),
@@ -986,19 +1025,19 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `inv_issue`
 --
 ALTER TABLE `inv_issue`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `inv_issuedetail`
 --
 ALTER TABLE `inv_issuedetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `inv_materialbalance`
 --
 ALTER TABLE `inv_materialbalance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `inv_receive`
@@ -1040,7 +1079,7 @@ ALTER TABLE `inv_warehosueinfo`
 -- AUTO_INCREMENT for table `on_hold`
 --
 ALTER TABLE `on_hold`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=319;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=328;
 
 --
 -- AUTO_INCREMENT for table `product`

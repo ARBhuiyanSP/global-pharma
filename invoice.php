@@ -60,7 +60,11 @@
 					$query 		= mysqli_query($con,$sql);
 					$details 	= mysqli_fetch_array($query);
 				?>
-				<center><div style="font:bold 25px 'Arial';">Global Pharma</div><br></center><br><br>
+				<center>
+					<div style="font:bold 25px 'Arial';">Global Pharma</div>
+					<p>7/20,Block-B, Lalmatia,Dhaka-1207</p>
+					<p>Phone-01729714503</p>
+				</center><br><br>
 				<h3>Invoice Number:<?php echo $invoice_number?><span style="float:right;">Date:<?php echo $details['IssueDate'];?></span></h3>
 				<table class="table table-bordered table-hover" border="1" cellpadding="4" cellspacing="0" style="font-family: arial; font-size: 12px;text-align:left;" width="100%">
 					<thead>
@@ -75,11 +79,11 @@
 					<?php
 						$select_sql = "SELECT * FROM inv_issuedetail where IssueID = '$invoice_number'";
 						$select_query =mysqli_query($con,$select_sql);
-						$IssuePrice = 0;
-						$TotalIssue = 0;
+						//$IssuePrice = 0;
+						//$TotalIssue = 0;
 						while($row =mysqli_fetch_array($select_query)):
-							$IssuePrice += $row['IssuePrice'];
-							$TotalIssue += $row['TotalIssue'];
+							//$IssuePrice += $row['IssuePrice'];
+							//$TotalIssue += $row['TotalIssue'];
 					?>
 						<tr class="record">
 							<td><h4><?php echo $row['MaterialID'];?></h4></td>
@@ -91,11 +95,23 @@
 					<!-- For more projects: Visit codeastro.com  -->
 						<tr>
 						  <td colspan="3" style=" text-align:right;"><strong style="font-size: 12px;">Total: &nbsp;</strong></td>
-						  <td colspan=""><strong style="font-size: 12px;"><?php echo $TotalIssue;?></strong></td>
+						  <td colspan=""><strong style="font-size: 12px;"><?php echo $details['TotalPrice'];?></strong></td>
 						</tr>
 						<tr>
 							<td colspan="3" style=" text-align:right;"><strong style="font-size: 12px;">Discount: &nbsp;</strong></td>
-							<td colspan=""><strong style="font-size: 12px;"></strong></td>
+							<td colspan=""><strong style="font-size: 12px;"><?php echo $details['DiscountAmt'];?></strong></td>
+						</tr>
+						<tr>
+							<td colspan="3" style=" text-align:right;"><strong style="font-size: 12px;">Sub Total: &nbsp;</strong></td>
+							<td colspan=""><strong style="font-size: 12px;"><?php echo $details['TotalPrice'] - $details['DiscountAmt'];?></strong></td>
+						</tr>
+						<tr>
+							<td colspan="3" style=" text-align:right;"><strong style="font-size: 12px;">Paid Amount: &nbsp;</strong></td>
+							<td colspan=""><strong style="font-size: 12px;"><?php echo $details['PaidAmt'];?></strong></td>
+						</tr>
+						<tr>
+							<td colspan="3" style=" text-align:right;"><strong style="font-size: 12px;">Due Amount: &nbsp;</strong></td>
+							<td colspan=""><strong style="font-size: 12px;"><?php echo $details['Due'];?></strong></td>
 						</tr>
 					</tbody>
 				</table><br/>

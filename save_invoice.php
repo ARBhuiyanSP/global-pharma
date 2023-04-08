@@ -86,7 +86,7 @@ require "fpdf.php";
 				
 			
 			/* Insert Issue Master Table*/
-			$issueMaster_sql = "INSERT INTO inv_issue values('','$invoice_number','$date','$quantity','','','','','','','','','','','','','','')";
+			$issueMaster_sql = "INSERT INTO inv_issue values('','$invoice_number','$date','','','','','$total','$discount','$paid','$due','','','','','','')";
 			$issueMaster_query = mysqli_query($con,$issueMaster_sql);
 			
 			
