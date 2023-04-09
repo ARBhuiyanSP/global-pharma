@@ -92,6 +92,9 @@ if(!isset($_SESSION['user_session'])){  //User_session
 						<tr style="background-color: #383838; color: #FFFFFF;" >
 							<th>Medicine Name</th>
 							<th>Stock Qty</th>
+							<th>Total Amount [Buy]</th>
+							<th>Total Amount [Sale]</th>
+							<th>Estimated Profit</th>
 							<!--  <th>Action</th>-->
 						</tr>
 					</thead>
@@ -102,10 +105,24 @@ if(!isset($_SESSION['user_session'])){  //User_session
 								$select_sql = "SELECT * FROM product WHERE supplier = '$supplier' order by supplier asc";
 								$select_query = mysqli_query($con,$select_sql);
 								while($row = mysqli_fetch_array($select_query)) :
+								
+								$pcs_per_pack  	= $row['pcs_per_pack'];
+								$unit_buy_price	= $row['unit_buy_price'];
+								$qty			= $row['act_remain_quantity'];
+								$perPicsBuy     = $unit_buy_price / $pcs_per_pack;
+								$totalBuyAmount = $qty*$perPicsBuy;
+								
+								$perPicsSale			= $row['sale_per_pcs'];
+								$totalSaleAmount = $qty*$perPicsSale;
+								
+								$profit			= $totalSaleAmount - $totalBuyAmount;
 						?>
 						<tr>
 							<td><?php echo $row['medicine_name']?></td>
 							<td><?php echo $row['act_remain_quantity']?></td>
+							<td><?php echo $totalBuyAmount;?></td>
+							<td><?php echo $totalSaleAmount;?></td>
+							<td><?php echo $profit;?></td>
 						</tr>
 							<?php endwhile; }?>
 					</tbody>
